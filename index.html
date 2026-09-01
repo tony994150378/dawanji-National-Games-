@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大湾鸡 🐔 第十五届全运会吉祥物主题站</title>
+    <meta name="description" content="大湾鸡粉丝主题网站 - 介绍第十五届全运会吉祥物喜洋洋、乐融融（大湾鸡）的故事、设计与文化影响">
+    <meta name="keywords" content="大湾鸡,喜洋洋,乐融融,第十五届全运会,吉祥物,中华白海豚">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐔</text></svg>">
+    <style>
+        /* ===== CSS Custom Properties ===== */
+        :root {
+            --color-pink: #FF8FAB;
+            --color-pink-light: #FFB3C6;
+            --color-pink-pale: #FFE0E9;
+            --color-pink-bg: #FFF0F5;
+            --color-white: #FFFFFF;
+            --color-red: #E63946;
+            --color-red-wood: #D4586A;
+            --color-purple: #9B5DE5;
+            --color-purple-light: #C77DFF;
+            --color-green: #06D6A0;
+            --color-green-dark: #048A68;
+            --color-text: #2D2D3A;
+            --color-text-light: #5A5A72;
+            --color-text-muted: #8E8EA0;
+            --color-card-bg: #FFFFFF;
+            --color-section-alt: #FFF5F8;
+            --color-border: #FFD6E0;
+            --color-shadow: rgba(255, 143, 171, 0.15);
+            --font-main: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            --font-display: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-xl: 32px;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.06);
+            --shadow-lg: 0 8px 40px rgba(0,0,0,0.08);
+            --max-width: 1100px;
+            --transition: 0.3s ease;
+        }
+
+        /* ===== Reset & Base ===== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+        body {
+            font-family: var(--font-main);
+            color: var(--color-text);
+            background: var(--color-pink-bg);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+        img { max-width: 100%; display: block; }
+        a { color: var(--color-pink); text-decoration: none; transition: color var(--transition); }
+        a:hover { color: var(--color-red-wood); }
+
+        /* ===== Navigation ===== */
+        .nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(255, 240, 245, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--color-border);
+            transition: box-shadow var(--transition);
+        }
+        .nav.scrolled { box-shadow: var(--shadow-md); }
+        .nav-inner {
+            max-width: var(--max-width); margin: 0 auto;
+            padding: 0 24px; height: 60px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .nav-logo {
+            font-size: 1.25rem; font-weight: 700;
+            display: flex; align-items: center; gap: 8px;
+            color: var(--color-text);
+        }
+        .nav-logo .emoji { font-size: 1.5rem; }
+        .nav-links { display: flex; gap: 4px; flex-wrap: wrap; }
+        .nav-links a {
+            padding: 6px 14px; border-radius: 20px;
+            font-size: 0.875rem; color: var(--color-text-light);
+            transition: all var(--transition);
+        }
+        .nav-links a:hover {
+            background: var(--color-pink-pale);
+            color: var(--color-red-wood);
+        }
+        .nav-mobile-toggle {
+            display: none; background: none; border: none;
+            font-size: 1.5rem; cursor: pointer; padding: 4px;
+        }
+
+        /* ===== Hero Section ===== */
+        .hero {
+            min-height: 100vh; display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            padding: 100px 24px 60px;
+            background: linear-gradient(180deg, var(--color-pink-bg) 0%, var(--color-pink-pale) 50%, var(--color-white) 100%);
+            position: relative; overflow: hidden;
+        }
+        .hero-content { text-align: center; position: relative; z-index: 2; }
+        .hero-mascot {
+            width: min(460px, 80vw); margin: 0 auto 32px;
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+        .hero-title {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900; letter-spacing: 0.05em;
+            background: linear-gradient(135deg, var(--color-pink) 0%, var(--color-purple) 50%, var(--color-green) 100%);
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+        }
+        .hero-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.35rem);
+            color: var(--color-text-light);
+            max-width: 600px; margin: 0 auto 32px;
+        }
+        .hero-tags {
+            display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+        }
+        .hero-tag {
+            padding: 8px 20px; border-radius: 50px;
+            font-size: 0.9rem; font-weight: 600;
+            border: 2px solid transparent;
+        }
+        .hero-tag--red { background: #FFF0F0; color: var(--color-red); border-color: #FFD6D6; }
+        .hero-tag--purple { background: #F5EEFF; color: var(--color-purple); border-color: #DDD0FF; }
+        .hero-tag--green { background: #EEFFF8; color: var(--color-green-dark); border-color: #C0F0DC; }
+
+        /* Floating decorations */
+        .hero-deco {
+            position: absolute; border-radius: 50%;
+            opacity: 0.15; z-index: 1;
+        }
+        .hero-deco-1 { width: 300px; height: 300px; background: var(--color-pink); top: 10%; left: -5%; animation: drift 8s ease-in-out infinite; }
+        .hero-deco-2 { width: 200px; height: 200px; background: var(--color-purple); top: 20%; right: -3%; animation: drift 6s ease-in-out infinite reverse; }
+        .hero-deco-3 { width: 150px; height: 150px; background: var(--color-green); bottom: 15%; left: 10%; animation: drift 7s ease-in-out infinite 1s; }
+        @keyframes drift {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(20px, -20px); }
+        }
+
+        /* ===== Sections ===== */
+        .section {
+            padding: 80px 24px;
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+        .section--alt { background: var(--color-section-alt); }
+        .section--white { background: var(--color-white); }
+        .section-header {
+            text-align: center; margin-bottom: 56px;
+        }
+        .section-badge {
+            display: inline-block; padding: 6px 18px;
+            border-radius: 50px; font-size: 0.8rem;
+            font-weight: 700; letter-spacing: 0.1em;
+            text-transform: uppercase; margin-bottom: 16px;
+        }
+        .section-badge--pink { background: var(--color-pink-pale); color: var(--color-red-wood); }
+        .section-badge--purple { background: #EDE5FF; color: var(--color-purple); }
+        .section-badge--green { background: #D8F8EC; color: var(--color-green-dark); }
+        .section-title {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 800; margin-bottom: 12px;
+            color: var(--color-text);
+        }
+        .section-desc {
+            font-size: 1.05rem; color: var(--color-text-light);
+            max-width: 650px; margin: 0 auto;
+        }
+
+        /* ===== Cards ===== */
+        .card-grid {
+            display: grid; gap: 24px;
+        }
+        .card-grid--2 { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+        .card-grid--3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+        .card {
+            background: var(--color-card-bg);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            border: 1px solid var(--color-border);
+            transition: all var(--transition);
+            position: relative; overflow: hidden;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        .card-icon {
+            width: 56px; height: 56px; border-radius: 16px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; margin-bottom: 20px;
+        }
+        .card-icon--pink { background: var(--color-pink-pale); }
+        .card-icon--purple { background: #EDE5FF; }
+        .card-icon--green { background: #D8F8EC; }
+        .card-title {
+            font-size: 1.2rem; font-weight: 700;
+            margin-bottom: 12px; color: var(--color-text);
+        }
+        .card-text {
+            font-size: 0.95rem; color: var(--color-text-light);
+            line-height: 1.8;
+        }
+
+        /* ===== Origin Section ===== */
+        .origin-story {
+            max-width: var(--max-width); margin: 0 auto;
+            padding: 80px 24px;
+        }
+        .origin-timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+        .origin-timeline::before {
+            content: '';
+            position: absolute; left: 15px; top: 0; bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, var(--color-pink), var(--color-purple), var(--color-green));
+            border-radius: 3px;
+        }
+        .timeline-item {
+            position: relative; margin-bottom: 40px;
+            padding: 24px 28px;
+            background: var(--color-card-bg);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--color-border);
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute; left: -33px; top: 30px;
+            width: 14px; height: 14px;
+            border-radius: 50%;
+            border: 3px solid var(--color-pink);
+            background: var(--color-white);
+        }
+        .timeline-item:nth-child(2)::before { border-color: var(--color-purple); }
+        .timeline-item:nth-child(3)::before { border-color: var(--color-green); }
+        .timeline-item:nth-child(4)::before { border-color: var(--color-red); }
+        .timeline-label {
+            font-size: 0.8rem; font-weight: 700;
+            color: var(--color-pink); margin-bottom: 8px;
+            letter-spacing: 0.05em;
+        }
+        .timeline-item:nth-child(2) .timeline-label { color: var(--color-purple); }
+        .timeline-item:nth-child(3) .timeline-label { color: var(--color-green); }
+        .timeline-item:nth-child(4) .timeline-label { color: var(--color-red); }
+        .timeline-title {
+            font-size: 1.15rem; font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .timeline-text {
+            font-size: 0.95rem; color: var(--color-text-light);
+        }
+
+        /* ===== Design Section ===== */
+        .design-grid {
+            display: grid; gap: 28px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+        /* Character cards */
+        .char-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            max-width: 900px;
+            margin: 56px auto 0;
+        }
+        .char-card {
+            background: var(--color-card-bg);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+        .char-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+        .char-card img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            display: block;
+        }
+        .char-card--white img { background: #FFF; }
+        .char-card--pink img { background: #FFF0F5; }
+        .char-card-body { padding: 24px 28px 30px; }
+        .char-card-name {
+            font-size: 1.5rem; font-weight: 800; margin-bottom: 4px;
+        }
+        .char-card--white .char-card-name { color: var(--color-purple); }
+        .char-card--pink .char-card-name { color: var(--color-red-wood); }
+        .char-card-nick {
+            font-size: 0.95rem; color: var(--color-text-light);
+            margin-bottom: 14px; font-weight: 600;
+        }
+        .char-card-text {
+            font-size: 0.95rem; color: var(--color-text); line-height: 1.8; text-align: left;
+        }
+        .design-card {
+            background: var(--color-card-bg);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid var(--color-border);
+            transition: all var(--transition);
+        }
+        .design-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        .design-card-visual {
+            height: 180px; display: flex;
+            align-items: center; justify-content: center;
+            position: relative; overflow: hidden;
+        }
+        .design-card-visual--dolphin {
+            background: linear-gradient(135deg, #E8F4FD, #D0E8F8);
+        }
+        .design-card-visual--flowers {
+            background: linear-gradient(135deg, var(--color-pink-pale), #F5EEFF, #D8F8EC);
+        }
+        .design-card-visual--color {
+            background: linear-gradient(135deg, #FFE0E9, #FFF0F5);
+        }
+        .design-card-body { padding: 28px; }
+        .design-card-title {
+            font-size: 1.2rem; font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .design-card-text {
+            font-size: 0.95rem; color: var(--color-text-light);
+            line-height: 1.8;
+        }
+
+        /* ===== Moment Section ===== */
+        .moments-section {
+            background: linear-gradient(180deg, var(--color-pink-bg), var(--color-white));
+        }
+        .moment-grid {
+            display: grid; gap: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        }
+        .moment-card {
+            background: var(--color-card-bg);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            text-align: center;
+            border: 1px solid var(--color-border);
+            transition: all var(--transition);
+            position: relative;
+        }
+        .moment-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        .moment-emoji {
+            font-size: 3rem; margin-bottom: 16px;
+            display: block;
+        }
+        .moment-title {
+            font-size: 1.1rem; font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .moment-text {
+            font-size: 0.9rem; color: var(--color-text-light);
+            line-height: 1.7;
+        }
+
+        /* ===== Stats Section ===== */
+        .stats-section { background: var(--color-white); }
+        .stats-grid {
+            display: grid; gap: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+        .stat-card {
+            text-align: center; padding: 36px 20px;
+            border-radius: var(--radius-lg);
+            background: linear-gradient(135deg, var(--color-pink-pale), var(--color-white));
+            border: 1px solid var(--color-border);
+            transition: all var(--transition);
+        }
+        .stat-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+        .stat-card:nth-child(2) {
+            background: linear-gradient(135deg, #EDE5FF, var(--color-white));
+        }
+        .stat-card:nth-child(3) {
+            background: linear-gradient(135deg, #D8F8EC, var(--color-white));
+        }
+        .stat-card:nth-child(4) {
+            background: linear-gradient(135deg, #FFF0E0, var(--color-white));
+        }
+        .stat-number {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 900; margin-bottom: 8px;
+        }
+        .stat-number--pink { color: var(--color-red); }
+        .stat-number--purple { color: var(--color-purple); }
+        .stat-number--green { color: var(--color-green-dark); }
+        .stat-number--orange { color: #E67E22; }
+        .stat-label {
+            font-size: 0.95rem; color: var(--color-text-light);
+            font-weight: 500;
+        }
+
+        /* ===== Disclaimer Section ===== */
+        .disclaimer-section {
+            background: var(--color-section-alt);
+            border-top: 3px solid var(--color-border);
+        }
+        .disclaimer-box {
+            max-width: 800px; margin: 0 auto;
+            background: var(--color-card-bg);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            border: 2px dashed var(--color-border);
+        }
+        .disclaimer-title {
+            font-size: 1.3rem; font-weight: 700;
+            margin-bottom: 20px; text-align: center;
+            color: var(--color-text);
+        }
+        .disclaimer-list {
+            list-style: none; padding: 0;
+        }
+        .disclaimer-list li {
+            position: relative;
+            padding: 10px 0 10px 28px;
+            font-size: 0.95rem;
+            color: var(--color-text-light);
+            line-height: 1.7;
+            border-bottom: 1px solid #FFF0F3;
+        }
+        .disclaimer-list li:last-child { border-bottom: none; }
+        .disclaimer-list li::before {
+            content: '⚠️';
+            position: absolute; left: 0; top: 10px;
+            font-size: 0.85rem;
+        }
+        .disclaimer-note {
+            margin-top: 20px; padding-top: 20px;
+            border-top: 1px solid var(--color-border);
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            text-align: center;
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            background: var(--color-text);
+            color: rgba(255,255,255,0.7);
+            text-align: center;
+            padding: 40px 24px;
+        }
+        .footer-brand {
+            font-size: 1.2rem; font-weight: 700;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 8px;
+        }
+        .footer-text {
+            font-size: 0.85rem;
+            line-height: 1.7;
+        }
+        .footer-heart { color: var(--color-pink); }
+
+        /* ===== SVG Illustrations ===== */
+        .svg-mascot { width: 100%; height: 100%; }
+
+        /* ===== Animations ===== */
+        .fade-in {
+            opacity: 0; transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .fade-in.visible {
+            opacity: 1; transform: translateY(0);
+        }
+
+        /* ===== Floating Elements ===== */
+        .float-container {
+            position: absolute; inset: 0;
+            pointer-events: none; z-index: 1;
+            overflow: hidden;
+        }
+        .float-element {
+            position: absolute;
+            animation: floatAround 10s ease-in-out infinite;
+            opacity: 0.6;
+        }
+        .float-element:nth-child(1) { top: 15%; left: 5%; animation-delay: 0s; }
+        .float-element:nth-child(2) { top: 25%; right: 8%; animation-delay: 2s; }
+        .float-element:nth-child(3) { bottom: 20%; left: 15%; animation-delay: 4s; }
+        .float-element:nth-child(4) { bottom: 30%; right: 12%; animation-delay: 6s; }
+        .float-element:nth-child(5) { top: 50%; left: 50%; animation-delay: 3s; }
+        @keyframes floatAround {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(10px, -15px) rotate(5deg); }
+            50% { transform: translate(-5px, -25px) rotate(-3deg); }
+            75% { transform: translate(15px, -10px) rotate(3deg); }
+        }
+
+        /* ===== Water Splash Animation ===== */
+        @keyframes splash {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .nav-links.active {
+                display: flex; flex-direction: column;
+                position: absolute; top: 60px; left: 0; right: 0;
+                background: rgba(255, 240, 245, 0.98);
+                padding: 16px; gap: 4px;
+                border-bottom: 1px solid var(--color-border);
+            }
+            .nav-mobile-toggle { display: block; }
+            .hero-mascot { width: min(340px, 72vw); }
+            .origin-timeline { padding-left: 30px; }
+            .origin-timeline::before { left: 10px; }
+            .timeline-item::before { left: -28px; width: 12px; height: 12px; }
+            .section { padding: 60px 20px; }
+            .disclaimer-box { padding: 24px; }
+            .card { padding: 24px; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title { font-size: 2.2rem; }
+            .hero-mascot { width: min(280px, 70vw); }
+            .hero-tags { flex-direction: column; align-items: center; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        /* ===== Print Styles ===== */
+        @media print {
+            .nav, .float-container, .hero-deco { display: none !important; }
+            .hero { min-height: auto; padding: 40px 20px; background: white !important; }
+            body { background: white !important; color: black; }
+            .section { padding: 30px 20px; }
+            .card, .design-card, .moment-card, .stat-card {
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+                break-inside: avoid;
+            }
+            .fade-in { opacity: 1 !important; transform: none !important; }
+            a { color: inherit; text-decoration: underline; }
+        }
+
+        /* ===== Scroll indicator ===== */
+        .scroll-progress {
+            position: fixed; top: 60px; left: 0; right: 0;
+            height: 3px; z-index: 999;
+            background: linear-gradient(90deg, var(--color-pink), var(--color-purple), var(--color-green));
+            transform-origin: left;
+            transform: scaleX(0);
+        }
+
+        /* ===== Fun quote box ===== */
+        .quote-box {
+            background: linear-gradient(135deg, var(--color-pink-pale), #F5EEFF);
+            border-radius: var(--radius-lg);
+            padding: 28px 32px;
+            margin: 32px auto;
+            max-width: 700px;
+            text-align: center;
+            font-size: 1.05rem;
+            color: var(--color-text-light);
+            font-style: italic;
+            position: relative;
+        }
+        .quote-box::before {
+            content: '"';
+            position: absolute; top: -10px; left: 20px;
+            font-size: 4rem; color: var(--color-pink-light);
+            font-style: normal; font-weight: 900;
+            line-height: 1;
+        }
+
+        /* ===== Badge Row ===== */
+        .badge-row {
+            display: flex; gap: 16px; justify-content: center;
+            flex-wrap: wrap; margin-top: 24px;
+        }
+        .mini-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 6px 14px; border-radius: 50px;
+            font-size: 0.8rem; font-weight: 600;
+            background: var(--color-card-bg);
+            border: 1px solid var(--color-border);
+            color: var(--color-text-light);
+        }
+        .mini-badge-dot {
+            width: 8px; height: 8px; border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav-inner">
+            <a href="#" class="nav-logo">
+                <span class="emoji">🐔</span>
+                <span>大湾鸡</span>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="#origin">昵称由来</a>
+                <a href="#characters">认识两小只</a>
+                <a href="#design">设计解读</a>
+                <a href="#moments">精彩瞬间</a>
+                <a href="#impact">文化影响</a>
+                <a href="#disclaimer">使用声明</a>
+            </div>
+            <button class="nav-mobile-toggle" id="navToggle" aria-label="菜单">☰</button>
+        </div>
+    </nav>
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Hero Section -->
+    <header class="hero" id="hero">
+        <div class="hero-deco hero-deco-1"></div>
+        <div class="hero-deco hero-deco-2"></div>
+        <div class="hero-deco hero-deco-3"></div>
+
+        <div class="float-container">
+            <div class="float-element">
+                <svg width="36" height="36" viewBox="0 0 36 36"><circle cx="18" cy="18" r="16" fill="#FFB3C6" opacity="0.5"/></svg>
+            </div>
+            <div class="float-element">
+                <svg width="28" height="28" viewBox="0 0 28 28"><polygon points="14,2 18,10 26,11 20,17 22,26 14,22 6,26 8,17 2,11 10,10" fill="#C77DFF" opacity="0.4"/></svg>
+            </div>
+            <div class="float-element">
+                <svg width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="#06D6A0" opacity="0.35"/></svg>
+            </div>
+            <div class="float-element">
+                <svg width="24" height="24" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" fill="#FFB3C6" opacity="0.4"/></svg>
+            </div>
+            <div class="float-element">
+                <svg width="30" height="30" viewBox="0 0 30 30"><polygon points="15,1 19,11 29,12 21,19 24,29 15,23 6,29 9,19 1,12 11,11" fill="#FFD700" opacity="0.35"/></svg>
+            </div>
+        </div>
+
+        <div class="hero-content">
+            <!-- Mascot SVG -->
+            <div class="hero-mascot">
+                <img src="./imgs/dawanji-group.jpg" alt="大湾鸡——第十五届全运会吉祥物喜洋洋（白色白海豚）与乐融融（粉色白海豚）官方3D形象，头顶三色水花，胸前印有十五运会会徽" style="width:100%;max-width:460px;height:auto;border-radius:24px;box-shadow:0 12px 48px rgba(255,143,171,0.28);display:block;margin:0 auto;">
+            </div>
+
+            <h1 class="hero-title">大湾鸡</h1>
+            <p class="hero-subtitle">
+                第十五届全运会吉祥物「喜洋洋」和「乐融融」<br>
+                中华白海豚化身的国民萌物，从赛场到全网的文化现象
+            </p>
+            <div class="hero-tags">
+                <span class="hero-tag hero-tag--red">🌺 木棉红</span>
+                <span class="hero-tag hero-tag--purple">💜 紫荆紫</span>
+                <span class="hero-tag hero-tag--green">🌿 莲花绿</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Origin Section -->
+    <section id="origin">
+        <div class="origin-story">
+            <div class="section-header">
+                <span class="section-badge section-badge--pink">ORIGIN STORY</span>
+                <h2 class="section-title">"大湾鸡"是什么？</h2>
+                <p class="section-desc">
+                    从官方昵称到民间出圈，一对海豚吉祥物如何成为全网最火IP
+                </p>
+            </div>
+
+            <div class="origin-timeline">
+                <article class="timeline-item fade-in">
+                    <div class="timeline-label">🎨 设计诞生</div>
+                    <h3 class="timeline-title">中华白海豚化身吉祥物</h3>
+                    <p class="timeline-text">
+                        广州美术学院刘平云教授团队——也就是「冰墩墩」的设计团队——为第十五届全运会设计了吉祥物「喜洋洋」和「乐融融」。设计原型选择了一级保护动物中华白海豚，它们被称为「海上国宝」，而珠江口恰好是全球最大的中华白海豚栖息地，种群数量超过2000头。
+                    </p>
+                </article>
+
+                <article class="timeline-item fade-in">
+                    <div class="timeline-label">📛 命名寓意</div>
+                    <h3 class="timeline-title">喜气洋洋，其乐融融</h3>
+                    <p class="timeline-text">
+                        白色吉祥物名为「喜洋洋」，粉色名为「乐融融」，合在一起就是「喜气洋洋、其乐融融」。两只分别呼应白色和粉色的中华白海豚，其肤色变化源自运动时血管充血的生理特征。圆润的身体搭配尖嘴造型，可爱到犯规。
+                    </p>
+                </article>
+
+                <article class="timeline-item fade-in">
+                    <div class="timeline-label">🐔 昵称出圈</div>
+                    <h3 class="timeline-title">从海豚到"大湾鸡"的奇妙变身</h3>
+                    <p class="timeline-text">
+                        由于造型过于圆润，头顶的彩色水花酷似鸡冠，再加上尖尖的小嘴巴——网友们纷纷表示：这不就是广东名菜「白切鸡」和「豉油鸡」吗？！于是一声「大湾鸡」横空出世，比官方名字还响亮，迅速成为全网统一的昵称。从海豚到鸡，这波属实是广东特色了。
+                    </p>
+                </article>
+
+                <article class="timeline-item fade-in">
+                    <div class="timeline-label">🔥 全民狂欢</div>
+                    <h3 class="timeline-title">开幕式一夜封神</h3>
+                    <p class="timeline-text">
+                        2025年11月，全运会开幕式上，武校少年身穿吉祥物服装，做出了倒立、蹦迪、单腿旋转等一系列高难度又萌态十足的动作。视频在抖音播放量迅速突破3.7亿次，「大湾鸡」正式从体育圈杀入全民视野，成为现象级文化符号。
+                    </p>
+                </article>
+            </div>
+
+            <div class="quote-box fade-in">
+                从中华白海豚到白切鸡，从官方设计到全民玩梗——大湾鸡的出圈之路，本身就是一段精彩的文化故事。
+            </div>
+        </div>
+    </section>
+
+    <!-- Characters Section -->
+    <div class="section--white" style="padding: 80px 0;">
+        <section id="characters" class="section" style="padding-top:0;padding-bottom:0;">
+            <div class="section-header">
+                <span class="section-badge section-badge--green">MEET THE MASCOTS</span>
+                <h2 class="section-title">认识两小只</h2>
+                <p class="section-desc">
+                    一白一粉，一对中华白海豚兄弟，网友口中的「白切鸡」与「豉油鸡」
+                </p>
+            </div>
+
+            <div class="char-grid">
+                <div class="char-card char-card--white fade-in">
+                    <img src="./imgs/xiyangyang.jpg" alt="喜洋洋——白色中华白海豚吉祥物，蓝色大眼睛，头顶紫橙绿三色水花，胸前印有十五运会会徽" loading="lazy">
+                    <div class="char-card-body">
+                        <div class="char-card-name">喜洋洋</div>
+                        <div class="char-card-nick">🤍 白色 · 昵称「白切鸡」· i 人担当</div>
+                        <p class="char-card-text">
+                            白色的「喜洋洋」对应常态下的中华白海豚，性格安静内敛，被网友戏称为 i 人。设计团队特意把技巧型运动项目分配给它，聪明又灵巧。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="char-card char-card--pink fade-in">
+                    <img src="./imgs/lerongrong.jpg" alt="乐融融——粉色中华白海豚吉祥物，酒红色大眼睛，头顶紫橙绿三色水花，胸前印有十五运会会徽" loading="lazy">
+                    <div class="char-card-body">
+                        <div class="char-card-name">乐融融</div>
+                        <div class="char-card-nick">🩷 粉色 · 昵称「豉油鸡」· e 人担当</div>
+                        <p class="char-card-text">
+                            粉色的「乐融融」源自白海豚运动时血管充血变粉的生理特征，活泼外向，是名副其实的 e 人。力量型运动项目都归它，热情又有活力。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Design Section -->
+    <div class="section--alt" style="padding: 80px 0;">
+        <section id="design" class="section" style="padding-top:0;padding-bottom:0;">
+            <div class="section-header">
+                <span class="section-badge section-badge--purple">DESIGN STORY</span>
+                <h2 class="section-title">设计解读</h2>
+                <p class="section-desc">
+                    每一个设计细节都有深意，从科学到文化的层层巧思
+                </p>
+            </div>
+
+            <div class="design-grid">
+                <!-- Card 1: Dolphin -->
+                <div class="design-card fade-in">
+                    <div class="design-card-visual design-card-visual--dolphin">
+                        <svg viewBox="0 0 200 140" width="200" height="140">
+                            <!-- Simplified cute dolphin -->
+                            <g transform="translate(30, 10)">
+                                <ellipse cx="70" cy="65" rx="50" ry="40" fill="#B8D8F0" opacity="0.5"/>
+                                <path d="M 30 55 Q 10 30 40 35 Q 55 10 80 25 Q 110 15 120 40 Q 140 35 130 55 Q 145 70 120 75 Q 130 95 100 85 Q 80 100 60 85 Q 30 95 40 75 Q 15 70 30 55Z" fill="#7FB5D8" opacity="0.6"/>
+                                <!-- Eye -->
+                                <circle cx="55" cy="48" r="4" fill="#2D2D3A"/>
+                                <circle cx="53" cy="46" r="1.5" fill="white"/>
+                                <!-- Smile -->
+                                <path d="M 48 58 Q 55 64 62 58" fill="none" stroke="#5A8FB0" stroke-width="1.5" stroke-linecap="round"/>
+                            </g>
+                            <!-- Waves -->
+                            <path d="M 0 120 Q 30 110 60 120 Q 90 130 120 120 Q 150 110 180 120 Q 195 125 200 120" fill="none" stroke="#7FB5D8" stroke-width="2" opacity="0.4"/>
+                            <path d="M 0 130 Q 30 120 60 130 Q 90 140 120 130 Q 150 120 180 130 Q 195 135 200 130" fill="none" stroke="#7FB5D8" stroke-width="1.5" opacity="0.3"/>
+                        </svg>
+                    </div>
+                    <div class="design-card-body">
+                        <h3 class="design-card-title">🐬 原型：中华白海豚</h3>
+                        <p class="design-card-text">
+                            中华白海豚被誉为「海上国宝」，是国家一级保护动物。珠江口水域是全球最大的中华白海豚栖息地，种群数量超过2000头。选择中华白海豚作为原型，既体现了粤港澳三地的生态纽带，也传递了海洋保护的深层理念。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 2: Three-color flowers -->
+                <div class="design-card fade-in">
+                    <div class="design-card-visual design-card-visual--flowers">
+                        <svg viewBox="0 0 200 140" width="200" height="140">
+                            <!-- Red flower (Guangdong Kapok) -->
+                            <g transform="translate(45, 40)">
+                                <circle cx="0" cy="0" r="18" fill="#E63946" opacity="0.7"/>
+                                <circle cx="0" cy="-20" r="8" fill="#E63946" opacity="0.5"/>
+                                <circle cx="17" cy="-10" r="8" fill="#E63946" opacity="0.5"/>
+                                <circle cx="17" cy="10" r="8" fill="#E63946" opacity="0.5"/>
+                                <circle cx="0" cy="20" r="8" fill="#E63946" opacity="0.5"/>
+                                <circle cx="-17" cy="10" r="8" fill="#E63946" opacity="0.5"/>
+                                <circle cx="-17" cy="-10" r="8" fill="#E63946" opacity="0.5"/>
+                                <circle cx="0" cy="0" r="6" fill="#FF6B6B"/>
+                            </g>
+                            <!-- Purple flower (HK Bauhinia) -->
+                            <g transform="translate(100, 35)">
+                                <circle cx="0" cy="0" r="18" fill="#9B5DE5" opacity="0.7"/>
+                                <circle cx="0" cy="-20" r="8" fill="#9B5DE5" opacity="0.5"/>
+                                <circle cx="17" cy="-10" r="8" fill="#9B5DE5" opacity="0.5"/>
+                                <circle cx="17" cy="10" r="8" fill="#9B5DE5" opacity="0.5"/>
+                                <circle cx="0" cy="20" r="8" fill="#9B5DE5" opacity="0.5"/>
+                                <circle cx="-17" cy="10" r="8" fill="#9B5DE5" opacity="0.5"/>
+                                <circle cx="-17" cy="-10" r="8" fill="#9B5DE5" opacity="0.5"/>
+                                <circle cx="0" cy="0" r="6" fill="#C77DFF"/>
+                            </g>
+                            <!-- Green flower (Macau Lotus) -->
+                            <g transform="translate(155, 40)">
+                                <circle cx="0" cy="0" r="18" fill="#06D6A0" opacity="0.7"/>
+                                <circle cx="0" cy="-20" r="8" fill="#06D6A0" opacity="0.5"/>
+                                <circle cx="17" cy="-10" r="8" fill="#06D6A0" opacity="0.5"/>
+                                <circle cx="17" cy="10" r="8" fill="#06D6A0" opacity="0.5"/>
+                                <circle cx="0" cy="20" r="8" fill="#06D6A0" opacity="0.5"/>
+                                <circle cx="-17" cy="10" r="8" fill="#06D6A0" opacity="0.5"/>
+                                <circle cx="-17" cy="-10" r="8" fill="#06D6A0" opacity="0.5"/>
+                                <circle cx="0" cy="0" r="6" fill="#40E0B0"/>
+                            </g>
+                            <!-- Labels -->
+                            <text x="45" y="90" text-anchor="middle" fill="#E63946" font-size="11" font-weight="600">木棉红</text>
+                            <text x="100" y="85" text-anchor="middle" fill="#9B5DE5" font-size="11" font-weight="600">紫荆紫</text>
+                            <text x="155" y="90" text-anchor="middle" fill="#048A68" font-size="11" font-weight="600">莲花绿</text>
+                            <!-- Connecting arc -->
+                            <path d="M 45 100 Q 100 120 155 100" fill="none" stroke="#DDD" stroke-width="1.5" stroke-dasharray="4,3"/>
+                            <text x="100" y="125" text-anchor="middle" fill="#888" font-size="10">粤港澳同心</text>
+                        </svg>
+                    </div>
+                    <div class="design-card-body">
+                        <h3 class="design-card-title">🌸 三色水花密码</h3>
+                        <p class="design-card-text">
+                            头顶三朵彩色水花是整个设计的灵魂：红色代表广东的木棉花，紫色代表香港的紫荆花，绿色代表澳门的莲花。三种颜色汇聚在一起，象征粤港澳三地同心协力，共同举办这场体育盛会。水花的造型也巧妙呼应了海豚跃出水面的瞬间。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 3: Color science -->
+                <div class="design-card fade-in">
+                    <div class="design-card-visual design-card-visual--color">
+                        <svg viewBox="0 0 200 140" width="200" height="140">
+                            <!-- White dolphin -->
+                            <g transform="translate(30, 30)">
+                                <ellipse cx="35" cy="35" rx="28" ry="24" fill="#E8F0FE" stroke="#C0D8F0" stroke-width="1.5"/>
+                                <circle cx="28" cy="30" r="3" fill="#2D2D3A"/>
+                                <circle cx="27" cy="29" r="1" fill="white"/>
+                                <text x="35" y="80" text-anchor="middle" fill="#5A8FB0" font-size="10" font-weight="600">静态</text>
+                                <text x="35" y="95" text-anchor="middle" fill="#5A8FB0" font-size="9">偏白色</text>
+                            </g>
+                            <!-- Arrow -->
+                            <path d="M 90 55 L 110 55" fill="none" stroke="#AAA" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <text x="100" y="45" text-anchor="middle" fill="#888" font-size="9">运动充血</text>
+                            <!-- Pink dolphin -->
+                            <g transform="translate(120, 30)">
+                                <ellipse cx="35" cy="35" rx="28" ry="24" fill="#FFE0E9" stroke="#FFB3C6" stroke-width="1.5"/>
+                                <circle cx="28" cy="30" r="3" fill="#2D2D3A"/>
+                                <circle cx="27" cy="29" r="1" fill="white"/>
+                                <!-- Blush effect -->
+                                <ellipse cx="42" cy="38" rx="8" ry="5" fill="#FF8FAB" opacity="0.3"/>
+                                <text x="35" y="80" text-anchor="middle" fill="#D4586A" font-size="10" font-weight="600">运动</text>
+                                <text x="35" y="95" text-anchor="middle" fill="#D4586A" font-size="9">变粉色</text>
+                            </g>
+                            <defs>
+                                <marker id="arrowhead" markerWidth="6" markerHeight="4" refX="6" refY="2" orient="auto">
+                                    <polygon points="0 0, 6 2, 0 4" fill="#AAA"/>
+                                </marker>
+                            </defs>
+                        </svg>
+                    </div>
+                    <div class="design-card-body">
+                        <h3 class="design-card-title">🎨 粉白配色的科学依据</h3>
+                        <p class="design-card-text">
+                            喜洋洋的白色和乐融融的粉色，并非随意选择——这源于中华白海豚真实的生理特征！当白海豚在水中高速运动时，血管会充血，皮肤颜色会从灰白逐渐变为粉色。设计师巧妙地将这一科学事实融入配色，白色代表静态的优雅，粉色代表运动的活力。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Moments Section -->
+    <div class="moments-section" style="padding: 80px 0;">
+        <section id="moments" class="section" style="padding-top:0;padding-bottom:0;">
+            <div class="section-header">
+                <span class="section-badge section-badge--green">HIGHLIGHTS</span>
+                <h2 class="section-title">精彩瞬间</h2>
+                <p class="section-desc">
+                    开幕式上那些让人忍不住反复观看的名场面
+                </p>
+            </div>
+
+            <div class="moment-grid">
+                <div class="moment-card fade-in">
+                    <span class="moment-emoji">🤸</span>
+                    <h3 class="moment-title">倒立亮相</h3>
+                    <p class="moment-text">
+                        武校少年扮演的「大湾鸡」在开幕式上一上来就放了个大招——稳稳当当来了个倒立！圆滚滚的身体倒过来的样子萌翻全场，观众席瞬间沸腾。
+                    </p>
+                </div>
+
+                <div class="moment-card fade-in">
+                    <span class="moment-emoji">💃</span>
+                    <h3 class="moment-title">蹦迪名场面</h3>
+                    <p class="moment-text">
+                        谁能想到全运会开幕式上会出现蹦迪环节？「大湾鸡」随着音乐节奏蹦蹦跳跳，圆滚滚的身躯配合灵活的舞步，反差萌直接拉满。
+                    </p>
+                </div>
+
+                <div class="moment-card fade-in">
+                    <span class="moment-emoji">🩰</span>
+                    <h3 class="moment-title">单腿旋转</h3>
+                    <p class="moment-text">
+                        最令人惊叹的当属单腿旋转！穿着笨重道具服的少年竟然完成了一个漂亮的旋转，「大湾鸡」在舞台上转成了一个小陀螺，全网直呼「太厉害了」。
+                    </p>
+                </div>
+
+                <div class="moment-card fade-in">
+                    <span class="moment-emoji">📱</span>
+                    <h3 class="moment-title">3.7亿播放</h3>
+                    <p class="moment-text">
+                        开幕式视频在抖音上播放量突破3.7亿次。「大湾鸡」的表演片段被疯狂转发和二创，从体育频道火到娱乐热搜，真正实现了全民关注。
+                    </p>
+                </div>
+
+                <div class="moment-card fade-in">
+                    <span class="moment-emoji">🧸</span>
+                    <h3 class="moment-title">周边疯抢</h3>
+                    <p class="moment-text">
+                        2800多款周边商品上线即售罄！毛绒玩偶、钥匙扣、盲盒……销售量突破600万个，一举超越前辈「冰墩墩」，成为全运会历史上最畅销的吉祥物周边。
+                    </p>
+                </div>
+
+                <div class="moment-card fade-in">
+                    <span class="moment-emoji">😂</span>
+                    <h3 class="moment-title">白切鸡 vs 豉油鸡</h3>
+                    <p class="moment-text">
+                        白色的是「白切鸡」，粉色的是「豉油鸡」——广东网友的吃货脑洞让全国人民笑到停不下来。「大湾鸡」这个昵称，大概是全运会历史上最接地气的吉祥物外号了。
+                    </p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Impact Section -->
+    <section id="impact" class="stats-section" style="padding: 80px 0;">
+        <div class="section" style="padding-top:0;padding-bottom:0;">
+            <div class="section-header">
+                <span class="section-badge section-badge--pink">CULTURAL IMPACT</span>
+                <h2 class="section-title">文化影响</h2>
+                <p class="section-desc">
+                    从赛场吉祥物到国民文化符号，数据见证大湾鸡的破圈之路
+                </p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card fade-in">
+                    <div class="stat-number stat-number--pink" data-target="3.7">0</div>
+                    <div class="stat-label">亿次 · 抖音播放量</div>
+                </div>
+                <div class="stat-card fade-in">
+                    <div class="stat-number stat-number--purple" data-target="2800">0</div>
+                    <div class="stat-label">款 · 周边商品</div>
+                </div>
+                <div class="stat-card fade-in">
+                    <div class="stat-number stat-number--green" data-target="600">0</div>
+                    <div class="stat-label">万+ · 周边销售量</div>
+                </div>
+                <div class="stat-card fade-in">
+                    <div class="stat-number stat-number--orange" data-target="2000">0</div>
+                    <div class="stat-label">头+ · 中华白海豚种群</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 48px;">
+                <div class="card fade-in" style="max-width: 800px; margin: 0 auto; text-align: center;">
+                    <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 16px;">🏆 超越冰墩墩的里程碑</h3>
+                    <p style="font-size: 0.95rem; color: var(--color-text-light); line-height: 1.8;">
+                        「大湾鸡」周边商品销售量超过600万个，超越了2022年冬奥会的现象级IP「冰墩墩」。更令人惊喜的是，设计团队一脉相承——都来自广州美术学院刘平云教授团队。从冰墩墩到大湾鸡，这个团队似乎掌握了「全民萌物」的设计密码。而「大湾鸡」更独特的地方在于，它不仅有可爱的外表，更承载着粤港澳三地文化融合的深层意义。
+                    </p>
+                    <div class="badge-row">
+                        <span class="mini-badge"><span class="mini-badge-dot" style="background:var(--color-red)"></span>第十五届全运会</span>
+                        <span class="mini-badge"><span class="mini-badge-dot" style="background:var(--color-purple)"></span>广州美术学院</span>
+                        <span class="mini-badge"><span class="mini-badge-dot" style="background:var(--color-green)"></span>粤港澳三地联办</span>
+                        <span class="mini-badge"><span class="mini-badge-dot" style="background:var(--color-pink)"></span>刘平云教授团队</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Disclaimer Section -->
+    <div class="disclaimer-section" style="padding: 80px 24px;">
+        <section id="disclaimer" class="section" style="padding-top:0;padding-bottom:0;">
+            <div class="disclaimer-box fade-in">
+                <h2 class="disclaimer-title">📋 非商业使用声明</h2>
+                <ul class="disclaimer-list">
+                    <li>本站为粉丝/爱好者自发制作的非官方网站，仅供个人学习和分享使用，与本站涉及的任何商业主体无任何关联。</li>
+                    <li>本站与第十五届全运会组委会、吉祥物设计团队（广州美术学院刘平云教授团队）无任何官方合作关系，不代表任何官方立场。</li>
+                    <li>本站所有内容仅用于非商业目的的信息分享和文化交流，不用于任何盈利性用途。</li>
+                    <li>吉祥物「喜洋洋」「乐融融」（昵称「大湾鸡」）的全部知识产权归第十五届全运会组委会及相关权利人所有。</li>
+                    <li>本站未使用任何官方图片素材，所有视觉元素均为使用 CSS/SVG 技术独立制作的致敬性创作。</li>
+                    <li>本站不销售任何商品，不接受商业赞助，不投放商业广告。</li>
+                    <li>如本站内容涉及版权问题，请联系站长邮箱 <a href="mailto:tony994150378@163.com" style="color:#B06AB3;text-decoration:underline;font-weight:600;">tony994150378@163.com</a>，经核实确认侵权后将立即下架、删除或修改相关内容。</li>
+                    <li>本站承诺「联系即处理」：无论是权利人、代理方还是网友发现任何不妥之处，均可通过上述邮箱联系，站长核实后将第一时间响应并处理。</li>
+                </ul>
+                <p class="disclaimer-note">
+                    本站仅是一个粉丝用爱发电的小站 🕊️ 感谢设计团队创造了这么美好的作品<br>
+                    联系站长：<a href="mailto:tony994150378@163.com" style="color:#B06AB3;text-decoration:underline;font-weight:600;">tony994150378@163.com</a>
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-brand">🐔 大湾鸡主题站</div>
+        <p class="footer-text">
+            用 <span class="footer-heart">♥</span> 制作 · 粉丝非商业作品<br>
+            愿粤港澳三地 · 喜气洋洋 · 其乐融融
+        </p>
+        <p class="footer-text" style="margin-top: 8px; font-size: 0.85rem;">
+            联系站长：<a href="mailto:tony994150378@163.com" style="color:#B06AB3;text-decoration:underline;">tony994150378@163.com</a>
+        </p>
+        <p class="footer-text" style="margin-top: 12px; font-size: 0.75rem; opacity: 0.6;">
+            © 2025 大湾鸡粉丝站 · 本站与第十五届全运会组委会无官方关联
+        </p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Navigation scroll effect
+        const nav = document.getElementById('nav');
+        const scrollProgress = document.getElementById('scrollProgress');
+
+        window.addEventListener('scroll', () => {
+            // Nav shadow
+            nav.classList.toggle('scrolled', window.scrollY > 10);
+
+            // Scroll progress bar
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = winScroll / height;
+            scrollProgress.style.transform = `scaleX(${scrolled})`;
+        });
+
+        // Mobile nav toggle
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            navToggle.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+        });
+
+        // Close mobile nav on link click
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                navToggle.textContent = '☰';
+            });
+        });
+
+        // Fade-in on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Counter animation
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const target = parseFloat(el.dataset.target);
+                    const duration = 2000;
+                    const startTime = performance.now();
+                    const isFloat = target % 1 !== 0;
+
+                    function updateCounter(currentTime) {
+                        const elapsed = currentTime - startTime;
+                        const progress = Math.min(elapsed / duration, 1);
+                        // Ease out cubic
+                        const eased = 1 - Math.pow(1 - progress, 3);
+                        const current = target * eased;
+
+                        if (isFloat) {
+                            el.textContent = current.toFixed(1);
+                        } else {
+                            el.textContent = Math.floor(current).toLocaleString();
+                        }
+
+                        if (progress < 1) {
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            if (isFloat) {
+                                el.textContent = target.toFixed(1);
+                            } else {
+                                el.textContent = target.toLocaleString();
+                            }
+                        }
+                    }
+                    requestAnimationFrame(updateCounter);
+                    counterObserver.unobserve(el);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.stat-number[data-target]').forEach(el => {
+            counterObserver.observe(el);
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offset = 80; // nav height + padding
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

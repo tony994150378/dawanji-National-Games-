@@ -6,7 +6,7 @@
     <title>大湾鸡 🐔 第十五届全运会吉祥物主题站</title>
     <meta name="description" content="大湾鸡粉丝主题网站 - 介绍第十五届全运会吉祥物喜洋洋、乐融融（大湾鸡）的故事、设计与文化影响">
     <meta name="keywords" content="大湾鸡,喜洋洋,乐融融,第十五届全运会,吉祥物,中华白海豚">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐔</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'><defs><radialGradient id='g'><stop offset='0%25' stop-color='%23FF4D4D'/><stop offset='25%25' stop-color='%23FF8C00'/><stop offset='50%25' stop-color='%23FFD700'/><stop offset='75%25' stop-color='%2300CC66'/><stop offset='100%25' stop-color='%230066FF'/></radialGradient></defs><g transform='translate(60,60)'><g fill='url(%23g)'><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(0)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(30)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(60)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(90)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(120)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(150)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(180)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(210)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(240)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(270)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(300)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(330)'/></g><circle cx='0' cy='0' r='10' fill='%23FFD700'/></g></svg>">
     <style>
         /* ===== CSS Custom Properties ===== */
         :root {
@@ -598,6 +598,42 @@
         .mini-badge-dot {
             width: 8px; height: 8px; border-radius: 50%;
         }
+        /* ===== Speech Bubble Popup ===== */
+        .bubble-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.3); z-index: 9999;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+        }
+        .bubble-overlay.active { opacity: 1; pointer-events: auto; }
+        .bubble-popup {
+            background: white; border-radius: 24px; padding: 32px 40px;
+            max-width: 420px; width: 90%; text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            position: relative; transform: scale(0.8); transition: transform 0.3s ease;
+        }
+        .bubble-overlay.active .bubble-popup { transform: scale(1); }
+        .bubble-popup::before {
+            content: ''; position: absolute; bottom: -12px; left: 50%;
+            transform: translateX(-50%);
+            border-left: 14px solid transparent; border-right: 14px solid transparent;
+            border-top: 14px solid white;
+        }
+        .bubble-close {
+            position: absolute; top: 12px; right: 16px;
+            background: none; border: none; font-size: 1.5rem;
+            cursor: pointer; color: var(--color-text-muted);
+            width: 32px; height: 32px; line-height: 32px;
+            border-radius: 50%; transition: background 0.2s;
+        }
+        .bubble-close:hover { background: var(--color-pink-pale); }
+        .bubble-text {
+            font-size: 1.15rem; line-height: 1.8; color: var(--color-text);
+            white-space: pre-line; margin: 8px 0 0;
+        }
+        .bubble-mascot-icon {
+            font-size: 3rem; margin-bottom: 12px;
+        }
     </style>
 </head>
 <body>
@@ -728,8 +764,8 @@
             </div>
 
             <div class="char-grid">
-                <div class="char-card char-card--white fade-in">
-                    <img src="./imgs/xiyangyang.jpg" alt="喜洋洋——白色中华白海豚吉祥物，蓝色大眼睛，头顶紫橙绿三色水花，胸前印有十五运会会徽" loading="lazy">
+                <div class="char-card char-card--white fade-in" onclick="showBubble(this, '你好，我是喜洋洋！🤍\n白色的中华白海豚，性格安静内敛～')">
+                    <img src="./imgs/xiyangyang.jpg" alt="喜洋洋——白色中华白海豚吉祥物" loading="lazy" style="cursor:pointer;">
                     <div class="char-card-body">
                         <div class="char-card-name">喜洋洋</div>
                         <div class="char-card-nick">🤍 白色 · 昵称「白切鸡」· i 人担当</div>
@@ -739,8 +775,8 @@
                     </div>
                 </div>
 
-                <div class="char-card char-card--pink fade-in">
-                    <img src="./imgs/lerongrong.jpg" alt="乐融融——粉色中华白海豚吉祥物，酒红色大眼睛，头顶紫橙绿三色水花，胸前印有十五运会会徽" loading="lazy">
+                <div class="char-card char-card--pink fade-in" onclick="showBubble(this, '你好，我是乐融融！🩷\n粉色的中华白海豚，活泼外向充满活力～')">
+                    <img src="./imgs/lerongrong.jpg" alt="乐融融——粉色中华白海豚吉祥物" loading="lazy" style="cursor:pointer;">
                     <div class="char-card-body">
                         <div class="char-card-name">乐融融</div>
                         <div class="char-card-nick">🩷 粉色 · 昵称「豉油鸡」· e 人担当</div>
@@ -1141,5 +1177,46 @@
         });
     </script>
 
+    <!-- Speech Bubble Overlay -->
+    <div class="bubble-overlay" id="bubbleOverlay" onclick="closeBubble(event)">
+        <div class="bubble-popup">
+            <button class="bubble-close" onclick="closeBubble(event)">✕</button>
+            <div class="bubble-mascot-icon" id="bubbleIcon">🐬</div>
+            <div class="bubble-text" id="bubbleText"></div>
+        </div>
+    </div>
+
+    <script>
+        // ===== Speech Bubble Interaction =====
+        function showBubble(card, text) {
+            const overlay = document.getElementById('bubbleOverlay');
+            const bubbleText = document.getElementById('bubbleText');
+            const bubbleIcon = document.getElementById('bubbleIcon');
+            
+            // Determine mascot type from card class
+            if (card.classList.contains('char-card--white')) {
+                bubbleIcon.textContent = '🤍';
+            } else if (card.classList.contains('char-card--pink')) {
+                bubbleIcon.textContent = '💗';
+            }
+            
+            bubbleText.textContent = text;
+            overlay.classList.add('active');
+        }
+        
+        function closeBubble(event) {
+            // Only close if clicking overlay or close button, not the popup itself
+            if (event.target.id === 'bubbleOverlay' || event.target.classList.contains('bubble-close')) {
+                document.getElementById('bubbleOverlay').classList.remove('active');
+            }
+        }
+        
+        // Close on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.getElementById('bubbleOverlay').classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html>

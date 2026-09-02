@@ -634,6 +634,108 @@
         .bubble-mascot-icon {
             font-size: 3rem; margin-bottom: 12px;
         }
+        /* ===== Character Card Interaction Layer ===== */
+        .bubble-trigger { cursor: pointer; }
+        .char-card-image-wrap {
+            position: relative; overflow: hidden;
+            transform-origin: 50% 100%; /* pivot at bottom center */
+        }
+        .char-card-image-wrap img {
+            transition: transform 0.4s ease;
+            transform-origin: 50% 100%;
+        }
+        .bubble-trigger:hover .char-card-image-wrap img {
+            transform: scale(1.04);
+        }
+        /* Wiggle animation on hover / tap */
+        @keyframes wiggle {
+            0% { transform: rotate(0deg) translateY(0); }
+            15% { transform: rotate(-6deg) translateY(-4px); }
+            30% { transform: rotate(5deg) translateY(0); }
+            45% { transform: rotate(-4deg) translateY(-3px); }
+            60% { transform: rotate(3deg) translateY(0); }
+            75% { transform: rotate(-2deg) translateY(-1px); }
+            100% { transform: rotate(0deg) translateY(0); }
+        }
+        @keyframes bounceTap {
+            0% { transform: scale(1); }
+            30% { transform: scale(0.92); }
+            60% { transform: scale(1.08); }
+            100% { transform: scale(1); }
+        }
+        .char-card-image-wrap.wiggling img {
+            animation: wiggle 0.9s ease-in-out;
+        }
+        .char-card-image-wrap.bouncing img {
+            animation: bounceTap 0.45s ease-out;
+        }
+        /* Desktop: auto wiggle on hover */
+        @media (hover: hover) and (pointer: fine) {
+            .bubble-trigger:hover .char-card-image-wrap img {
+                animation: wiggle 1.4s ease-in-out infinite;
+                transform: none; /* override hover scale, let animation run */
+            }
+            /* Hero image is direct <img>, not in .char-card-image-wrap */
+            img.bubble-trigger:hover {
+                animation: wiggle 1.4s ease-in-out infinite;
+                transform: none;
+            }
+        }
+        /* Bouncing class for img targets (mobile tap or hero) */
+        .hero-mascot img.bouncing,
+        .char-card-image-wrap.bouncing img {
+            animation: bounceTap 0.45s ease-out;
+        }
+        .bubble-hint {
+            position: absolute; left: 50%; bottom: 14px;
+            transform: translateX(-50%);
+            background: rgba(255,255,255,0.95);
+            color: var(--color-red-wood);
+            font-size: 0.85rem; font-weight: 600;
+            padding: 6px 14px; border-radius: 999px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+            opacity: 0; pointer-events: none;
+            animation: hintPulse 2.5s ease-in-out infinite;
+            transition: opacity 0.3s ease;
+            white-space: nowrap;
+        }
+        .bubble-trigger:hover .bubble-hint,
+        .bubble-hint.initial-show {
+            opacity: 1;
+        }
+        @keyframes hintPulse {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-4px); }
+        }
+        /* Desktop: hide the mobile overlay behavior; we'll show a floating bubble instead */
+        @media (hover: hover) and (pointer: fine) {
+            .bubble-overlay {
+                /* on desktop, repurpose as a floating card near the hovered card */
+                position: fixed;
+                background: transparent;
+                align-items: flex-start;
+                justify-content: flex-start;
+            }
+            .bubble-popup {
+                position: absolute;
+                max-width: 260px;
+                padding: 20px 24px;
+                border-radius: 18px;
+                box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+                transform: translateY(-8px) scale(0.9);
+                opacity: 0;
+                transition: opacity 0.25s ease, transform 0.25s ease;
+                text-align: left;
+            }
+            .bubble-overlay.active .bubble-popup {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            .bubble-popup::before { display: none; }
+            .bubble-close { display: none; }
+            .bubble-mascot-icon { font-size: 2rem; margin-bottom: 6px; }
+            .bubble-text { font-size: 0.95rem; line-height: 1.6; margin: 0; }
+        }
     </style>
 </head>
 <body>
@@ -685,7 +787,7 @@
         <div class="hero-content">
             <!-- Mascot SVG -->
             <div class="hero-mascot">
-                <img src="./imgs/dawanji-group.jpg" alt="大湾鸡——第十五届全运会吉祥物喜洋洋（白色白海豚）与乐融融（粉色白海豚）官方3D形象，头顶三色水花，胸前印有十五运会会徽" style="width:100%;max-width:460px;height:auto;border-radius:24px;box-shadow:0 12px 48px rgba(255,143,171,0.28);display:block;margin:0 auto;">
+                <img src="./imgs/dawanji-group.jpg" alt="大湾鸡——第十五届全运会吉祥物喜洋洋（白色白海豚）与乐融融（粉色白海豚）官方3D形象，头顶三色水花，胸前印有十五运会会徽" class="bubble-trigger" data-mascot="pair" data-bubble="我们是喜洋洋和乐融融！🎉&#10;第十五届全运会吉祥物，网友叫我们「大湾鸡」～" style="width:100%;max-width:460px;height:auto;border-radius:24px;box-shadow:0 12px 48px rgba(255,143,171,0.28);display:block;margin:0 auto;cursor:pointer;transform-origin:50% 100%;transition:transform 0.4s ease;">
             </div>
 
             <h1 class="hero-title">大湾鸡</h1>
@@ -764,8 +866,11 @@
             </div>
 
             <div class="char-grid">
-                <div class="char-card char-card--white fade-in" onclick="showBubble(this, '你好，我是喜洋洋！🤍\n白色的中华白海豚，性格安静内敛～')">
-                    <img src="./imgs/xiyangyang.jpg" alt="喜洋洋——白色中华白海豚吉祥物" loading="lazy" style="cursor:pointer;">
+                <div class="char-card char-card--white fade-in bubble-trigger" data-mascot="white" data-bubble="你好，我是喜洋洋！🤍&#10;白色的中华白海豚，性格安静内敛～">
+                    <div class="char-card-image-wrap">
+                        <img src="./imgs/xiyangyang.jpg" alt="喜洋洋——白色中华白海豚吉祥物" loading="lazy">
+                        <div class="bubble-hint">嗨！点我认识我 👋</div>
+                    </div>
                     <div class="char-card-body">
                         <div class="char-card-name">喜洋洋</div>
                         <div class="char-card-nick">🤍 白色 · 昵称「白切鸡」· i 人担当</div>
@@ -775,11 +880,14 @@
                     </div>
                 </div>
 
-                <div class="char-card char-card--pink fade-in" onclick="showBubble(this, '你好，我是乐融融！🩷\n粉色的中华白海豚，活泼外向充满活力～')">
-                    <img src="./imgs/lerongrong.jpg" alt="乐融融——粉色中华白海豚吉祥物" loading="lazy" style="cursor:pointer;">
+                <div class="char-card char-card--pink fade-in bubble-trigger" data-mascot="pink" data-bubble="你好，我是乐融融！💗&#10;粉色的中华白海豚，活泼外向充满活力～">
+                    <div class="char-card-image-wrap">
+                        <img src="./imgs/lerongrong.jpg" alt="乐融融——粉色中华白海豚吉祥物" loading="lazy">
+                        <div class="bubble-hint">嗨！点我认识我 👋</div>
+                    </div>
                     <div class="char-card-body">
                         <div class="char-card-name">乐融融</div>
-                        <div class="char-card-nick">🩷 粉色 · 昵称「豉油鸡」· e 人担当</div>
+                        <div class="char-card-nick">💗 粉色 · 昵称「豉油鸡」· e 人担当</div>
                         <p class="char-card-text">
                             粉色的「乐融融」源自白海豚运动时血管充血变粉的生理特征，活泼外向，是名副其实的 e 人。力量型运动项目都归它，热情又有活力。
                         </p>
@@ -1177,10 +1285,10 @@
         });
     </script>
 
-    <!-- Speech Bubble Overlay -->
-    <div class="bubble-overlay" id="bubbleOverlay" onclick="closeBubble(event)">
+    <!-- Speech Bubble Overlay (mobile full-screen / desktop floating) -->
+    <div class="bubble-overlay" id="bubbleOverlay">
         <div class="bubble-popup">
-            <button class="bubble-close" onclick="closeBubble(event)">✕</button>
+            <button class="bubble-close" aria-label="关闭">✕</button>
             <div class="bubble-mascot-icon" id="bubbleIcon">🐬</div>
             <div class="bubble-text" id="bubbleText"></div>
         </div>
@@ -1188,35 +1296,113 @@
 
     <script>
         // ===== Speech Bubble Interaction =====
-        function showBubble(card, text) {
-            const overlay = document.getElementById('bubbleOverlay');
-            const bubbleText = document.getElementById('bubbleText');
-            const bubbleIcon = document.getElementById('bubbleIcon');
-            
-            // Determine mascot type from card class
-            if (card.classList.contains('char-card--white')) {
+        // Detect capability: desktop (hover) vs mobile (touch)
+        const isDesktop = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+        const overlay = document.getElementById('bubbleOverlay');
+        const bubbleText = document.getElementById('bubbleText');
+        const bubbleIcon = document.getElementById('bubbleIcon');
+        const triggers = document.querySelectorAll('.bubble-trigger');
+
+        function fillBubble(card) {
+            const text = card.getAttribute('data-bubble') || '';
+            // Decode HTML entities (for newline &#10; in data attr)
+            bubbleText.textContent = text.replace(/&#10;/g, '\n');
+            const mascot = card.getAttribute('data-mascot');
+            if (mascot === 'white') {
                 bubbleIcon.textContent = '🤍';
-            } else if (card.classList.contains('char-card--pink')) {
+            } else if (mascot === 'pink') {
                 bubbleIcon.textContent = '💗';
+            } else if (mascot === 'pair') {
+                bubbleIcon.textContent = '🎉';
             }
-            
-            bubbleText.textContent = text;
+        }
+
+        function positionNearCard(card) {
+            // Desktop: position the floating bubble near the hovered card
+            const rect = card.getBoundingClientRect();
+            const popup = overlay.querySelector('.bubble-popup');
+            // Place to the right of the card, vertically centered
+            let left = rect.right + 18;
+            let top = rect.top + rect.height / 2 - 60;
+            // If overflows right edge, flip to left side
+            if (left + 280 > window.innerWidth) {
+                left = rect.left - 280 - 18;
+                if (left < 8) left = 8;
+            }
+            // Clamp top inside viewport
+            if (top < 80) top = 80;
+            if (top + 160 > window.innerHeight) top = window.innerHeight - 180;
+            popup.style.left = left + 'px';
+            popup.style.top = top + 'px';
+        }
+
+        function triggerBounce(el) {
+            // For char-card: target .char-card-image-wrap
+            // For hero img: target the img itself
+            const target = el.classList.contains('hero-mascot') 
+                ? el.querySelector('img') 
+                : (el.tagName === 'IMG' ? el : el.querySelector('.char-card-image-wrap'));
+            if (!target) return;
+            target.classList.remove('bouncing');
+            void target.offsetWidth; // force reflow
+            target.classList.add('bouncing');
+        }
+
+        function showBubble(card) {
+            fillBubble(card);
+            if (isDesktop) {
+                positionNearCard(card);
+            } else {
+                triggerBounce(card);
+            }
             overlay.classList.add('active');
         }
-        
-        function closeBubble(event) {
-            // Only close if clicking overlay or close button, not the popup itself
-            if (event.target.id === 'bubbleOverlay' || event.target.classList.contains('bubble-close')) {
-                document.getElementById('bubbleOverlay').classList.remove('active');
-            }
+
+        function closeBubble() {
+            overlay.classList.remove('active');
         }
-        
-        // Close on Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                document.getElementById('bubbleOverlay').classList.remove('active');
-            }
+
+        // Bind events based on device capability
+        if (isDesktop) {
+            triggers.forEach(card => {
+                card.addEventListener('mouseenter', () => showBubble(card));
+                card.addEventListener('mouseleave', () => closeBubble());
+            });
+        } else {
+            // Mobile / touch: click to toggle
+            triggers.forEach(card => {
+                card.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (overlay.classList.contains('active')) {
+                        closeBubble();
+                    } else {
+                        showBubble(card);
+                    }
+                });
+            });
+            // Tap overlay background to close
+            overlay.addEventListener('click', (e) => {
+                if (e.target.id === 'bubbleOverlay') closeBubble();
+            });
+        }
+
+        // Close on Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeBubble();
         });
+
+        // Close button always works (mobile fallback)
+        document.querySelector('.bubble-close').addEventListener('click', (e) => {
+            e.stopPropagation();
+            closeBubble();
+        });
+
+        // Initial hint: briefly show the "嗨！点我认识我" tag
+        const hints = document.querySelectorAll('.bubble-hint');
+        hints.forEach(h => h.classList.add('initial-show'));
+        setTimeout(() => {
+            hints.forEach(h => h.classList.remove('initial-show'));
+        }, 3000);
     </script>
 </body>
 </html>

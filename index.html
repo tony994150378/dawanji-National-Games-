@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>大湾鸡 🐔 第十五届全运会吉祥物主题站</title>
+    <title>大湾鸡 — 第十五届全运会吉祥物主题站</title>
     <meta name="description" content="大湾鸡粉丝主题网站 - 介绍第十五届全运会吉祥物喜洋洋、乐融融（大湾鸡）的故事、设计与文化影响">
     <meta name="keywords" content="大湾鸡,喜洋洋,乐融融,第十五届全运会,吉祥物,中华白海豚">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'><defs><radialGradient id='g'><stop offset='0%25' stop-color='%23FF4D4D'/><stop offset='25%25' stop-color='%23FF8C00'/><stop offset='50%25' stop-color='%23FFD700'/><stop offset='75%25' stop-color='%2300CC66'/><stop offset='100%25' stop-color='%230066FF'/></radialGradient></defs><g transform='translate(60,60)'><g fill='url(%23g)'><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(0)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(30)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(60)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(90)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(120)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(150)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(180)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(210)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(240)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(270)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(300)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(330)'/></g><circle cx='0' cy='0' r='10' fill='%23FFD700'/></g></svg>">
@@ -76,7 +76,22 @@
             color: var(--color-text);
         }
         .nav-logo .emoji { font-size: 1.5rem; }
-        .nav-links { display: flex; gap: 4px; flex-wrap: wrap; }
+        .nav-links { display: flex; gap: 4px; flex-wrap: wrap; align-items: center; }
+        .lang-switch { display: flex; gap: 4px; margin-left: 8px; padding-left: 10px; border-left: 1px solid var(--color-border); }
+        .lang-btn {
+            padding: 5px 10px; border-radius: 16px; border: 1px solid var(--color-border);
+            background: rgba(255,255,255,0.7); font-size: 0.78rem; font-weight: 600;
+            color: var(--color-text-light); cursor: pointer; transition: all var(--transition);
+            line-height: 1.4; font-family: var(--font-main);
+        }
+        .lang-btn:hover { background: var(--color-pink-pale); color: var(--color-red-wood); }
+        .lang-btn.active {
+            background: linear-gradient(135deg, var(--color-pink), var(--color-pink-light));
+            color: #fff; border-color: transparent;
+        }
+        @media (max-width: 768px) {
+            .lang-switch { margin: 8px 0 4px; padding-left: 0; border-left: none; }
+        }
         .nav-links a {
             padding: 6px 14px; border-radius: 20px;
             font-size: 0.875rem; color: var(--color-text-light);
@@ -715,6 +730,9 @@
                 background: transparent;
                 align-items: flex-start;
                 justify-content: flex-start;
+                /* desktop floating bubble must NOT intercept the mouse,
+                   otherwise it steals hover from the mascot card and the bubble flickers/closes */
+                pointer-events: none !important;
             }
             .bubble-popup {
                 position: absolute;
@@ -736,6 +754,23 @@
             .bubble-mascot-icon { font-size: 2rem; margin-bottom: 6px; }
             .bubble-text { font-size: 0.95rem; line-height: 1.6; margin: 0; }
         }
+        .nav-logo-icon svg {
+            vertical-align: middle;
+        }
+        /* Bilibili CTA */
+        .bilibili-btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: linear-gradient(135deg, #FB7299, #FC9DBF);
+            color: white !important; padding: 14px 32px;
+            border-radius: 999px; font-size: 1rem; font-weight: 600;
+            text-decoration: none; transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 6px 24px rgba(251,114,153,0.3);
+        }
+        .bilibili-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 32px rgba(251,114,153,0.4);
+        }
+        .bilibili-btn svg { flex-shrink: 0; }
     </style>
 </head>
 <body>
@@ -744,16 +779,23 @@
     <nav class="nav" id="nav">
         <div class="nav-inner">
             <a href="#" class="nav-logo">
-                <span class="emoji">🐔</span>
-                <span>大湾鸡</span>
+                <span class="nav-logo-icon">
+                    <svg width="28" height="28" viewBox="0 0 120 120"><defs><radialGradient id='ng'><stop offset='0%' stop-color='%23FF4D4D'/><stop offset='25%' stop-color='%23FF8C00'/><stop offset='50%' stop-color='%23FFD700'/><stop offset='75%' stop-color='%2300CC66'/><stop offset='100%' stop-color='%230066FF'/></radialGradient></defs><g transform='translate(60,60)'><g fill='url(#ng)'><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(0)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(30)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(60)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(90)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(120)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(150)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(180)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(210)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(240)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(270)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(300)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(330)'/></g><circle cx='0' cy='0' r='10' fill='%23FFD700'/></g></svg>
+                </span>
+                <span data-i18n="brand">大湾鸡</span>
             </a>
             <div class="nav-links" id="navLinks">
-                <a href="#origin">昵称由来</a>
-                <a href="#characters">认识两小只</a>
-                <a href="#design">设计解读</a>
-                <a href="#moments">精彩瞬间</a>
-                <a href="#impact">文化影响</a>
-                <a href="#disclaimer">使用声明</a>
+                <a href="#origin" data-i18n="nav_origin">昵称由来</a>
+                <a href="#characters" data-i18n="nav_chars">认识两小只</a>
+                <a href="#design" data-i18n="nav_design">设计解读</a>
+                <a href="#moments" data-i18n="nav_moments">精彩瞬间</a>
+                <a href="#impact" data-i18n="nav_impact">文化影响</a>
+                <a href="#disclaimer" data-i18n="nav_disclaimer">使用声明</a>
+                <div class="lang-switch" id="langSwitch">
+                    <button class="lang-btn active" data-lang-btn="zh">中文</button>
+                    <button class="lang-btn" data-lang-btn="en">EN</button>
+                    <button class="lang-btn" data-lang-btn="ru">RU</button>
+                </div>
             </div>
             <button class="nav-mobile-toggle" id="navToggle" aria-label="菜单">☰</button>
         </div>
@@ -787,18 +829,18 @@
         <div class="hero-content">
             <!-- Mascot SVG -->
             <div class="hero-mascot">
-                <img src="./imgs/dawanji-group.jpg" alt="大湾鸡——第十五届全运会吉祥物喜洋洋（白色白海豚）与乐融融（粉色白海豚）官方3D形象，头顶三色水花，胸前印有十五运会会徽" class="bubble-trigger" data-mascot="pair" data-bubble="我们是喜洋洋和乐融融！🎉&#10;第十五届全运会吉祥物，网友叫我们「大湾鸡」～" style="width:100%;max-width:460px;height:auto;border-radius:24px;box-shadow:0 12px 48px rgba(255,143,171,0.28);display:block;margin:0 auto;cursor:pointer;transform-origin:50% 100%;transition:transform 0.4s ease;">
+                <img src="./imgs/dawanji-group.jpg" alt="" data-i18n-alt="alt_hero" class="bubble-trigger" data-mascot="pair" data-i18n-bubble="bubble_pair" style="width:100%;max-width:460px;height:auto;border-radius:24px;box-shadow:0 12px 48px rgba(255,143,171,0.28);display:block;margin:0 auto;cursor:pointer;transform-origin:50% 100%;transition:transform 0.4s ease;">
             </div>
 
-            <h1 class="hero-title">大湾鸡</h1>
+            <h1 class="hero-title" data-i18n="brand">大湾鸡</h1>
             <p class="hero-subtitle">
-                第十五届全运会吉祥物「喜洋洋」和「乐融融」<br>
-                中华白海豚化身的国民萌物，从赛场到全网的文化现象
+                <span data-i18n="hero_sub1">第十五届全运会吉祥物「喜洋洋」和「乐融融」</span><br>
+                <span data-i18n="hero_sub2">中华白海豚化身的国民萌物，从赛场到全网的文化现象</span>
             </p>
             <div class="hero-tags">
-                <span class="hero-tag hero-tag--red">🌺 木棉红</span>
-                <span class="hero-tag hero-tag--purple">💜 紫荆紫</span>
-                <span class="hero-tag hero-tag--green">🌿 莲花绿</span>
+                <span class="hero-tag hero-tag--red">🌺 <span data-i18n="tag_red"><span data-i18n="tag_red">木棉红</span></span></span>
+                <span class="hero-tag hero-tag--purple">💜 <span data-i18n="tag_purple">紫荆紫</span></span>
+                <span class="hero-tag hero-tag--green">🌿 <span data-i18n="tag_green">莲花绿</span></span>
             </div>
         </div>
     </header>
@@ -808,48 +850,48 @@
         <div class="origin-story">
             <div class="section-header">
                 <span class="section-badge section-badge--pink">ORIGIN STORY</span>
-                <h2 class="section-title">"大湾鸡"是什么？</h2>
+                <h2 class="section-title" data-i18n="origin_title">"大湾鸡"是什么？</h2>
                 <p class="section-desc">
-                    从官方昵称到民间出圈，一对海豚吉祥物如何成为全网最火IP
+                    <span data-i18n="origin_sub">从官方昵称到民间出圈，一对海豚吉祥物如何成为全网最火IP</span>
                 </p>
             </div>
 
             <div class="origin-timeline">
                 <article class="timeline-item fade-in">
-                    <div class="timeline-label">🎨 设计诞生</div>
-                    <h3 class="timeline-title">中华白海豚化身吉祥物</h3>
+                    <div class="timeline-label">🎨 <span data-i18n="tl1_label">设计诞生</span></div>
+                    <h3 class="timeline-title" data-i18n="tl1_title">中华白海豚化身吉祥物</h3>
                     <p class="timeline-text">
-                        广州美术学院刘平云教授团队——也就是「冰墩墩」的设计团队——为第十五届全运会设计了吉祥物「喜洋洋」和「乐融融」。设计原型选择了一级保护动物中华白海豚，它们被称为「海上国宝」，而珠江口恰好是全球最大的中华白海豚栖息地，种群数量超过2000头。
+                        <span data-i18n="tl1_text">广州美术学院刘平云教授团队——也就是「冰墩墩」的设计团队——为第十五届全运会设计了吉祥物「喜洋洋」和「乐融融」。设计原型选择了一级保护动物中华白海豚，它们被称为「海上国宝」，而珠江口恰好是全球最大的中华白海豚栖息地，种群数量超过2000头。</span>
                     </p>
                 </article>
 
                 <article class="timeline-item fade-in">
-                    <div class="timeline-label">📛 命名寓意</div>
-                    <h3 class="timeline-title">喜气洋洋，其乐融融</h3>
+                    <div class="timeline-label">📛 <span data-i18n="tl2_label">命名寓意</span></div>
+                    <h3 class="timeline-title" data-i18n="tl2_title">喜气洋洋，其乐融融</h3>
                     <p class="timeline-text">
-                        白色吉祥物名为「喜洋洋」，粉色名为「乐融融」，合在一起就是「喜气洋洋、其乐融融」。两只分别呼应白色和粉色的中华白海豚，其肤色变化源自运动时血管充血的生理特征。圆润的身体搭配尖嘴造型，可爱到犯规。
+                        <span data-i18n="tl2_text">白色吉祥物名为「喜洋洋」，粉色名为「乐融融」，合在一起就是「喜气洋洋、其乐融融」。两只分别呼应白色和粉色的中华白海豚，其肤色变化源自运动时血管充血的生理特征。圆润的身体搭配尖嘴造型，可爱到犯规。</span>
                     </p>
                 </article>
 
                 <article class="timeline-item fade-in">
-                    <div class="timeline-label">🐔 昵称出圈</div>
-                    <h3 class="timeline-title">从海豚到"大湾鸡"的奇妙变身</h3>
+                    <div class="timeline-label">🐬 <span data-i18n="tl3_label">昵称出圈</span></div>
+                    <h3 class="timeline-title" data-i18n="tl3_title">从海豚到"大湾鸡"的奇妙变身</h3>
                     <p class="timeline-text">
-                        由于造型过于圆润，头顶的彩色水花酷似鸡冠，再加上尖尖的小嘴巴——网友们纷纷表示：这不就是广东名菜「白切鸡」和「豉油鸡」吗？！于是一声「大湾鸡」横空出世，比官方名字还响亮，迅速成为全网统一的昵称。从海豚到鸡，这波属实是广东特色了。
+                        <span data-i18n="tl3_text">由于造型过于圆润，头顶的彩色水花酷似鸡冠，再加上尖尖的小嘴巴——网友们纷纷表示：这不就是广东名菜「白切鸡」和「豉油鸡」吗？！于是一声「大湾鸡」横空出世，比官方名字还响亮，迅速成为全网统一的昵称。从海豚到鸡，这波属实是广东特色了。</span>
                     </p>
                 </article>
 
                 <article class="timeline-item fade-in">
-                    <div class="timeline-label">🔥 全民狂欢</div>
-                    <h3 class="timeline-title">开幕式一夜封神</h3>
+                    <div class="timeline-label">🔥 <span data-i18n="tl4_label">全民狂欢</span></div>
+                    <h3 class="timeline-title" data-i18n="tl4_title">开幕式一夜封神</h3>
                     <p class="timeline-text">
-                        2025年11月，全运会开幕式上，武校少年身穿吉祥物服装，做出了倒立、蹦迪、单腿旋转等一系列高难度又萌态十足的动作。视频在抖音播放量迅速突破3.7亿次，「大湾鸡」正式从体育圈杀入全民视野，成为现象级文化符号。
+                        <span data-i18n="tl4_text">2025年11月，全运会开幕式上，武校少年身穿吉祥物服装，做出了倒立、蹦迪、单腿旋转等一系列高难度又萌态十足的动作。视频在抖音播放量迅速突破3.7亿次，「大湾鸡」正式从体育圈杀入全民视野，成为现象级文化符号。</span>
                     </p>
                 </article>
             </div>
 
             <div class="quote-box fade-in">
-                从中华白海豚到白切鸡，从官方设计到全民玩梗——大湾鸡的出圈之路，本身就是一段精彩的文化故事。
+                <span data-i18n="origin_outro">从中华白海豚到白切鸡，从官方设计到全民玩梗——大湾鸡的出圈之路，本身就是一段精彩的文化故事。</span>
             </div>
         </div>
     </section>
@@ -859,37 +901,37 @@
         <section id="characters" class="section" style="padding-top:0;padding-bottom:0;">
             <div class="section-header">
                 <span class="section-badge section-badge--green">MEET THE MASCOTS</span>
-                <h2 class="section-title">认识两小只</h2>
+                <h2 class="section-title" data-i18n="nav_chars">认识两小只</h2>
                 <p class="section-desc">
-                    一白一粉，一对中华白海豚兄弟，网友口中的「白切鸡」与「豉油鸡」
+                    <span data-i18n="chars_sub">一白一粉，一对中华白海豚兄弟，网友口中的「白切鸡」与「豉油鸡」</span>
                 </p>
             </div>
 
             <div class="char-grid">
-                <div class="char-card char-card--white fade-in bubble-trigger" data-mascot="white" data-bubble="你好，我是喜洋洋！🤍&#10;白色的中华白海豚，性格安静内敛～">
+                <div class="char-card char-card--white fade-in bubble-trigger" data-mascot="white" data-i18n-bubble="bubble_white">
                     <div class="char-card-image-wrap">
-                        <img src="./imgs/xiyangyang.jpg" alt="喜洋洋——白色中华白海豚吉祥物" loading="lazy">
-                        <div class="bubble-hint">嗨！点我认识我 👋</div>
+                        <img src="./imgs/xiyangyang.jpg" alt="" data-i18n-alt="alt_white" loading="lazy">
+                        <div class="bubble-hint"><span data-i18n="hint_tap">嗨！点我认识我 👋</span></div>
                     </div>
                     <div class="char-card-body">
-                        <div class="char-card-name">喜洋洋</div>
-                        <div class="char-card-nick">🤍 白色 · 昵称「白切鸡」· i 人担当</div>
+                        <div class="char-card-name" data-i18n="name_white">喜洋洋</div>
+                        <div class="char-card-nick" data-i18n="nick_white">🤍 白色 · 昵称「白切鸡」· i 人担当</div>
                         <p class="char-card-text">
-                            白色的「喜洋洋」对应常态下的中华白海豚，性格安静内敛，被网友戏称为 i 人。设计团队特意把技巧型运动项目分配给它，聪明又灵巧。
+                            <span data-i18n="desc_white">白色的「喜洋洋」对应常态下的中华白海豚，性格安静内敛，被网友戏称为 i 人。设计团队特意把技巧型运动项目分配给它，聪明又灵巧。</span>
                         </p>
                     </div>
                 </div>
 
-                <div class="char-card char-card--pink fade-in bubble-trigger" data-mascot="pink" data-bubble="你好，我是乐融融！💗&#10;粉色的中华白海豚，活泼外向充满活力～">
+                <div class="char-card char-card--pink fade-in bubble-trigger" data-mascot="pink" data-i18n-bubble="bubble_pink">
                     <div class="char-card-image-wrap">
-                        <img src="./imgs/lerongrong.jpg" alt="乐融融——粉色中华白海豚吉祥物" loading="lazy">
+                        <img src="./imgs/lerongrong.jpg" alt="" data-i18n-alt="alt_pink" loading="lazy">
                         <div class="bubble-hint">嗨！点我认识我 👋</div>
                     </div>
                     <div class="char-card-body">
-                        <div class="char-card-name">乐融融</div>
-                        <div class="char-card-nick">💗 粉色 · 昵称「豉油鸡」· e 人担当</div>
+                        <div class="char-card-name" data-i18n="name_pink">乐融融</div>
+                        <div class="char-card-nick" data-i18n="nick_pink">💗 粉色 · 昵称「豉油鸡」· e 人担当</div>
                         <p class="char-card-text">
-                            粉色的「乐融融」源自白海豚运动时血管充血变粉的生理特征，活泼外向，是名副其实的 e 人。力量型运动项目都归它，热情又有活力。
+                            <span data-i18n="desc_pink">粉色的「乐融融」源自白海豚运动时血管充血变粉的生理特征，活泼外向，是名副其实的 e 人。力量型运动项目都归它，热情又有活力。</span>
                         </p>
                     </div>
                 </div>
@@ -902,9 +944,9 @@
         <section id="design" class="section" style="padding-top:0;padding-bottom:0;">
             <div class="section-header">
                 <span class="section-badge section-badge--purple">DESIGN STORY</span>
-                <h2 class="section-title">设计解读</h2>
+                <h2 class="section-title" data-i18n="nav_design">设计解读</h2>
                 <p class="section-desc">
-                    每一个设计细节都有深意，从科学到文化的层层巧思
+                    <span data-i18n="design_sub">每一个设计细节都有深意，从科学到文化的层层巧思</span>
                 </p>
             </div>
 
@@ -929,9 +971,9 @@
                         </svg>
                     </div>
                     <div class="design-card-body">
-                        <h3 class="design-card-title">🐬 原型：中华白海豚</h3>
+                        <h3 class="design-card-title">🐬 <span data-i18n="d1_title">原型：中华白海豚</span></h3>
                         <p class="design-card-text">
-                            中华白海豚被誉为「海上国宝」，是国家一级保护动物。珠江口水域是全球最大的中华白海豚栖息地，种群数量超过2000头。选择中华白海豚作为原型，既体现了粤港澳三地的生态纽带，也传递了海洋保护的深层理念。
+                            <span data-i18n="d1_text">中华白海豚被誉为「海上国宝」，是国家一级保护动物。珠江口水域是全球最大的中华白海豚栖息地，种群数量超过2000头。选择中华白海豚作为原型，既体现了粤港澳三地的生态纽带，也传递了海洋保护的深层理念。</span>
                         </p>
                     </div>
                 </div>
@@ -974,18 +1016,18 @@
                                 <circle cx="0" cy="0" r="6" fill="#40E0B0"/>
                             </g>
                             <!-- Labels -->
-                            <text x="45" y="90" text-anchor="middle" fill="#E63946" font-size="11" font-weight="600">木棉红</text>
-                            <text x="100" y="85" text-anchor="middle" fill="#9B5DE5" font-size="11" font-weight="600">紫荆紫</text>
-                            <text x="155" y="90" text-anchor="middle" fill="#048A68" font-size="11" font-weight="600">莲花绿</text>
+                            <text x="45" y="90" text-anchor="middle" fill="#E63946" font-size="11" font-weight="600" data-i18n="tag_red">木棉红</text>
+                            <text x="100" y="85" text-anchor="middle" fill="#9B5DE5" font-size="11" font-weight="600" data-i18n="tag_purple">紫荆紫</text>
+                            <text x="155" y="90" text-anchor="middle" fill="#048A68" font-size="11" font-weight="600" data-i18n="tag_green">莲花绿</text>
                             <!-- Connecting arc -->
                             <path d="M 45 100 Q 100 120 155 100" fill="none" stroke="#DDD" stroke-width="1.5" stroke-dasharray="4,3"/>
-                            <text x="100" y="125" text-anchor="middle" fill="#888" font-size="10">粤港澳同心</text>
+                            <text x="100" y="125" text-anchor="middle" fill="#888" font-size="10" data-i18n="d_svg_united">粤港澳同心</text>
                         </svg>
                     </div>
                     <div class="design-card-body">
-                        <h3 class="design-card-title">🌸 三色水花密码</h3>
+                        <h3 class="design-card-title">🌸 <span data-i18n="d2_title">三色水花密码</span></h3>
                         <p class="design-card-text">
-                            头顶三朵彩色水花是整个设计的灵魂：红色代表广东的木棉花，紫色代表香港的紫荆花，绿色代表澳门的莲花。三种颜色汇聚在一起，象征粤港澳三地同心协力，共同举办这场体育盛会。水花的造型也巧妙呼应了海豚跃出水面的瞬间。
+                            <span data-i18n="d2_text">头顶三朵彩色水花是整个设计的灵魂：红色代表广东的木棉花，紫色代表香港的紫荆花，绿色代表澳门的莲花。三种颜色汇聚在一起，象征粤港澳三地同心协力，共同举办这场体育盛会。水花的造型也巧妙呼应了海豚跃出水面的瞬间。</span>
                         </p>
                     </div>
                 </div>
@@ -999,12 +1041,12 @@
                                 <ellipse cx="35" cy="35" rx="28" ry="24" fill="#E8F0FE" stroke="#C0D8F0" stroke-width="1.5"/>
                                 <circle cx="28" cy="30" r="3" fill="#2D2D3A"/>
                                 <circle cx="27" cy="29" r="1" fill="white"/>
-                                <text x="35" y="80" text-anchor="middle" fill="#5A8FB0" font-size="10" font-weight="600">静态</text>
-                                <text x="35" y="95" text-anchor="middle" fill="#5A8FB0" font-size="9">偏白色</text>
+                                <text x="35" y="80" text-anchor="middle" fill="#5A8FB0" font-size="10" font-weight="600" data-i18n="d_svg_static">静态</text>
+                                <text x="35" y="95" text-anchor="middle" fill="#5A8FB0" font-size="9" data-i18n="d_svg_whiteish">偏白色</text>
                             </g>
                             <!-- Arrow -->
                             <path d="M 90 55 L 110 55" fill="none" stroke="#AAA" stroke-width="2" marker-end="url(#arrowhead)"/>
-                            <text x="100" y="45" text-anchor="middle" fill="#888" font-size="9">运动充血</text>
+                            <text x="100" y="45" text-anchor="middle" fill="#888" font-size="9" data-i18n="d_svg_exercise">运动充血</text>
                             <!-- Pink dolphin -->
                             <g transform="translate(120, 30)">
                                 <ellipse cx="35" cy="35" rx="28" ry="24" fill="#FFE0E9" stroke="#FFB3C6" stroke-width="1.5"/>
@@ -1012,8 +1054,8 @@
                                 <circle cx="27" cy="29" r="1" fill="white"/>
                                 <!-- Blush effect -->
                                 <ellipse cx="42" cy="38" rx="8" ry="5" fill="#FF8FAB" opacity="0.3"/>
-                                <text x="35" y="80" text-anchor="middle" fill="#D4586A" font-size="10" font-weight="600">运动</text>
-                                <text x="35" y="95" text-anchor="middle" fill="#D4586A" font-size="9">变粉色</text>
+                                <text x="35" y="80" text-anchor="middle" fill="#D4586A" font-size="10" font-weight="600" data-i18n="d_svg_active">运动</text>
+                                <text x="35" y="95" text-anchor="middle" fill="#D4586A" font-size="9" data-i18n="d_svg_pinkish">变粉色</text>
                             </g>
                             <defs>
                                 <marker id="arrowhead" markerWidth="6" markerHeight="4" refX="6" refY="2" orient="auto">
@@ -1023,9 +1065,9 @@
                         </svg>
                     </div>
                     <div class="design-card-body">
-                        <h3 class="design-card-title">🎨 粉白配色的科学依据</h3>
+                        <h3 class="design-card-title">🎨 <span data-i18n="d3_title">粉白配色的科学依据</span></h3>
                         <p class="design-card-text">
-                            喜洋洋的白色和乐融融的粉色，并非随意选择——这源于中华白海豚真实的生理特征！当白海豚在水中高速运动时，血管会充血，皮肤颜色会从灰白逐渐变为粉色。设计师巧妙地将这一科学事实融入配色，白色代表静态的优雅，粉色代表运动的活力。
+                            <span data-i18n="d3_text">喜洋洋的白色和乐融融的粉色，并非随意选择——这源于中华白海豚真实的生理特征！当白海豚在水中高速运动时，血管会充血，皮肤颜色会从灰白逐渐变为粉色。设计师巧妙地将这一科学事实融入配色，白色代表静态的优雅，粉色代表运动的活力。</span>
                         </p>
                     </div>
                 </div>
@@ -1038,105 +1080,110 @@
         <section id="moments" class="section" style="padding-top:0;padding-bottom:0;">
             <div class="section-header">
                 <span class="section-badge section-badge--green">HIGHLIGHTS</span>
-                <h2 class="section-title">精彩瞬间</h2>
+                <h2 class="section-title" data-i18n="nav_moments">精彩瞬间</h2>
                 <p class="section-desc">
-                    开幕式上那些让人忍不住反复观看的名场面
+                    <span data-i18n="moments_sub">开幕式上那些让人忍不住反复观看的名场面</span>
                 </p>
             </div>
 
             <div class="moment-grid">
                 <div class="moment-card fade-in">
                     <span class="moment-emoji">🤸</span>
-                    <h3 class="moment-title">倒立亮相</h3>
+                    <h3 class="moment-title" data-i18n="m1_title">倒立亮相</h3>
                     <p class="moment-text">
-                        武校少年扮演的「大湾鸡」在开幕式上一上来就放了个大招——稳稳当当来了个倒立！圆滚滚的身体倒过来的样子萌翻全场，观众席瞬间沸腾。
+                        <span data-i18n="m1_text">武校少年扮演的「大湾鸡」在开幕式上一上来就放了个大招——稳稳当当来了个倒立！圆滚滚的身体倒过来的样子萌翻全场，观众席瞬间沸腾。</span>
                     </p>
                 </div>
 
                 <div class="moment-card fade-in">
                     <span class="moment-emoji">💃</span>
-                    <h3 class="moment-title">蹦迪名场面</h3>
+                    <h3 class="moment-title" data-i18n="m2_title">蹦迪名场面</h3>
                     <p class="moment-text">
-                        谁能想到全运会开幕式上会出现蹦迪环节？「大湾鸡」随着音乐节奏蹦蹦跳跳，圆滚滚的身躯配合灵活的舞步，反差萌直接拉满。
+                        <span data-i18n="m2_text">谁能想到全运会开幕式上会出现蹦迪环节？「大湾鸡」随着音乐节奏蹦蹦跳跳，圆滚滚的身躯配合灵活的舞步，反差萌直接拉满。</span>
                     </p>
                 </div>
 
                 <div class="moment-card fade-in">
                     <span class="moment-emoji">🩰</span>
-                    <h3 class="moment-title">单腿旋转</h3>
+                    <h3 class="moment-title" data-i18n="m3_title">单腿旋转</h3>
                     <p class="moment-text">
-                        最令人惊叹的当属单腿旋转！穿着笨重道具服的少年竟然完成了一个漂亮的旋转，「大湾鸡」在舞台上转成了一个小陀螺，全网直呼「太厉害了」。
+                        <span data-i18n="m3_text">最令人惊叹的当属单腿旋转！穿着笨重道具服的少年竟然完成了一个漂亮的旋转，「大湾鸡」在舞台上转成了一个小陀螺，全网直呼「太厉害了」。</span>
                     </p>
                 </div>
 
                 <div class="moment-card fade-in">
                     <span class="moment-emoji">📱</span>
-                    <h3 class="moment-title">3.7亿播放</h3>
+                    <h3 class="moment-title" data-i18n="m4_title">3.7亿播放</h3>
                     <p class="moment-text">
-                        开幕式视频在抖音上播放量突破3.7亿次。「大湾鸡」的表演片段被疯狂转发和二创，从体育频道火到娱乐热搜，真正实现了全民关注。
+                        <span data-i18n="m4_text">开幕式视频在抖音上播放量突破3.7亿次。「大湾鸡」的表演片段被疯狂转发和二创，从体育频道火到娱乐热搜，真正实现了全民关注。</span>
                     </p>
                 </div>
 
                 <div class="moment-card fade-in">
                     <span class="moment-emoji">🧸</span>
-                    <h3 class="moment-title">周边疯抢</h3>
+                    <h3 class="moment-title" data-i18n="m5_title">周边疯抢</h3>
                     <p class="moment-text">
-                        2800多款周边商品上线即售罄！毛绒玩偶、钥匙扣、盲盒……销售量突破600万个，一举超越前辈「冰墩墩」，成为全运会历史上最畅销的吉祥物周边。
+                        <span data-i18n="m5_text">2800多款周边商品上线即售罄！毛绒玩偶、钥匙扣、盲盒……销售量突破600万个，一举超越前辈「冰墩墩」，成为全运会历史上最畅销的吉祥物周边。</span>
                     </p>
                 </div>
 
                 <div class="moment-card fade-in">
                     <span class="moment-emoji">😂</span>
-                    <h3 class="moment-title">白切鸡 vs 豉油鸡</h3>
+                    <h3 class="moment-title" data-i18n="m6_title">白切鸡 vs 豉油鸡</h3>
                     <p class="moment-text">
-                        白色的是「白切鸡」，粉色的是「豉油鸡」——广东网友的吃货脑洞让全国人民笑到停不下来。「大湾鸡」这个昵称，大概是全运会历史上最接地气的吉祥物外号了。
+                        <span data-i18n="m6_text">白色的是「白切鸡」，粉色的是「豉油鸡」——广东网友的吃货脑洞让全国人民笑到停不下来。「大湾鸡」这个昵称，大概是全运会历史上最接地气的吉祥物外号了。</span>
                     </p>
                 </div>
             </div>
+            <!-- Bilibili link -->
+            <div class="bilibili-cta" style="text-align:center;margin-top:48px;">
+                <a href="https://search.bilibili.com/all?keyword=%E5%A4%A7%E6%B9%BE%E9%B8%A1" target="_blank" rel="noopener" class="bilibili-btn">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="white" style="vertical-align:middle;margin-right:8px;"><path d="M17.813 4.653h.854c1.51.054 2.769.578 3.773 1.574 1.004.995 1.524 2.249 1.56 3.76v7.36c-.036 1.51-.556 2.769-1.56 3.773s-2.262 1.524-3.773 1.56H5.333c-1.51-.036-2.769-.556-3.773-1.56S.036 18.858 0 17.347v-7.36c.036-1.511.556-2.765 1.56-3.76 1.004-.996 2.262-1.52 3.773-1.574h.774l-1.174-1.12a1.234 1.234 0 0 1-.373-.906c0-.356.124-.658.373-.907l.027-.027c.267-.249.573-.373.92-.373.347 0 .653.124.92.373L9.653 4.44c.071.071.134.142.187.213h4.267a.836.836 0 0 1 .16-.213l2.853-2.747c.267-.249.573-.373.92-.373.347 0 .662.151.929.4.267.249.391.551.391.907 0 .355-.124.657-.373.906zM5.333 7.24c-.746.018-1.373.276-1.88.773-.506.498-.769 1.13-.786 1.894v7.52c.017.764.28 1.395.786 1.893.507.498 1.134.756 1.88.773h13.334c.746-.017 1.373-.275 1.88-.773.506-.498.769-1.129.786-1.893v-7.52c-.017-.765-.28-1.396-.786-1.894-.507-.497-1.134-.755-1.88-.773zM8 11.107c.373 0 .684.124.933.373.25.249.383.569.4.96v1.173c-.017.391-.15.711-.4.96-.249.25-.56.374-.933.374s-.684-.125-.933-.374c-.25-.249-.383-.569-.4-.96V12.44c.017-.391.15-.711.4-.96.249-.249.56-.373.933-.373zm8 0c.373 0 .684.124.933.373.25.249.383.569.4.96v1.173c-.017.391-.15.711-.4.96-.249.25-.56.374-.933.374s-.684-.125-.933-.374c-.25-.249-.383-.569-.4-.96V12.44c.017-.391.15-.711.4-.96.249-.249.56-.373.933-.373z"/></svg>
+                    <span data-i18n="bili_btn">看更多大湾鸡视频 → 哔哩哔哩</span>
+                </a>
+            </div>
         </section>
     </div>
-
-    <!-- Impact Section -->
     <section id="impact" class="stats-section" style="padding: 80px 0;">
         <div class="section" style="padding-top:0;padding-bottom:0;">
             <div class="section-header">
                 <span class="section-badge section-badge--pink">CULTURAL IMPACT</span>
-                <h2 class="section-title">文化影响</h2>
+                <h2 class="section-title" data-i18n="nav_impact">文化影响</h2>
                 <p class="section-desc">
-                    从赛场吉祥物到国民文化符号，数据见证大湾鸡的破圈之路
+                    <span data-i18n="impact_sub">从赛场吉祥物到国民文化符号，数据见证大湾鸡的破圈之路</span>
                 </p>
             </div>
 
             <div class="stats-grid">
                 <div class="stat-card fade-in">
-                    <div class="stat-number stat-number--pink" data-target="3.7">0</div>
-                    <div class="stat-label">亿次 · 抖音播放量</div>
+                    <div class="stat-number stat-number--pink" data-target="3.7" data-i18n-num="num_views">0</div>
+                    <div class="stat-label" data-i18n="stat_views">亿次 · 抖音播放量</div>
                 </div>
                 <div class="stat-card fade-in">
-                    <div class="stat-number stat-number--purple" data-target="2800">0</div>
-                    <div class="stat-label">款 · 周边商品</div>
+                    <div class="stat-number stat-number--purple" data-target="2800" data-i18n-num="num_goods">0</div>
+                    <div class="stat-label" data-i18n="stat_goods">款 · 周边商品</div>
                 </div>
                 <div class="stat-card fade-in">
-                    <div class="stat-number stat-number--green" data-target="600">0</div>
-                    <div class="stat-label">万+ · 周边销售量</div>
+                    <div class="stat-number stat-number--green" data-target="600" data-i18n-num="num_sales">0</div>
+                    <div class="stat-label" data-i18n="stat_sales">万+ · 周边销售量</div>
                 </div>
                 <div class="stat-card fade-in">
-                    <div class="stat-number stat-number--orange" data-target="2000">0</div>
-                    <div class="stat-label">头+ · 中华白海豚种群</div>
+                    <div class="stat-number stat-number--orange" data-target="2000" data-i18n-num="num_dolphins">0</div>
+                    <div class="stat-label" data-i18n="stat_dolphins">头+ · 中华白海豚种群</div>
                 </div>
             </div>
 
             <div style="margin-top: 48px;">
                 <div class="card fade-in" style="max-width: 800px; margin: 0 auto; text-align: center;">
-                    <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 16px;">🏆 超越冰墩墩的里程碑</h3>
+                    <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 16px;"><span data-i18n="impact_milestone">🏆 超越冰墩墩的里程碑</span></h3>
                     <p style="font-size: 0.95rem; color: var(--color-text-light); line-height: 1.8;">
-                        「大湾鸡」周边商品销售量超过600万个，超越了2022年冬奥会的现象级IP「冰墩墩」。更令人惊喜的是，设计团队一脉相承——都来自广州美术学院刘平云教授团队。从冰墩墩到大湾鸡，这个团队似乎掌握了「全民萌物」的设计密码。而「大湾鸡」更独特的地方在于，它不仅有可爱的外表，更承载着粤港澳三地文化融合的深层意义。
+                        <span data-i18n="impact_text">「大湾鸡」周边商品销售量超过600万个，超越了2022年冬奥会的现象级IP「冰墩墩」。更令人惊喜的是，设计团队一脉相承——都来自广州美术学院刘平云教授团队。从冰墩墩到大湾鸡，这个团队似乎掌握了「全民萌物」的设计密码。而「大湾鸡」更独特的地方在于，它不仅有可爱的外表，更承载着粤港澳三地文化融合的深层意义。</span>
                     </p>
                     <div class="badge-row">
-                        <span class="mini-badge"><span class="mini-badge-dot" style="background:var(--color-red)"></span>第十五届全运会</span>
-                        <span class="mini-badge"><span class="mini-badge-dot" style="background:var(--color-purple)"></span>广州美术学院</span>
-                        <span class="mini-badge"><span class="mini-badge-dot" style="background:var(--color-green)"></span>粤港澳三地联办</span>
-                        <span class="mini-badge"><span class="mini-badge-dot" style="background:var(--color-pink)"></span>刘平云教授团队</span>
+                        <span class="mini-badge"><span class="mini-badge-dot" style="background:var(--color-red)"></span><span data-i18n="badge1">第十五届全运会</span></span>
+                        <span class="mini-badge"><span class="mini-badge-dot" style="background:var(--color-purple)"></span><span data-i18n="badge2">广州美术学院</span></span>
+                        <span class="mini-badge"><span class="mini-badge-dot" style="background:var(--color-green)"></span><span data-i18n="badge3">粤港澳三地联办</span></span>
+                        <span class="mini-badge"><span class="mini-badge-dot" style="background:var(--color-pink)"></span><span data-i18n="badge4">刘平云教授团队</span></span>
                     </div>
                 </div>
             </div>
@@ -1147,20 +1194,20 @@
     <div class="disclaimer-section" style="padding: 80px 24px;">
         <section id="disclaimer" class="section" style="padding-top:0;padding-bottom:0;">
             <div class="disclaimer-box fade-in">
-                <h2 class="disclaimer-title">📋 非商业使用声明</h2>
+                <h2 class="disclaimer-title">📋 <span data-i18n="disclaimer_title">非商业使用声明</span></h2>
                 <ul class="disclaimer-list">
-                    <li>本站为粉丝/爱好者自发制作的非官方网站，仅供个人学习和分享使用，与本站涉及的任何商业主体无任何关联。</li>
-                    <li>本站与第十五届全运会组委会、吉祥物设计团队（广州美术学院刘平云教授团队）无任何官方合作关系，不代表任何官方立场。</li>
-                    <li>本站所有内容仅用于非商业目的的信息分享和文化交流，不用于任何盈利性用途。</li>
-                    <li>吉祥物「喜洋洋」「乐融融」（昵称「大湾鸡」）的全部知识产权归第十五届全运会组委会及相关权利人所有。</li>
-                    <li>本站未使用任何官方图片素材，所有视觉元素均为使用 CSS/SVG 技术独立制作的致敬性创作。</li>
-                    <li>本站不销售任何商品，不接受商业赞助，不投放商业广告。</li>
-                    <li>如本站内容涉及版权问题，请联系站长邮箱 <a href="mailto:tony994150378@163.com" style="color:#B06AB3;text-decoration:underline;font-weight:600;">tony994150378@163.com</a>，经核实确认侵权后将立即下架、删除或修改相关内容。</li>
-                    <li>本站承诺「联系即处理」：无论是权利人、代理方还是网友发现任何不妥之处，均可通过上述邮箱联系，站长核实后将第一时间响应并处理。</li>
+                    <li data-i18n="dcl1">本站为粉丝/爱好者自发制作的非官方网站，仅供个人学习和分享使用，与本站涉及的任何商业主体无任何关联。</li>
+                    <li data-i18n="dcl2">本站与第十五届全运会组委会、吉祥物设计团队（广州美术学院刘平云教授团队）无任何官方合作关系，不代表任何官方立场。</li>
+                    <li data-i18n="dcl3">本站所有内容仅用于非商业目的的信息分享和文化交流，不用于任何盈利性用途。</li>
+                    <li data-i18n="dcl4">吉祥物「喜洋洋」「乐融融」（昵称「大湾鸡」）的全部知识产权归第十五届全运会组委会及相关权利人所有。</li>
+                    <li data-i18n="dcl5">本站未使用任何官方图片素材，所有视觉元素均为使用 CSS/SVG 技术独立制作的致敬性创作。</li>
+                    <li data-i18n="dcl6">本站不销售任何商品，不接受商业赞助，不投放商业广告。</li>
+                    <li><span data-i18n="dcl7_pre">如本站内容涉及版权问题，请联系站长邮箱 </span><a href="mailto:tony994150378@163.com" style="color:#B06AB3;text-decoration:underline;font-weight:600;">tony994150378@163.com</a>，经核实确认侵权后将立即下架、删除或修改相关内容。</li>
+                    <li data-i18n="dcl8">本站承诺「联系即处理」：无论是权利人、代理方还是网友发现任何不妥之处，均可通过上述邮箱联系，站长核实后将第一时间响应并处理。</li>
                 </ul>
                 <p class="disclaimer-note">
-                    本站仅是一个粉丝用爱发电的小站 🕊️ 感谢设计团队创造了这么美好的作品<br>
-                    联系站长：<a href="mailto:tony994150378@163.com" style="color:#B06AB3;text-decoration:underline;font-weight:600;">tony994150378@163.com</a>
+                    <span data-i18n="footer_note">本站仅是一个粉丝用爱发电的小站 🕊️ 感谢设计团队创造了这么美好的作品</span><br>
+                    <span data-i18n="contact_webmaster">联系站长：</span><a href="mailto:tony994150378@163.com" style="color:#B06AB3;text-decoration:underline;font-weight:600;">tony994150378@163.com</a>
                 </p>
             </div>
         </section>
@@ -1168,16 +1215,16 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="footer-brand">🐔 大湾鸡主题站</div>
+        <div class="footer-brand"><span data-i18n="footer_brand">🌊 大湾鸡主题站</span></div>
         <p class="footer-text">
-            用 <span class="footer-heart">♥</span> 制作 · 粉丝非商业作品<br>
-            愿粤港澳三地 · 喜气洋洋 · 其乐融融
+            <span data-i18n="footer_made">用 <span class="footer-heart">♥</span> 制作 · 粉丝非商业作品</span><br>
+            <span data-i18n="footer_wish">愿粤港澳三地 · 喜气洋洋 · 其乐融融</span>
         </p>
         <p class="footer-text" style="margin-top: 8px; font-size: 0.85rem;">
             联系站长：<a href="mailto:tony994150378@163.com" style="color:#B06AB3;text-decoration:underline;">tony994150378@163.com</a>
         </p>
         <p class="footer-text" style="margin-top: 12px; font-size: 0.75rem; opacity: 0.6;">
-            © 2025 大湾鸡粉丝站 · 本站与第十五届全运会组委会无官方关联
+            <span data-i18n="footer_copy">© 2025 大湾鸡粉丝站 · 本站与第十五届全运会组委会无官方关联</span>
         </p>
     </footer>
 
@@ -1304,7 +1351,9 @@
         const triggers = document.querySelectorAll('.bubble-trigger');
 
         function fillBubble(card) {
-            const text = card.getAttribute('data-bubble') || '';
+            const iKey = card.getAttribute('data-i18n-bubble');
+            const curLang = document.documentElement.getAttribute('data-lang') || 'zh';
+            let text = (iKey && I18N[curLang] && I18N[curLang][iKey]) || card.getAttribute('data-bubble') || '';
             // Decode HTML entities (for newline &#10; in data attr)
             bubbleText.textContent = text.replace(/&#10;/g, '\n');
             const mascot = card.getAttribute('data-mascot');
@@ -1404,5 +1453,295 @@
             hints.forEach(h => h.classList.remove('initial-show'));
         }, 3000);
     </script>
+
+    <!-- ===== i18n: Chinese / English / Russian ===== -->
+    <script>
+    const I18N = {
+        zh: {
+            _docTitle: "大湾鸡 — 第十五届全运会吉祥物主题站",
+            num_views: 3.7, num_goods: 2800, num_sales: 600, num_dolphins: 2000,
+            brand: "大湾鸡",
+            nav_origin: "昵称由来", nav_chars: "认识两小只", nav_design: "设计解读",
+            nav_moments: "精彩瞬间", nav_impact: "文化影响", nav_disclaimer: "使用声明",
+            hero_sub1: "第十五届全运会吉祥物「喜洋洋」和「乐融融」",
+            hero_sub2: "中华白海豚化身的国民萌物，从赛场到全网的文化现象",
+            tag_red: "木棉红", tag_purple: "紫荆紫", tag_green: "莲花绿",
+            origin_title: "\u201c大湾鸡\u201d是什么？",
+            origin_sub: "从官方昵称到民间出圈，一对海豚吉祥物如何成为全网最火IP",
+            tl1_label: "设计诞生", tl1_title: "中华白海豚化身吉祥物",
+            tl1_text: "广州美术学院刘平云教授团队——也就是「冰墩墩」的设计团队——为第十五届全运会设计了吉祥物「喜洋洋」和「乐融融」。设计原型选择了一级保护动物中华白海豚，它们被称为「海上国宝」，而珠江口恰好是全球最大的中华白海豚栖息地，种群数量超过2000头。",
+            tl2_label: "命名寓意", tl2_title: "喜气洋洋，其乐融融",
+            tl2_text: "白色吉祥物名为「喜洋洋」，粉色名为「乐融融」，合在一起就是「喜气洋洋、其乐融融」。两只分别呼应白色和粉色的中华白海豚，其肤色变化源自运动时血管充血的生理特征。圆润的身体搭配尖嘴造型，可爱到犯规。",
+            tl3_label: "昵称出圈", tl3_title: "从海豚到\u201c大湾鸡\u201d的奇妙变身",
+            tl3_text: "由于造型过于圆润，头顶的彩色水花酷似鸡冠，再加上尖尖的小嘴巴——网友们纷纷表示：这不就是广东名菜「白切鸡」和「豉油鸡」吗？！于是一声「大湾鸡」横空出世，比官方名字还响亮，迅速成为全网统一的昵称。从海豚到鸡，这波属实是广东特色了。",
+            tl4_label: "全民狂欢", tl4_title: "开幕式一夜封神",
+            tl4_text: "2025年11月，全运会开幕式上，武校少年身穿吉祥物服装，做出了倒立、蹦迪、单腿旋转等一系列高难度又萌态十足的动作。视频在抖音播放量迅速突破3.7亿次，「大湾鸡」正式从体育圈杀入全民视野，成为现象级文化符号。",
+            origin_outro: "从中华白海豚到白切鸡，从官方设计到全民玩梗——大湾鸡的出圈之路，本身就是一段精彩的文化故事。",
+            chars_sub: "一白一粉，一对中华白海豚兄弟，网友口中的「白切鸡」与「豉油鸡」",
+            hint_tap: "嗨！点我认识我 👋",
+            name_white: "喜洋洋",
+            nick_white: "🤍 白色 · 昵称「白切鸡」· i 人担当",
+            desc_white: "白色的「喜洋洋」对应常态下的中华白海豚，性格安静内敛，被网友戏称为 i 人。设计团队特意把技巧型运动项目分配给它，聪明又灵巧。",
+            name_pink: "乐融融",
+            nick_pink: "💗 粉色 · 昵称「豉油鸡」· e 人担当",
+            desc_pink: "粉色的「乐融融」源自白海豚运动时血管充血变粉的生理特征，活泼外向，是名副其实的 e 人。力量型运动项目都归它，热情又有活力。",
+            bubble_white: "你好，我是喜洋洋！🤍\n白色的中华白海豚，性格安静内敛～",
+            bubble_pink: "你好，我是乐融融！💗\n粉色的中华白海豚，活泼外向充满活力～",
+            bubble_pair: "我们是喜洋洋和乐融融！🎉\n第十五届全运会吉祥物，网友叫我们「大湾鸡」～",
+            design_sub: "每一个设计细节都有深意，从科学到文化的层层巧思",
+            d1_title: "原型：中华白海豚",
+            d1_text: "中华白海豚被誉为「海上国宝」，是国家一级保护动物。珠江口水域是全球最大的中华白海豚栖息地，种群数量超过2000头。选择中华白海豚作为原型，既体现了粤港澳三地的生态纽带，也传递了海洋保护的深层理念。",
+            d_svg_united: "粤港澳同心",
+            d2_title: "三色水花密码",
+            d2_text: "头顶三朵彩色水花是整个设计的灵魂：红色代表广东的木棉花，紫色代表香港的紫荆花，绿色代表澳门的莲花。三种颜色汇聚在一起，象征粤港澳三地同心协力，共同举办这场体育盛会。水花的造型也巧妙呼应了海豚跃出水面的瞬间。",
+            d_svg_static: "静态", d_svg_whiteish: "偏白色",
+            d_svg_exercise: "运动充血", d_svg_active: "运动", d_svg_pinkish: "变粉色",
+            d3_title: "粉白配色的科学依据",
+            d3_text: "喜洋洋的白色和乐融融的粉色，并非随意选择——这源于中华白海豚真实的生理特征！当白海豚在水中高速运动时，血管会充血，皮肤颜色会从灰白逐渐变为粉色。设计师巧妙地将这一科学事实融入配色，白色代表静态的优雅，粉色代表运动的活力。",
+            moments_sub: "开幕式上那些让人忍不住反复观看的名场面",
+            m1_title: "倒立亮相",
+            m1_text: "武校少年扮演的「大湾鸡」在开幕式上一上来就放了个大招——稳稳当当来了个倒立！圆滚滚的身体倒过来的样子萌翻全场，观众席瞬间沸腾。",
+            m2_title: "蹦迪名场面",
+            m2_text: "谁能想到全运会开幕式上会出现蹦迪环节？「大湾鸡」随着音乐节奏蹦蹦跳跳，圆滚滚的身躯配合灵活的舞步，反差萌直接拉满。",
+            m3_title: "单腿旋转",
+            m3_text: "最令人惊叹的当属单腿旋转！穿着笨重道具服的少年竟然完成了一个漂亮的旋转，「大湾鸡」在舞台上转成了一个小陀螺，全网直呼「太厉害了」。",
+            m4_title: "3.7亿播放",
+            m4_text: "开幕式视频在抖音上播放量突破3.7亿次。「大湾鸡」的表演片段被疯狂转发和二创，从体育频道火到娱乐热搜，真正实现了全民关注。",
+            m5_title: "周边疯抢",
+            m5_text: "2800多款周边商品上线即售罄！毛绒玩偶、钥匙扣、盲盒……销售量突破600万个，一举超越前辈「冰墩墩」，成为全运会历史上最畅销的吉祥物周边。",
+            m6_title: "白切鸡 vs 豉油鸡",
+            m6_text: "白色的是「白切鸡」，粉色的是「豉油鸡」——广东网友的吃货脑洞让全国人民笑到停不下来。「大湾鸡」这个昵称，大概是全运会历史上最接地气的吉祥物外号了。",
+            bili_btn: "看更多大湾鸡视频 → 哔哩哔哩",
+            impact_sub: "从赛场吉祥物到国民文化符号，数据见证大湾鸡的破圈之路",
+            stat_views: "亿次 · 抖音播放量", stat_goods: "款 · 周边商品",
+            stat_sales: "万+ · 周边销售量", stat_dolphins: "头+ · 中华白海豚种群",
+            impact_milestone: "🏆 超越冰墩墩的里程碑",
+            impact_text: "「大湾鸡」周边商品销售量超过600万个，超越了2022年冬奥会的现象级IP「冰墩墩」。更令人惊喜的是，设计团队一脉相承——都来自广州美术学院刘平云教授团队。从冰墩墩到大湾鸡，这个团队似乎掌握了「全民萌物」的设计密码。而「大湾鸡」更独特的地方在于，它不仅有可爱的外表，更承载着粤港澳三地文化融合的深层意义。",
+            badge1: "第十五届全运会", badge2: "广州美术学院", badge3: "粤港澳三地联办", badge4: "刘平云教授团队",
+            disclaimer_title: "非商业使用声明",
+            dcl1: "本站为粉丝/爱好者自发制作的非官方网站，仅供个人学习和分享使用，与本站涉及的任何商业主体无任何关联。",
+            dcl2: "本站与第十五届全运会组委会、吉祥物设计团队（广州美术学院刘平云教授团队）无任何官方合作关系，不代表任何官方立场。",
+            dcl3: "本站所有内容仅用于非商业目的的信息分享和文化交流，不用于任何盈利性用途。",
+            dcl4: "吉祥物「喜洋洋」「乐融融」（昵称「大湾鸡」）的全部知识产权归第十五届全运会组委会及相关权利人所有。",
+            dcl5: "本站未使用任何官方图片素材，所有视觉元素均为使用 CSS/SVG 技术独立制作的致敬性创作。",
+            dcl6: "本站不销售任何商品，不接受商业赞助，不投放商业广告。",
+            dcl7_pre: "如本站内容涉及版权问题，请联系站长邮箱 ",
+            dcl8: "本站承诺「联系即处理」：无论是权利人、代理方还是网友发现任何不妥之处，均可通过上述邮箱联系，站长核实后将第一时间响应并处理。",
+            contact_webmaster: "联系站长：",
+            footer_note: "本站仅是一个粉丝用爱发电的小站 🕊️ 感谢设计团队创造了这么美好的作品",
+            footer_brand: "🌊 大湾鸡主题站",
+            footer_made: "用 <span class=\"footer-heart\">♥</span> 制作 · 粉丝非商业作品",
+            footer_wish: "愿粤港澳三地 · 喜气洋洋 · 其乐融融",
+            footer_copy: "© 2025 大湾鸡粉丝站 · 本站与第十五届全运会组委会无官方关联",
+            alt_hero: "大湾鸡——第十五届全运会吉祥物喜洋洋（白色白海豚）与乐融融（粉色白海豚）",
+            alt_white: "喜洋洋——白色中华白海豚吉祥物",
+            alt_pink: "乐融融——粉色中华白海豚吉祥物"
+        },
+        en: {
+            _docTitle: "Dawanji — Mascots of the 15th National Games of China",
+            num_views: 370, num_goods: 2800, num_sales: 6, num_dolphins: 2000,
+            brand: "Dawanji",
+            nav_origin: "The Name", nav_chars: "Meet the Duo", nav_design: "Design",
+            nav_moments: "Moments", nav_impact: "Impact", nav_disclaimer: "Disclaimer",
+            hero_sub1: "Xiyangyang & Lerongrong — mascots of the 15th National Games",
+            hero_sub2: "Adorable Chinese white dolphins that became a nationwide cultural phenomenon",
+            tag_red: "Kapok Red", tag_purple: "Bauhinia Purple", tag_green: "Lotus Green",
+            origin_title: "What is \u201cDawanji\u201d?",
+            origin_sub: "How two dolphin mascots went from official nickname to national sensation",
+            tl1_label: "Design", tl1_title: "Chinese white dolphins become mascots",
+            tl1_text: "The mascots Xiyangyang and Lerongrong were created for the 15th National Games by Professor Liu Pingyun\u2019s team at the Guangzhou Academy of Fine Arts — the same team behind Bing Dwen Dwen. Their prototype is the Chinese white dolphin, a nationally protected species known as the \u201ctreasure of the sea.\u201d The Pearl River estuary is home to the world\u2019s largest population of Chinese white dolphins, with over 2,000 individuals.",
+            tl2_label: "Meaning", tl2_title: "Joyful and harmonious",
+            tl2_text: "The white mascot is called Xiyangyang and the pink one Lerongrong — together their names mean \u201cbeaming with joy and living in harmony.\u201d They mirror the white and pink color phases of Chinese white dolphins: dolphins turn pink when blood rushes to their skin during exercise. Their round bodies and tiny beaks are impossibly cute.",
+            tl3_label: "The nickname", tl3_title: "From dolphins to \u201cBig Bay Chickens\u201d",
+            tl3_text: "With their round shapes, colorful splashes on top of their heads that look like chicken combs, and pointy little beaks, netizens joked: aren\u2019t these just Cantonese poached chicken (baakcit gai) and soy sauce chicken? The nickname \u201cDawanji\u201d (\u201cBig Bay Chicken\u201d) was born — louder than the official names, it quickly became the universal nickname. From dolphins to chickens: peak Cantonese culture.",
+            tl4_label: "Mania", tl4_title: "Overnight legends at the opening ceremony",
+            tl4_text: "In November 2025, at the National Games opening ceremony, martial-arts students in mascot costumes performed handstands, disco dancing and one-legged spins — difficult moves yet utterly adorable. Videos on Douyin quickly surpassed 370 million views, and Dawanji broke out of sports circles into the national spotlight as a cultural icon.",
+            origin_outro: "From Chinese white dolphins to poached chicken, from official design to nationwide memes — Dawanji\u2019s rise to fame is a cultural story in itself.",
+            chars_sub: "One white, one pink: the Chinese white dolphin duo netizens call \u201cpoached chicken\u201d and \u201csoy sauce chicken\u201d",
+            hint_tap: "Hi! Tap me 👋",
+            name_white: "Xiyangyang",
+            nick_white: "🤍 White · aka \u201cPoached Chicken\u201d · the introvert",
+            desc_white: "White Xiyangyang represents the Chinese white dolphin in its calm, resting state — quiet and reserved, playfully called the \u201cI-person\u201d (introvert). The design team gave him the skill-based sports: smart and agile.",
+            name_pink: "Lerongrong",
+            nick_pink: "💗 Pink · aka \u201cSoy Sauce Chicken\u201d · the extrovert",
+            desc_pink: "Pink Lerongrong comes from the dolphin\u2019s real physiological trait: skin turning pink when blood flows during exercise. Outgoing and energetic — a true \u201cE-person\u201d (extrovert). He gets the strength-based sports: warm and full of vitality.",
+            bubble_white: "Hi, I\u2019m Xiyangyang! 🤍\nA white Chinese white dolphin, quiet and a bit shy～",
+            bubble_pink: "Hi, I\u2019m Lerongrong! 💗\nA pink Chinese white dolphin, outgoing and full of energy～",
+            bubble_pair: "We are Xiyangyang and Lerongrong! 🎉\nMascots of the 15th National Games — netizens call us \u201cDawanji\u201d～",
+            design_sub: "Every design detail has meaning — layers of science and culture",
+            d1_title: "Prototype: Chinese white dolphin",
+            d1_text: "The Chinese white dolphin is known as the \u201ctreasure of the sea\u201d and is a nationally protected species in China. The Pearl River estuary hosts the world\u2019s largest population — over 2,000 individuals. Choosing the dolphin highlights the ecological bond between Guangdong, Hong Kong and Macao, and conveys a message of ocean conservation.",
+            d_svg_united: "One heart, GBA",
+            d2_title: "The three-color splash code",
+            d2_text: "The three colorful splashes on the head are the soul of the design: red is the kapok flower of Guangdong, purple the bauhinia of Hong Kong, and green the lotus of Macao. Together they symbolize the three regions uniting to host the Games. The splash shape also echoes a dolphin leaping out of the water.",
+            d_svg_static: "Resting", d_svg_whiteish: "Whitish",
+            d_svg_exercise: "Exercise flush", d_svg_active: "Active", d_svg_pinkish: "Turns pink",
+            d3_title: "The science behind pink & white",
+            d3_text: "Xiyangyang\u2019s white and Lerongrong\u2019s pink are no accident — they come from real biology! When Chinese white dolphins swim fast, blood vessels dilate and their skin shifts from grayish-white to pink. The designers wove this fact into the palette: white for the grace of rest, pink for the energy of motion.",
+            moments_sub: "The opening-ceremony scenes everyone replays on loop",
+            m1_title: "Handstand entrance",
+            m1_text: "The Dawanji performers opened with a showstopper — a perfectly steady handstand! Seeing the round little body upside down melted the whole arena, and the crowd erupted instantly.",
+            m2_title: "Disco dance scene",
+            m2_text: "Who expected a disco segment at a National Games opening ceremony? Dawanji bounced to the beat, round bodies paired with nimble footwork — maximum contrast cuteness.",
+            m3_title: "One-legged spin",
+            m3_text: "Most jaw-dropping of all: in the bulky mascot costume, the performer pulled off a beautiful one-legged spin, twirling like a little top. The whole internet exclaimed \u201camazing!\u201d",
+            m4_title: "370M views",
+            m4_text: "Opening ceremony videos on Douyin surpassed 370 million views. Clips were reposted and remixed endlessly, spreading from sports channels to entertainment trending lists — true nationwide attention.",
+            m5_title: "Merchandise frenzy",
+            m5_text: "Over 2,800 merchandise items sold out instantly — plush toys, keychains, blind boxes. Sales exceeded 6 million units, surpassing predecessor Bing Dwen Dwen to become the best-selling mascot merchandise in National Games history.",
+            m6_title: "Poached chicken vs soy sauce chicken",
+            m6_text: "White one is \u201cpoached chicken,\u201d pink one is \u201csoy sauce chicken\u201d — Cantonese netizens\u2019 foodie humor had the whole country laughing. \u201cDawanji\u201d may be the most down-to-earth mascot nickname in Games history.",
+            bili_btn: "Watch more Dawanji videos → Bilibili",
+            impact_sub: "From sports mascot to national cultural icon — the numbers behind the breakout",
+            stat_views: "M views · Douyin", stat_goods: "items · merchandise",
+            stat_sales: "M+ · units sold", stat_dolphins: "+ · dolphin population",
+            impact_milestone: "🏆 The milestone: surpassing Bing Dwen Dwen",
+            impact_text: "Dawanji merchandise sold over 6 million units, surpassing Bing Dwen Dwen, the phenomenon IP of the 2022 Winter Olympics. Even more delightful: the design lineage is the same — Professor Liu Pingyun\u2019s team at the Guangzhou Academy of Fine Arts. From Bing Dwen Dwen to Dawanji, this team seems to hold the design code for \u201cnational treasures of cuteness.\u201d What makes Dawanji even more special: beyond the adorable look, it carries the deeper meaning of cultural fusion among Guangdong, Hong Kong and Macao.",
+            badge1: "15th National Games", badge2: "Guangzhou Academy of Fine Arts", badge3: "GBA co-hosted", badge4: "Prof. Liu Pingyun\u2019s team",
+            disclaimer_title: "Non-commercial Use Notice",
+            dcl1: "This is an unofficial fan-made website for personal learning and sharing only. It has no affiliation with any commercial entity referenced.",
+            dcl2: "This site has no official partnership with the 15th National Games Organizing Committee or the mascot design team (Prof. Liu Pingyun\u2019s team, Guangzhou Academy of Fine Arts), and does not represent any official position.",
+            dcl3: "All content is for non-commercial information sharing and cultural exchange only, with no for-profit use.",
+            dcl4: "All intellectual property rights of the mascots Xiyangyang and Lerongrong (nicknamed \u201cDawanji\u201d) belong to the 15th National Games Organizing Committee and relevant rights holders.",
+            dcl5: "No official image assets are used; all visual elements are independent tribute creations made with CSS/SVG.",
+            dcl6: "This site sells nothing, accepts no commercial sponsorship, and runs no commercial advertising.",
+            dcl7_pre: "If any content on this site raises copyright concerns, please contact the webmaster at ",
+            dcl8: "We promise \u201cprompt action on contact\u201d: rights holders, agents or visitors who notice any issue can reach us via the email above; the webmaster will verify and respond promptly.",
+            contact_webmaster: "Contact webmaster: ",
+            footer_note: "Just a tiny fan site made with love 🕊️ Thanks to the design team for creating such wonderful work",
+            footer_brand: "🌊 Dawanji Fan Site",
+            footer_made: "Made with <span class=\"footer-heart\">♥</span> · non-commercial fan work",
+            footer_wish: "For Guangdong, Hong Kong & Macao · beaming with joy · living in harmony",
+            footer_copy: "© 2025 Dawanji Fan Site · No official affiliation with the 15th National Games Organizing Committee",
+            alt_hero: "Dawanji — Xiyangyang (white dolphin) and Lerongrong (pink dolphin), mascots of the 15th National Games",
+            alt_white: "Xiyangyang — the white Chinese white dolphin mascot",
+            alt_pink: "Lerongrong — the pink Chinese white dolphin mascot"
+        },
+        ru: {
+            _docTitle: "Даваньцзи — талисманы XV Национальных игр Китая",
+            num_views: 370, num_goods: 2800, num_sales: 6, num_dolphins: 2000,
+            brand: "Даваньцзи",
+            nav_origin: "Имя", nav_chars: "Знакомство", nav_design: "Дизайн",
+            nav_moments: "Моменты", nav_impact: "Влияние", nav_disclaimer: "Оговорка",
+            hero_sub1: "Сиъянъян и Лэжунжун — талисманы XV Национальных игр",
+            hero_sub2: "Милые китайские белые дельфины, ставшие культурным феноменом",
+            tag_red: "Красный хлопок", tag_purple: "Пурпурная баугиния", tag_green: "Зелёный лотос",
+            origin_title: "Кто такой «Даваньцзи»?",
+            origin_sub: "Как два дельфина-талисмана стали общенациональной сенсацией",
+            tl1_label: "Рождение", tl1_title: "Китайские белые дельфины — талисманы Игр",
+            tl1_text: "Талисманы Сиъянъян и Лэжунжун созданы для XV Национальных игр командой профессора Лю Пинъюня из Гуанчжоуской академии изящных искусств — той же командой, что создала Бин Дуньдуня. Их прототип — китайский белый дельфин, охраняемый вид, известный как «морское сокровище». Устье Жемчужной реки — крупнейшее в мире место обитания этих дельфинов: их популяция насчитывает более 2000 особей.",
+            tl2_label: "Имя", tl2_title: "Радость и гармония",
+            tl2_text: "Белый талисман — Сиъянъян, розовый — Лэжунжун; вместе их имена означают «сияющий радостью и живущий в гармонии». Они повторяют белую и розовую фазы китайских белых дельфинов: во время движения дельфины розовеют из-за прилива крови к коже. Округлые тела и крошечные клювы невероятно милы.",
+            tl3_label: "Прозвище", tl3_title: "Из дельфинов — в «цыплят залива»",
+            tl3_text: "Из-за округлых форм, цветных брызг на макушке, похожих на петушиные гребни, и острого клювика пользователи шутили: да это же кантонские блюда — варёный цыплёнок и цыплёнок в соевом соусе! Так родилось прозвище «Даваньцзи» («большой цыплёнок залива») — громче официальных имён, оно быстро стало всеобщим. Из дельфинов в цыплята — чисто кантонский колорит.",
+            tl4_label: "Ажиотаж", tl4_title: "Легенды за одну ночь на церемонии открытия",
+            tl4_text: "В ноябре 2025 года на церемонии открытия Национальных игр воспитанники школы ушу в костюмах талисманов исполнили стойки на руках, дискотечные танцы и вращения на одной ноге — сложные трюки и невероятное обаяние. Видео в Douyin быстро набрало более 370 миллионов просмотров, и Даваньцзи вырвался из спортивного мира в центр всеобщего внимания как культурный символ.",
+            origin_outro: "От китайских белых дельфинов до варёного цыплёнка, от официального дизайна до народных мемов — путь Даваньцзи к славе сам по себе культурная история.",
+            chars_sub: "Один белый, другой розовый: дуэт китайских белых дельфинов, прозванных «варёный цыплёнок» и «цыплёнок в соевом соусе»",
+            hint_tap: "Привет! Нажми на меня 👋",
+            name_white: "Сиъянъян",
+            nick_white: "🤍 Белый · он же «варёный цыплёнок» · интроверт",
+            desc_white: "Белый Сиъянъян символизирует спокойное состояние дельфина — тихий и сдержанный, в шутку его называют «интровертом». Дизайнеры отдали ему технические виды спорта: умный и ловкий.",
+            name_pink: "Лэжунжун",
+            nick_pink: "💗 Розовый · он же «цыплёнок в соевом соусе» · экстраверт",
+            desc_pink: "Розовый Лэжунжун вдохновлён реальной особенностью дельфинов: кожа розовеет из-за прилива крови во время движения. Активный и общительный — настоящий «экстраверт». Ему достались силовые виды спорта: тёплый и полный энергии.",
+            bubble_white: "Привет, я Сиъянъян! 🤍\nБелый китайский дельфин, тихий и немного застенчивый～",
+            bubble_pink: "Привет, я Лэжунжун! 💗\nРозовый китайский дельфин, весёлый и полный сил～",
+            bubble_pair: "Мы Сиъянъян и Лэжунжун! 🎉\nТалисманы XV Национальных игр — нас зовут «Даваньцзи»～",
+            design_sub: "Каждая деталь дизайна со смыслом — наука и культура в каждом штрихе",
+            d1_title: "Прототип: китайский белый дельфин",
+            d1_text: "Китайский белый дельфин — «морское сокровище» и охраняемый государством вид. Устье Жемчужной реки — крупнейшее в мире место его обитания: более 2000 особей. Выбор дельфина подчёркивает экологическую связь Гуандуна, Гонконга и Макао и несёт идею защиты океана.",
+            d_svg_united: "Единое сердце",
+            d2_title: "Код трёхцветных брызг",
+            d2_text: "Три цветные брызги на макушке — душа дизайна: красный — цветок хлопка Гуандуна, пурпурный — баугиния Гонконга, зелёный — лотос Макао. Вместе они символизируют единство трёх регионов, проводящих Игры. Форма брызг также напоминает дельфина, выпрыгивающего из воды.",
+            d_svg_static: "Покой", d_svg_whiteish: "Беловатый",
+            d_svg_exercise: "Прилив крови", d_svg_active: "Движение", d_svg_pinkish: "Розовеет",
+            d3_title: "Наука розового и белого",
+            d3_text: "Белый цвет Сиъянъяна и розовый Лэжунжуна выбраны не случайно — это реальная биология! Когда китайские белые дельфины быстро плывут, сосуды расширяются, и кожа из серовато-белой становится розовой. Дизайнеры вплели этот факт в палитру: белый — грация покоя, розовый — энергия движения.",
+            moments_sub: "Сцены с церемонии открытия, которые хочется пересматривать снова и снова",
+            m1_title: "Стойка на руках",
+            m1_text: "Талисманы открыли церемонию эффектным трюком — идеально ровной стойкой на руках! Перевёрнутое круглое тельце растопило весь зал, публика немедленно взорвалась восторгом.",
+            m2_title: "Дискотека",
+            m2_text: "Кто бы ожидал дискотеку на церемонии открытия Национальных игр? Даваньцзи прыгал в такт музыке: круглые тела и ловкие движения — контрастное обаяние на максимум.",
+            m3_title: "Вращение на одной ноге",
+            m3_text: "Больше всего поражает вращение: в громоздком костюме исполнитель выполнил красивое вращение на одной ноге, закрутившись волчком. Весь интернет повторял: «потрясающе!»",
+            m4_title: "370 млн просмотров",
+            m4_text: "Видео церемонии в Douyin набрало более 370 миллионов просмотров. Клипы безостановочно репостили и переосмысливали: от спортивных каналов до развлекательных трендов — внимание всей страны.",
+            m5_title: "Ажиотаж вокруг мерча",
+            m5_text: "Более 2800 видов сувениров раскупали мгновенно — плюшевые игрушки, брелоки, бокс-боксы. Продано свыше 6 миллионов единиц — больше, чем у Бин Дуньдуня; это самый продаваемый мерч талисмана в истории Национальных игр.",
+            m6_title: "Варёный цыплёнок против соевого",
+            m6_text: "Белый — «варёный цыплёнок», розовый — «цыплёнок в соевом соусе»: гастрономический юмор кантонских пользователей рассмешил всю страну. «Даваньцзи» — пожалуй, самое народное прозвище талисмана в истории Игр.",
+            bili_btn: "Смотреть больше видео → Bilibili",
+            impact_sub: "От спортивного талисмана к национальному культурному символу — цифры триумфа",
+            stat_views: "млн просмотров · Douyin", stat_goods: "видов · сувениров",
+            stat_sales: "млн+ · продано", stat_dolphins: "+ · популяция дельфинов",
+            impact_milestone: "🏆 Рубеж: превзойдя Бин Дуньдуня",
+            impact_text: "Мерч Даваньцзи разошёлся тиражом свыше 6 миллионов единиц, превзойдя Бин Дуньдуня — феномен зимних Олимпийских игр 2022. Ещё приятнее, что у них общие «родители» — команда профессора Лю Пинъюня Гуанчжоуской академии изящных искусств. От Бин Дуньдуня к Даваньцзи команда словно знает код «всенародных любимцев». А уникальность Даваньцзи в том, что за милой внешностью стоит глубокий смысл культурного единения Гуандуна, Гонконга и Макао.",
+            badge1: "XV Национальные игры", badge2: "Гуанчжоуская академия", badge3: "Регионы ЗБР вместе", badge4: "Команда проф. Лю Пинъюня",
+            disclaimer_title: "Некоммерческое уведомление",
+            dcl1: "Это неофициальный фан-сайт, созданный для личного обучения и обмена. Он не связан ни с какими коммерческими организациями.",
+            dcl2: "Сайт не имеет официального партнёрства с Оргкомитетом XV Национальных игр или командой дизайнеров талисманов (команда проф. Лю Пинъюня, Гуанчжоуская академия изящных искусств) и не представляет официальную позицию.",
+            dcl3: "Все материалы предназначены только для некоммерческого обмена информацией и культурного общения, без какого-либо коммерческого использования.",
+            dcl4: "Все права на талисманы Сиъянъян и Лэжунжун (прозвище «Даваньцзи») принадлежат Оргкомитету XV Национальных игр и соответствующим правообладателям.",
+            dcl5: "Официальные изображения не используются; все визуальные элементы — самостоятельные трибьют-работы на CSS/SVG.",
+            dcl6: "Сайт ничего не продаёт, не принимает коммерческой спонсорской поддержки и не размещает рекламу.",
+            dcl7_pre: "Если контент сайта вызывает вопросы об авторских правах, свяжитесь с веб-мастером: ",
+            dcl8: "Обещаем «реагировать сразу при обращении»: правообладатели, представители или посетители, заметившие любую проблему, могут написать на указанную почту; веб-мастер проверит и оперативно ответит.",
+            contact_webmaster: "Связь с веб-мастером: ",
+            footer_note: "Маленький фан-сайт, сделанный с любовью 🕊️ Спасибо команде дизайнеров за такое прекрасное творение",
+            footer_brand: "🌊 Фан-сайт Даваньцзи",
+            footer_made: "Сделано с <span class=\"footer-heart\">♥</span> · некоммерческая фан-работа",
+            footer_wish: "Гуандуну, Гонконгу и Макао · радости · гармонии",
+            footer_copy: "© 2025 Фан-сайт Даваньцзи · нет официальной связи с Оргкомитетом XV Национальных игр",
+            alt_hero: "Даваньцзи — Сиъянъян (белый дельфин) и Лэжунжун (розовый дельфин), талисманы XV Национальных игр",
+            alt_white: "Сиъянъян — белый китайский дельфин, талисман",
+            alt_pink: "Лэжунжун — розовый китайский дельфин, талисман"
+        }
+    };
+
+    const LANGS = { zh: 'zh-CN', en: 'en', ru: 'ru' };
+    function applyLang(lang) {
+        const dict = I18N[lang] || I18N.zh;
+        document.documentElement.lang = LANGS[lang] || 'zh-CN';
+        document.documentElement.setAttribute('data-lang', lang);
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (dict[key] !== undefined) el.innerHTML = dict[key];
+        });
+        document.querySelectorAll('[data-i18n-alt]').forEach(el => {
+            const key = el.getAttribute('data-i18n-alt');
+            if (dict[key] !== undefined) el.setAttribute('alt', dict[key]);
+        });
+        document.querySelectorAll('[data-lang-btn]').forEach(b => {
+            b.classList.toggle('active', b.getAttribute('data-lang-btn') === lang);
+        });
+        if (dict._docTitle) document.title = dict._docTitle;
+        document.querySelectorAll('[data-i18n-num]').forEach(el => {
+            const key = el.getAttribute('data-i18n-num');
+            if (dict[key] !== undefined) {
+                el.setAttribute('data-target', dict[key]);
+                el.textContent = dict[key];
+            }
+        });
+        try { localStorage.setItem('dawanji-lang', lang); } catch (e) {}
+    }
+    document.querySelectorAll('[data-lang-btn]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            applyLang(btn.getAttribute('data-lang-btn'));
+            const nl = document.getElementById('navLinks');
+            if (nl && nl.classList.contains('active')) nl.classList.remove('active');
+        });
+    });
+    (function initLang() {
+        let saved = null;
+        try { saved = localStorage.getItem('dawanji-lang'); } catch (e) {}
+        if (!saved) {
+            const nav = (navigator.language || 'zh').toLowerCase();
+            saved = nav.startsWith('ru') ? 'ru' : (nav.startsWith('zh') ? 'zh' : 'en');
+        }
+        applyLang(saved);
+    })();
+    </script>
+
 </body>
 </html>

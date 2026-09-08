@@ -730,29 +730,30 @@
                 background: transparent;
                 align-items: flex-start;
                 justify-content: flex-start;
-                /* desktop floating bubble must NOT intercept the mouse,
-                   otherwise it steals hover from the mascot card and the bubble flickers/closes */
-                pointer-events: none !important;
+                /* OVERRIDE: force full-screen overlay on all devices */
+                pointer-events: auto !important;
+                background: rgba(0,0,0,0.4) !important;
+                align-items: center !important;
+                justify-content: center !important;
             }
             .bubble-popup {
-                position: absolute;
-                max-width: 260px;
-                padding: 20px 24px;
-                border-radius: 18px;
-                box-shadow: 0 12px 40px rgba(0,0,0,0.18);
-                transform: translateY(-8px) scale(0.9);
-                opacity: 0;
-                transition: opacity 0.25s ease, transform 0.25s ease;
-                text-align: left;
+                position: relative;
+                max-width: 420px;
+                padding: 32px 40px;
+                border-radius: 24px;
+                box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+                transform: scale(0.8);
+                opacity: 1;
+                transition: transform 0.3s ease;
+                text-align: center;
             }
             .bubble-overlay.active .bubble-popup {
-                transform: translateY(0) scale(1);
-                opacity: 1;
+                transform: scale(1);
             }
-            .bubble-popup::before { display: none; }
-            .bubble-close { display: none; }
-            .bubble-mascot-icon { font-size: 2rem; margin-bottom: 6px; }
-            .bubble-text { font-size: 0.95rem; line-height: 1.6; margin: 0; }
+            .bubble-popup::before { display: block; content: ''; position: absolute; bottom: -12px; left: 50%; transform: translateX(-50%); border-left: 14px solid transparent; border-right: 14px solid transparent; border-top: 14px solid white; }
+            .bubble-close { display: block; }
+            .bubble-mascot-icon { font-size: 3rem; margin-bottom: 12px; }
+            .bubble-text { font-size: 1.15rem; line-height: 1.8; margin: 8px 0 0; }
         }
         .nav-logo-icon svg {
             vertical-align: middle;
@@ -771,6 +772,11 @@
             box-shadow: 0 10px 32px rgba(251,114,153,0.4);
         }
         .bilibili-btn svg { flex-shrink: 0; }
+        @keyframes biliPulse {
+            0%, 100% { box-shadow: 0 6px 24px rgba(251,114,153,0.3); }
+            50% { box-shadow: 0 6px 36px rgba(251,114,153,0.55); }
+        }
+        .bilibili-btn { animation: biliPulse 2.5s ease-in-out infinite; }
     </style>
 </head>
 <body>
@@ -830,6 +836,7 @@
             <!-- Mascot SVG -->
             <div class="hero-mascot">
                 <img src="./imgs/dawanji-group.jpg" alt="" data-i18n-alt="alt_hero" class="bubble-trigger" data-mascot="pair" data-i18n-bubble="bubble_pair" style="width:100%;max-width:460px;height:auto;border-radius:24px;box-shadow:0 12px 48px rgba(255,143,171,0.28);display:block;margin:0 auto;cursor:pointer;transform-origin:50% 100%;transition:transform 0.4s ease;">
+                <div class="bubble-hint initial-show"><span data-i18n="hint_tap_hero">点我们听听悄悄话 💬</span></div>
             </div>
 
             <h1 class="hero-title" data-i18n="brand">大湾鸡</h1>
@@ -911,7 +918,7 @@
                 <div class="char-card char-card--white fade-in bubble-trigger" data-mascot="white" data-i18n-bubble="bubble_white">
                     <div class="char-card-image-wrap">
                         <img src="./imgs/xiyangyang.jpg" alt="" data-i18n-alt="alt_white" loading="lazy">
-                        <div class="bubble-hint"><span data-i18n="hint_tap">嗨！点我认识我 👋</span></div>
+                        <div class="bubble-hint initial-show"><span data-i18n="hint_tap">嗨！点我认识我 👋</span></div>
                     </div>
                     <div class="char-card-body">
                         <div class="char-card-name" data-i18n="name_white">喜洋洋</div>
@@ -925,7 +932,7 @@
                 <div class="char-card char-card--pink fade-in bubble-trigger" data-mascot="pink" data-i18n-bubble="bubble_pink">
                     <div class="char-card-image-wrap">
                         <img src="./imgs/lerongrong.jpg" alt="" data-i18n-alt="alt_pink" loading="lazy">
-                        <div class="bubble-hint">嗨！点我认识我 👋</div>
+                        <div class="bubble-hint initial-show"><span data-i18n="hint_tap">嗨！点我认识我 👋</span></div>
                     </div>
                     <div class="char-card-body">
                         <div class="char-card-name" data-i18n="name_pink">乐融融</div>
@@ -1077,7 +1084,7 @@
 
     <!-- Moments Section -->
     <div class="moments-section" style="padding: 80px 0;">
-        <section id="moments" class="section" style="padding-top:0;padding-bottom:0;">
+        <section id="moments" class="section" style="padding-top:0;padding-bottom:64px;">
             <div class="section-header">
                 <span class="section-badge section-badge--green">HIGHLIGHTS</span>
                 <h2 class="section-title" data-i18n="nav_moments">精彩瞬间</h2>
@@ -1411,29 +1418,22 @@
             overlay.classList.remove('active');
         }
 
-        // Bind events based on device capability
-        if (isDesktop) {
-            triggers.forEach(card => {
-                card.addEventListener('mouseenter', () => showBubble(card));
-                card.addEventListener('mouseleave', () => closeBubble());
+        // ALL devices: click to toggle bubble
+        triggers.forEach(card => {
+            card.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                if (overlay.classList.contains('active')) {
+                    closeBubble();
+                } else {
+                    showBubble(card);
+                }
             });
-        } else {
-            // Mobile / touch: click to toggle
-            triggers.forEach(card => {
-                card.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    if (overlay.classList.contains('active')) {
-                        closeBubble();
-                    } else {
-                        showBubble(card);
-                    }
-                });
-            });
-            // Tap overlay background to close
-            overlay.addEventListener('click', (e) => {
-                if (e.target.id === 'bubbleOverlay') closeBubble();
-            });
-        }
+        });
+        // Click overlay background to close
+        overlay.addEventListener('click', (e) => {
+            if (e.target.id === 'bubbleOverlay' || e.target === overlay) closeBubble();
+        });
 
         // Close on Escape
         document.addEventListener('keydown', (e) => {
@@ -1479,6 +1479,7 @@
             origin_outro: "从中华白海豚到白切鸡，从官方设计到全民玩梗——大湾鸡的出圈之路，本身就是一段精彩的文化故事。",
             chars_sub: "一白一粉，一对中华白海豚兄弟，网友口中的「白切鸡」与「豉油鸡」",
             hint_tap: "嗨！点我认识我 👋",
+            hint_tap_hero: "点我们听听悄悄话 💬",
             name_white: "喜洋洋",
             nick_white: "🤍 白色 · 昵称「白切鸡」· i 人担当",
             desc_white: "白色的「喜洋洋」对应常态下的中华白海豚，性格安静内敛，被网友戏称为 i 人。设计团队特意把技巧型运动项目分配给它，聪明又灵巧。",
@@ -1559,6 +1560,7 @@
             origin_outro: "From Chinese white dolphins to poached chicken, from official design to nationwide memes — Dawanji\u2019s rise to fame is a cultural story in itself.",
             chars_sub: "One white, one pink: the Chinese white dolphin duo netizens call \u201cpoached chicken\u201d and \u201csoy sauce chicken\u201d",
             hint_tap: "Hi! Tap me 👋",
+            hint_tap_hero: "Tap us to hear our secrets 💬",
             name_white: "Xiyangyang",
             nick_white: "🤍 White · aka \u201cPoached Chicken\u201d · the introvert",
             desc_white: "White Xiyangyang represents the Chinese white dolphin in its calm, resting state — quiet and reserved, playfully called the \u201cI-person\u201d (introvert). The design team gave him the skill-based sports: smart and agile.",
@@ -1639,6 +1641,7 @@
             origin_outro: "От китайских белых дельфинов до варёного цыплёнка, от официального дизайна до народных мемов — путь Даваньцзи к славе сам по себе культурная история.",
             chars_sub: "Один белый, другой розовый: дуэт китайских белых дельфинов, прозванных «варёный цыплёнок» и «цыплёнок в соевом соусе»",
             hint_tap: "Привет! Нажми на меня 👋",
+            hint_tap_hero: "Нажми и услышишь наши секреты 💬",
             name_white: "Сиъянъян",
             nick_white: "🤍 Белый · он же «варёный цыплёнок» · интроверт",
             desc_white: "Белый Сиъянъян символизирует спокойное состояние дельфина — тихий и сдержанный, в шутку его называют «интровертом». Дизайнеры отдали ему технические виды спорта: умный и ловкий.",

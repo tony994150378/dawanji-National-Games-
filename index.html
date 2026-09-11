@@ -722,19 +722,17 @@
             0%, 100% { transform: translateX(-50%) translateY(0); }
             50% { transform: translateX(-50%) translateY(-4px); }
         }
-        /* Desktop: hide the mobile overlay behavior; we'll show a floating bubble instead */
+        /* Desktop + mobile: unified full-screen popup overlay */
         @media (hover: hover) and (pointer: fine) {
             .bubble-overlay {
-                /* on desktop, repurpose as a floating card near the hovered card */
                 position: fixed;
-                background: transparent;
-                align-items: flex-start;
-                justify-content: flex-start;
-                /* OVERRIDE: force full-screen overlay on all devices */
-                pointer-events: auto !important;
-                background: rgba(0,0,0,0.4) !important;
-                align-items: center !important;
-                justify-content: center !important;
+                /* inactive: let clicks pass through to the page below (fix: links/lang buttons were blocked) */
+                pointer-events: none;
+                align-items: center;
+                justify-content: center;
+            }
+            .bubble-overlay.active {
+                pointer-events: auto;
             }
             .bubble-popup {
                 position: relative;
@@ -1406,11 +1404,10 @@
 
         function showBubble(card) {
             fillBubble(card);
-            if (isDesktop) {
-                positionNearCard(card);
-            } else {
-                triggerBounce(card);
-            }
+            // Unified behavior on all devices: centered modal popup + bounce animation
+            const popup = overlay.querySelector('.bubble-popup');
+            if (popup) { popup.style.left = ''; popup.style.top = ''; }
+            triggerBounce(card);
             overlay.classList.add('active');
         }
 

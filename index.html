@@ -776,6 +776,30 @@
             50% { box-shadow: 0 6px 36px rgba(251,114,153,0.55); }
         }
         .bilibili-btn { animation: biliPulse 2.5s ease-in-out infinite; }
+        /* Xiaohongshu CTA */
+        .xiaohongshu-btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: linear-gradient(135deg, #FE2C55, #FF6B81);
+            color: white !important; padding: 14px 32px;
+            border-radius: 999px; font-size: 1rem; font-weight: 600;
+            text-decoration: none; transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 6px 24px rgba(254,44,85,0.3);
+            margin-left: 12px;
+        }
+        .xiaohongshu-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 32px rgba(254,44,85,0.4);
+        }
+        .xiaohongshu-btn svg { flex-shrink: 0; }
+        @keyframes xhsPulse {
+            0%, 100% { box-shadow: 0 6px 24px rgba(254,44,85,0.3); }
+            50% { box-shadow: 0 6px 36px rgba(254,44,85,0.55); }
+        }
+        .xiaohongshu-btn { animation: xhsPulse 2.5s ease-in-out infinite; }
+        /* Stack buttons on mobile */
+        @media (max-width: 768px) {
+            .bilibili-cta .xiaohongshu-btn { margin-left: 0; margin-top: 12px; }
+        }
     </style>
 </head>
 <body>
@@ -785,8 +809,8 @@
         <div class="nav-inner">
             <a href="#" class="nav-logo">
                 <span class="nav-logo-icon">
-                    <svg width="28" height="28" viewBox="0 0 120 120"><defs><radialGradient id='ng'><stop offset='0%' stop-color='%23FF4D4D'/><stop offset='25%' stop-color='%23FF8C00'/><stop offset='50%' stop-color='%23FFD700'/><stop offset='75%' stop-color='%2300CC66'/><stop offset='100%' stop-color='%230066FF'/></radialGradient></defs><g transform='translate(60,60)'><g fill='url(#ng)'><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(0)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(30)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(60)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(90)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(120)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(150)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(180)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(210)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(240)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(270)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(300)'/><path d='M0,-45 Q8,-20 0,0 Q-8,-20 0,-45Z' transform='rotate(330)'/></g><circle cx='0' cy='0' r='10' fill='%23FFD700'/></g></svg>
-                </span>
+                        <img src="./imgs/emblem-logo.png" alt="全运会会徽" style="width:28px;height:28px;object-fit:contain;">
+                    </span>
                 <span data-i18n="brand">大湾鸡</span>
             </a>
             <div class="nav-links" id="navLinks">
@@ -1132,6 +1156,10 @@
                 <a href="https://search.bilibili.com/all?keyword=%E5%A4%A7%E6%B9%BE%E9%B8%A1" target="_blank" rel="noopener" class="bilibili-btn">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="white" style="vertical-align:middle;margin-right:8px;"><path d="M17.813 4.653h.854c1.51.054 2.769.578 3.773 1.574 1.004.995 1.524 2.249 1.56 3.76v7.36c-.036 1.51-.556 2.769-1.56 3.773s-2.262 1.524-3.773 1.56H5.333c-1.51-.036-2.769-.556-3.773-1.56S.036 18.858 0 17.347v-7.36c.036-1.511.556-2.765 1.56-3.76 1.004-.996 2.262-1.52 3.773-1.574h.774l-1.174-1.12a1.234 1.234 0 0 1-.373-.906c0-.356.124-.658.373-.907l.027-.027c.267-.249.573-.373.92-.373.347 0 .653.124.92.373L9.653 4.44c.071.071.134.142.187.213h4.267a.836.836 0 0 1 .16-.213l2.853-2.747c.267-.249.573-.373.92-.373.347 0 .662.151.929.4.267.249.391.551.391.907 0 .355-.124.657-.373.906zM5.333 7.24c-.746.018-1.373.276-1.88.773-.506.498-.769 1.13-.786 1.894v7.52c.017.764.28 1.395.786 1.893.507.498 1.134.756 1.88.773h13.334c.746-.017 1.373-.275 1.88-.773.506-.498.769-1.129.786-1.893v-7.52c-.017-.765-.28-1.396-.786-1.894-.507-.497-1.134-.755-1.88-.773zM8 11.107c.373 0 .684.124.933.373.25.249.383.569.4.96v1.173c-.017.391-.15.711-.4.96-.249.25-.56.374-.933.374s-.684-.125-.933-.374c-.25-.249-.383-.569-.4-.96V12.44c.017-.391.15-.711.4-.96.249-.249.56-.373.933-.373zm8 0c.373 0 .684.124.933.373.25.249.383.569.4.96v1.173c-.017.391-.15.711-.4.96-.249.25-.56.374-.933.374s-.684-.125-.933-.374c-.25-.249-.383-.569-.4-.96V12.44c.017-.391.15-.711.4-.96.249-.249.56-.373.933-.373z"/></svg>
                     <span data-i18n="bili_btn">看更多大湾鸡视频 → 哔哩哔哩</span>
+                </a>
+                <a href="https://www.xiaohongshu.com/search_result?keyword=%E5%A4%A7%E6%B9%BE%E9%B8%A1&source=web_search_result_notes" target="_blank" rel="noopener" class="xiaohongshu-btn">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="white" style="vertical-align:middle;margin-right:8px;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg>
+                    <span>看更多大湾鸡笔记 → 小红书</span>
                 </a>
             </div>
         </section>

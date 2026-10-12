@@ -301,12 +301,12 @@
         .char-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
         .char-card img {
             width: 100%;
-            aspect-ratio: 1 / 1;
-            object-fit: cover;
+            height: 360px;
+            object-fit: contain;
             display: block;
         }
         .char-card--white img { background: #FFF; }
-        .char-card--pink img { background: #FFF0F5; }
+        .char-card--pink img { background: #FFF; }
         .char-card-body { padding: 24px 28px 30px; }
         .char-card-name {
             font-size: 1.5rem; font-weight: 800; margin-bottom: 4px;
@@ -332,7 +332,7 @@
             box-shadow: var(--shadow-lg);
         }
         .design-card-visual {
-            height: 180px; display: flex;
+            aspect-ratio: 1 / 1; display: flex;
             align-items: center; justify-content: center;
             position: relative; overflow: hidden;
         }
@@ -800,14 +800,60 @@
         @media (max-width: 768px) {
             .bilibili-cta .xiaohongshu-btn { margin-left: 0; margin-top: 12px; }
         }
+    
+        /* 2D线稿装饰图 - 页面背景层 */
+        .page-deco {
+            position: fixed;
+            opacity: 0.12;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .page-deco--xiy {
+            left: 1%;
+            bottom: 5%;
+            width: 220px;
+            opacity: 0.14;
+        }
+        .page-deco--lr {
+            right: 2%;
+            bottom: 5%;
+            width: 200px;
+            opacity: 0.14;
+        }
+        @media (max-width: 768px) {
+            .page-deco { display: none; }
+        }
+
+    
+        /* ===== Back to top ===== */
+        .back-top {
+            position: fixed; right: 20px; bottom: 24px;
+            width: 46px; height: 46px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--pink), var(--coral));
+            color: #fff; border: none; cursor: pointer;
+            font-size: 20px; line-height: 46px; text-align: center;
+            box-shadow: 0 6px 20px rgba(255,107,138,0.4);
+            opacity: 0; visibility: hidden; transform: translateY(12px);
+            transition: opacity .3s, transform .3s, visibility .3s;
+            z-index: 900;
+        }
+        .back-top.show { opacity: 1; visibility: visible; transform: translateY(0); }
+        .back-top:hover { transform: translateY(-3px) scale(1.06); }
+        @media (max-width: 768px) { .back-top { right: 14px; bottom: 18px; width: 42px; height: 42px; line-height: 42px; } }
+
     </style>
+    <meta property="og:title" content="大湾鸡 · 喜洋洋与乐融融粉丝主题站">
+    <meta property="og:description" content="第十五届全运会吉祥物「喜洋洋」和「乐融融」，一白一粉一对中华白海豚兄弟">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="./imgs/dawanji-group.jpg">
+    <meta name="twitter:card" content="summary_large_image">
 </head>
-<body>
+<body id="top">
 
     <!-- Navigation -->
     <nav class="nav" id="nav">
         <div class="nav-inner">
-            <a href="#" class="nav-logo">
+            <a href="#top" class="nav-logo" aria-label="回到顶部">
                 <span class="nav-logo-icon">
                         <img src="./imgs/emblem-logo.png" alt="全运会会徽" style="width:28px;height:28px;object-fit:contain;">
                     </span>
@@ -950,7 +996,8 @@
                             <span data-i18n="desc_white">白色的「喜洋洋」对应常态下的中华白海豚，性格安静内敛，被网友戏称为 i 人。设计团队特意把技巧型运动项目分配给它，聪明又灵巧。</span>
                         </p>
                     </div>
-                </div>
+                
+        </div>
 
                 <div class="char-card char-card--pink fade-in bubble-trigger" data-mascot="pink" data-i18n-bubble="bubble_pink">
                     <div class="char-card-image-wrap">
@@ -984,7 +1031,7 @@
                 <!-- Card 1: Dolphin -->
                 <div class="design-card fade-in">
                     <div class="design-card-visual design-card-visual--dolphin">
-                        <img src="./imgs/dolphin-card.jpg" alt="中华白海豚" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;">
+                        <img src="./imgs/dolphin-card.jpg" loading="lazy" alt="中华白海豚" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;display:block;">
                     </div>
                     <div class="design-card-body">
                         <h3 class="design-card-title">🐬 <span data-i18n="d1_title">原型：中华白海豚</span></h3>
@@ -1756,7 +1803,20 @@
         }
         applyLang(saved);
     })();
+    
+        // Back to top
+        const backTopBtn = document.getElementById('backTop');
+        window.addEventListener('scroll', () => {
+            backTopBtn.classList.toggle('show', window.scrollY > 500);
+        }, { passive: true });
+        backTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
     </script>
 
+    <img class="page-deco page-deco--xiy" src="./imgs/deco-xiyangyang.png" alt="">
+    <img class="page-deco page-deco--lr" src="./imgs/deco-lerongrong.png" alt="">
+    <button class="back-top" id="backTop" aria-label="回到顶部">↑</button>
 </body>
 </html>

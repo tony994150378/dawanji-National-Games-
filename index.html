@@ -493,7 +493,7 @@
             cursor: pointer;
         }
         .footer-share-link:hover { color: #fff; }
-        @media (max-width: 640px) {
+        @media (max-width: 1024px) {
             .footer-share { position: static; margin-top: 14px; justify-content: center; }
         }
         .footer-brand {
@@ -546,6 +546,85 @@
         @keyframes splash {
             0%, 100% { transform: scale(1); opacity: 0.8; }
             50% { transform: scale(1.1); opacity: 1; }
+        }
+
+        /* ===== Family (角色图鉴) Page ===== */
+        .family-page {
+            position: fixed; inset: 0; z-index: 2000;
+            background: linear-gradient(160deg, #FFF0F5 0%, #FFE4EE 45%, #FFF9FB 100%);
+            overflow-y: auto; -webkit-overflow-scrolling: touch;
+            opacity: 0; visibility: hidden; transition: opacity .35s ease, visibility .35s ease;
+        }
+        .family-page.open { opacity: 1; visibility: visible; }
+        .family-inner { max-width: var(--max-width); margin: 0 auto; padding: 26px 24px 90px; }
+        .family-back {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 8px 16px; border-radius: 999px; border: 1px solid var(--color-border);
+            background: rgba(255,255,255,0.85); color: var(--color-text-light);
+            font-size: 0.85rem; font-weight: 600; cursor: pointer;
+            transition: all var(--transition); font-family: var(--font-main);
+        }
+        .family-back:hover { background: var(--color-pink-pale); color: var(--color-red-wood); }
+        .family-head { text-align: center; margin-top: 22px; }
+        .family-title {
+            font-size: clamp(1.7rem, 4.4vw, 2.5rem); font-weight: 800;
+            background: linear-gradient(135deg, var(--color-pink), var(--color-red-wood));
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+            letter-spacing: 0.5px;
+        }
+        .family-sub { margin-top: 12px; color: var(--color-text-light); font-size: 0.95rem; line-height: 1.8; }
+        .family-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+            gap: 18px; margin-top: 34px;
+        }
+        .fam-card {
+            position: relative; background: #fff; border-radius: 22px;
+            padding: 20px 14px 18px; text-align: center; cursor: pointer;
+            border: 1px solid var(--color-border); box-shadow: var(--shadow-sm);
+            transition: transform .25s ease, box-shadow .25s ease;
+        }
+        .fam-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+        .fam-card svg { width: 98px; height: 98px; display: block; margin: 0 auto; }
+        .fam-badge { position: absolute; top: 10px; right: 12px; font-size: 1.15rem; }
+        .fam-name { font-weight: 700; margin-top: 10px; font-size: 1.03rem; color: var(--color-text); }
+        .fam-tag { font-size: 0.78rem; color: var(--color-text-light); margin-top: 6px; line-height: 1.55; }
+        .fam-modal {
+            position: fixed; inset: 0; z-index: 2100; padding: 20px;
+            background: rgba(70,25,45,0.45); backdrop-filter: blur(6px);
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; visibility: hidden; transition: opacity .3s ease, visibility .3s ease;
+        }
+        .fam-modal.open { opacity: 1; visibility: visible; }
+        .fam-modal-card {
+            background: #fff; border-radius: 26px; width: 100%; max-width: 520px;
+            max-height: 86vh; overflow-y: auto; padding: 30px 26px 26px;
+            position: relative; box-shadow: 0 24px 60px rgba(0,0,0,0.25);
+        }
+        .fam-modal-close {
+            position: absolute; top: 14px; right: 16px; width: 32px; height: 32px;
+            border-radius: 50%; border: none; background: var(--color-pink-pale);
+            color: var(--color-red-wood); font-size: 1.05rem; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; line-height: 1;
+        }
+        .fam-modal-card svg { width: 152px; height: 152px; display: block; margin: 0 auto 4px; }
+        .fam-modal-name { text-align: center; font-size: 1.5rem; font-weight: 800; color: var(--color-text); }
+        .fam-modal-en { text-align: center; font-size: 0.8rem; color: var(--color-text-light); margin-top: 5px; letter-spacing: 0.6px; }
+        .fam-modal-tag { text-align: center; margin: 14px 0 18px; color: var(--color-pink); font-weight: 700; font-size: 0.95rem; }
+        .fam-modal-desc { font-size: 0.93rem; line-height: 1.9; color: var(--color-text); }
+        .fam-sig {
+            margin-top: 18px; background: var(--color-pink-pale); border-radius: 14px;
+            padding: 13px 15px; font-size: 0.86rem; line-height: 1.75; color: var(--color-text);
+        }
+        .fam-sig b { color: var(--color-red-wood); }
+        @media (max-width: 640px) {
+            .family-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .fam-card { padding: 15px 10px 14px; border-radius: 18px; }
+            .fam-card svg { width: 76px; height: 76px; }
+            .fam-name { font-size: 0.95rem; }
+            .fam-tag { font-size: 0.72rem; }
+            .family-inner { padding: 18px 16px 70px; }
+            .fam-modal-card { padding: 24px 18px 20px; }
+            .fam-modal-card svg { width: 124px; height: 124px; }
         }
 
         /* ===== Responsive ===== */
@@ -846,6 +925,42 @@
             .page-deco--lr { width: 115px; bottom: 2%; }
         }
 
+        /* 欢迎层 */
+        .welcome-overlay {
+            position: fixed; inset: 0; z-index: 200000;
+            background: linear-gradient(160deg, #FFF5F7 0%, #FFE8EE 55%, #FFD9E4 100%);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; padding: 24px;
+            opacity: 1; transition: opacity 0.6s ease;
+            cursor: pointer;
+        }
+        .welcome-overlay.hide { opacity: 0; pointer-events: none; }
+        .welcome-duo { display: flex; gap: 18px; margin-bottom: 22px; }
+        .welcome-duo img {
+            width: 110px; height: 110px; border-radius: 50%; object-fit: cover;
+            border: 4px solid #fff; box-shadow: 0 8px 24px rgba(214,51,108,0.18);
+            animation: welcomeBounce 0.9s ease;
+        }
+        .welcome-duo img:last-child { animation-delay: 0.15s; }
+        @keyframes welcomeBounce {
+            0% { transform: translateY(24px) scale(0.7); opacity: 0; }
+            60% { transform: translateY(-6px) scale(1.05); opacity: 1; }
+            100% { transform: translateY(0) scale(1); }
+        }
+        .welcome-title { font-size: 1.6rem; font-weight: 700; color: #C2265C; margin-bottom: 10px; }
+        .welcome-sub { font-size: 1rem; color: #8A4B62; margin-bottom: 26px; }
+        .welcome-langs { display: flex; gap: 10px; margin-bottom: 20px; }
+        .welcome-langs button {
+            padding: 6px 16px; border-radius: 999px; border: 1.5px solid #E8B4C6;
+            background: rgba(255,255,255,0.75); color: #C2265C;
+            font-size: 0.85rem; font-weight: 600; cursor: pointer;
+            transition: all 0.2s; font-family: inherit;
+        }
+        .welcome-langs button:hover { border-color: #C2265C; }
+        .welcome-langs button.active { background: #C2265C; color: #fff; border-color: #C2265C; }
+        .welcome-hint { font-size: 0.8rem; color: #B98CA0; animation: welcomePulse 1.6s ease-in-out infinite; }
+        @keyframes welcomePulse { 0%,100% { opacity: 0.45; } 50% { opacity: 1; } }
+
     
         /* ===== Back to top ===== */
         .back-top {
@@ -900,6 +1015,21 @@
     <meta name="twitter:card" content="summary_large_image">
 </head>
 <body id="top">
+    <!-- 欢迎层（每次会话显示一次） -->
+    <div class="welcome-overlay" id="welcomeOverlay" style="display:none;">
+        <div class="welcome-langs">
+            <button data-lang-btn="zh">中文</button>
+            <button data-lang-btn="en">EN</button>
+            <button data-lang-btn="ru">RU</button>
+        </div>
+        <div class="welcome-duo">
+            <img src="./imgs/xiyangyang.jpg" alt="喜洋洋">
+            <img src="./imgs/lerongrong.jpg" alt="乐融融">
+        </div>
+        <div class="welcome-title" data-i18n="welcome_title">欢迎来到大湾鸡主题站</div>
+        <div class="welcome-sub" data-i18n="welcome_sub">喜洋洋与乐融融在这里等你</div>
+        <div class="welcome-hint" data-i18n="welcome_hint">点击任意处进入</div>
+    </div>
 
     <!-- Navigation -->
     <nav class="nav" id="nav">
@@ -913,6 +1043,7 @@
             <div class="nav-links" id="navLinks">
                 <a href="#origin" data-i18n="nav_origin">昵称由来</a>
                 <a href="#characters" data-i18n="nav_chars">认识两小只</a>
+                <a href="#family" data-i18n="nav_family">鸡鸡图鉴</a>
                 <a href="#design" data-i18n="nav_design">设计解读</a>
                 <a href="#moments" data-i18n="nav_moments">精彩瞬间</a>
                 <a href="#impact" data-i18n="nav_impact">文化影响</a>
@@ -1260,7 +1391,7 @@
                 </a>
                 <a href="https://www.xiaohongshu.com/search_result?keyword=%E5%A4%A7%E6%B9%BE%E9%B8%A1&source=web_search_result_notes" target="_blank" rel="noopener" class="xiaohongshu-btn">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="white" style="vertical-align:middle;margin-right:8px;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg>
-                    <span>看更多大湾鸡笔记 → 小红书</span>
+                    <span data-i18n="xhs_btn">看更多大湾鸡笔记 → 小红书</span>
                 </a>
             </div>
         </section>
@@ -1323,7 +1454,7 @@
                     <li data-i18n="dcl4">吉祥物「喜洋洋」「乐融融」（昵称「大湾鸡」）的全部知识产权归第十五届全运会组委会及相关权利人所有。</li>
                     <li data-i18n="dcl5">本站未使用任何官方图片素材，所有视觉元素均为使用 CSS/SVG 技术独立制作的致敬性创作。</li>
                     <li data-i18n="dcl6">本站不销售任何商品，不接受商业赞助，不投放商业广告。</li>
-                    <li><span data-i18n="dcl7_pre">如本站内容涉及版权问题，请联系站长邮箱 </span><a href="mailto:tony994150378@163.com" style="color:#B06AB3;text-decoration:underline;font-weight:600;">tony994150378@163.com</a>，经核实确认侵权后将立即下架、删除或修改相关内容。</li>
+                    <li><span data-i18n="dcl7_pre">如本站内容涉及版权问题，请联系站长邮箱 </span><a href="mailto:tony994150378@163.com" style="color:#B06AB3;text-decoration:underline;font-weight:600;">tony994150378@163.com</a><span data-i18n="dcl7_post">，经核实确认侵权后将立即下架、删除或修改相关内容。</span></li>
                     <li data-i18n="dcl8">本站承诺「联系即处理」：无论是权利人、代理方还是网友发现任何不妥之处，均可通过上述邮箱联系，站长核实后将第一时间响应并处理。</li>
                 </ul>
                 <p class="disclaimer-note">
@@ -1350,6 +1481,21 @@
             <span data-i18n="footer_copy">© 2025 大湾鸡粉丝站 · 本站与第十五届全运会组委会无官方关联</span>
         </p>
     </footer>
+
+    <div class="family-page" id="familyPage">
+        <div class="family-inner">
+            <button class="family-back" id="familyBack">← <span data-i18n="family_back">返回主页</span></button>
+            <div class="family-head">
+                <h1 class="family-title" data-i18n="family_title">大湾鸡家族图鉴</h1>
+                <p class="family-sub" data-i18n="family_sub">外形都一样，性格各不同——认一认场馆里的每一只大湾鸡</p>
+            </div>
+            <div class="family-grid" id="familyGrid"></div>
+        </div>
+    </div>
+
+    <div class="fam-modal" id="famModal">
+        <div class="fam-modal-card" id="famModalCard"></div>
+    </div>
 
     <!-- QRCode lib (MIT, inlined) -->
     <script>
@@ -1582,6 +1728,11 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
             num_views: 3.7, num_goods: 2800, num_sales: 600, num_dolphins: 2000,
             brand: "大湾鸡",
             nav_origin: "昵称由来", nav_chars: "认识两小只", nav_design: "设计解读",
+            nav_family: "鸡鸡图鉴",
+            family_title: "大湾鸡家族图鉴",
+            family_sub: "外形都一样，性格各不同——认一认场馆里的每一只大湾鸡",
+            family_back: "返回主页",
+            fam_sig_label: "名场面",
             nav_moments: "精彩瞬间", nav_impact: "文化影响", nav_disclaimer: "使用声明",
             hero_sub1: "第十五届全运会吉祥物「喜洋洋」和「乐融融」",
             hero_sub2: "中华白海豚化身的国民萌物，从赛场到全网的文化现象",
@@ -1633,6 +1784,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
             m6_title: "白切鸡 vs 豉油鸡",
             m6_text: "白色的是「白切鸡」，粉色的是「豉油鸡」——广东网友的吃货脑洞让全国人民笑到停不下来。「大湾鸡」这个昵称，大概是全运会历史上最接地气的吉祥物外号了。",
             bili_btn: "看更多大湾鸡视频 → 哔哩哔哩",
+            xhs_btn: "看更多大湾鸡笔记 → 小红书",
             impact_sub: "从赛场吉祥物到国民文化符号，数据见证大湾鸡的破圈之路",
             stat_views: "亿次 · 抖音播放量", stat_goods: "款 · 周边商品",
             stat_sales: "万+ · 周边销售量", stat_dolphins: "头+ · 中华白海豚种群",
@@ -1647,6 +1799,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
             dcl5: "本站未使用任何官方图片素材，所有视觉元素均为使用 CSS/SVG 技术独立制作的致敬性创作。",
             dcl6: "本站不销售任何商品，不接受商业赞助，不投放商业广告。",
             dcl7_pre: "如本站内容涉及版权问题，请联系站长邮箱 ",
+            dcl7_post: "，经核实确认侵权后将立即下架、删除或修改相关内容。",
             dcl8: "本站承诺「联系即处理」：无论是权利人、代理方还是网友发现任何不妥之处，均可通过上述邮箱联系，站长核实后将第一时间响应并处理。",
             contact_webmaster: "联系站长：",
             footer_note: "本站仅是一个粉丝用爱发电的小站 🕊️ 感谢设计团队创造了这么美好的作品",
@@ -1668,8 +1821,12 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
             share_wechat: "微信",
             share_xhs: "小红书",
             share_bili: "哔哩哔哩",
-            share_copied_app: "链接已复制，去{app}里粘贴分享吧",
+            share_copied_app: "链接已复制，打开{app}粘贴即可分享",
             wechat_scan: "微信扫码打开",
+            wechat_tip: "也可以点击右上角 ··· 分享给朋友或朋友圈",
+            welcome_title: "欢迎来到大湾鸡主题站",
+            welcome_sub: "喜洋洋与乐融融在这里等你 🌊",
+            welcome_hint: "点击任意处进入",
             voice_fail: "当前环境无法播放语音，建议用 Chrome 或 Edge 打开",
             share_text: "大湾鸡——第十五届全运会吉祥物喜洋洋与乐融融粉丝主题站",
             alt_emblem: "第十五届全运会会徽",
@@ -1680,6 +1837,11 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
             num_views: 370, num_goods: 2800, num_sales: 6, num_dolphins: 2000,
             brand: "Dawanji",
             nav_origin: "The Name", nav_chars: "Meet the Duo", nav_design: "Design",
+            nav_family: "The Flock",
+            family_title: "Meet the Da Wan Ji Family",
+            family_sub: "Same look, completely different personalities — get to know every chick in the arena",
+            family_back: "Back to home",
+            fam_sig_label: "Signature move",
             nav_moments: "Moments", nav_impact: "Impact", nav_disclaimer: "Disclaimer",
             hero_sub1: "Xiyangyang & Lerongrong — mascots of the 15th National Games",
             hero_sub2: "Adorable Chinese white dolphins that became a nationwide cultural phenomenon",
@@ -1731,6 +1893,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
             m6_title: "Poached chicken vs soy sauce chicken",
             m6_text: "White one is \u201cpoached chicken,\u201d pink one is \u201csoy sauce chicken\u201d — Cantonese netizens\u2019 foodie humor had the whole country laughing. \u201cDawanji\u201d may be the most down-to-earth mascot nickname in Games history.",
             bili_btn: "Watch more Dawanji videos → Bilibili",
+            xhs_btn: "More Dawanji notes on Xiaohongshu →",
             impact_sub: "From sports mascot to national cultural icon — the numbers behind the breakout",
             stat_views: "M views · Douyin", stat_goods: "items · merchandise",
             stat_sales: "M+ · units sold", stat_dolphins: "+ · dolphin population",
@@ -1745,6 +1908,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
             dcl5: "No official image assets are used; all visual elements are independent tribute creations made with CSS/SVG.",
             dcl6: "This site sells nothing, accepts no commercial sponsorship, and runs no commercial advertising.",
             dcl7_pre: "If any content on this site raises copyright concerns, please contact the webmaster at ",
+            dcl7_post: ", and any infringing content will be taken down, deleted or modified promptly after verification.",
             dcl8: "We promise \u201cprompt action on contact\u201d: rights holders, agents or visitors who notice any issue can reach us via the email above; the webmaster will verify and respond promptly.",
             contact_webmaster: "Contact webmaster: ",
             footer_note: "Just a tiny fan site made with love 🕊️ Thanks to the design team for creating such wonderful work",
@@ -1766,8 +1930,12 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
             share_wechat: "WeChat",
             share_xhs: "Xiaohongshu",
             share_bili: "Bilibili",
-            share_copied_app: "Link copied - paste it in {app}",
+            share_copied_app: "Link copied - open {app} and paste to share",
             wechat_scan: "Scan with WeChat",
+            wechat_tip: "Or tap ··· in the top-right corner to share with friends or Moments",
+            welcome_title: "Welcome to Dawanji!",
+            welcome_sub: "Xiyangyang & Lerongrong are waiting for you 🌊",
+            welcome_hint: "Click anywhere to enter",
             voice_fail: "Voice unavailable here - please try Chrome or Edge",
             share_text: "Dawanji - fan site of Xiyangyang & Lerongrong, mascots of the 15th National Games",
             alt_emblem: "Emblem of the 15th National Games of China",
@@ -1778,6 +1946,11 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
             num_views: 370, num_goods: 2800, num_sales: 6, num_dolphins: 2000,
             brand: "Даваньцзи",
             nav_origin: "Имя", nav_chars: "Знакомство", nav_design: "Дизайн",
+            nav_family: "Семейство",
+            family_title: "Семейство Даваньцзи",
+            family_sub: "Одинаковый вид — разные характеры. Познакомьтесь с каждым цыплёнком на арене",
+            family_back: "На главную",
+            fam_sig_label: "Визитка",
             nav_moments: "Моменты", nav_impact: "Влияние", nav_disclaimer: "Оговорка",
             hero_sub1: "Сиъянъян и Лэжунжун — талисманы XV Национальных игр",
             hero_sub2: "Милые китайские белые дельфины, ставшие культурным феноменом",
@@ -1829,6 +2002,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
             m6_title: "Варёный цыплёнок против соевого",
             m6_text: "Белый — «варёный цыплёнок», розовый — «цыплёнок в соевом соусе»: гастрономический юмор кантонских пользователей рассмешил всю страну. «Даваньцзи» — пожалуй, самое народное прозвище талисмана в истории Игр.",
             bili_btn: "Смотреть больше видео → Bilibili",
+            xhs_btn: "Больше заметок о Даваньцзи в Xiaohongshu →",
             impact_sub: "От спортивного талисмана к национальному культурному символу — цифры триумфа",
             stat_views: "млн просмотров · Douyin", stat_goods: "видов · сувениров",
             stat_sales: "млн+ · продано", stat_dolphins: "+ · популяция дельфинов",
@@ -1843,6 +2017,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
             dcl5: "Официальные изображения не используются; все визуальные элементы — самостоятельные трибьют-работы на CSS/SVG.",
             dcl6: "Сайт ничего не продаёт, не принимает коммерческой спонсорской поддержки и не размещает рекламу.",
             dcl7_pre: "Если контент сайта вызывает вопросы об авторских правах, свяжитесь с веб-мастером: ",
+            dcl7_post: ", и после подтверждения нарушения соответствующий контент будет незамедлительно снят, удалён или изменён.",
             dcl8: "Обещаем «реагировать сразу при обращении»: правообладатели, представители или посетители, заметившие любую проблему, могут написать на указанную почту; веб-мастер проверит и оперативно ответит.",
             contact_webmaster: "Связь с веб-мастером: ",
             footer_note: "Маленький фан-сайт, сделанный с любовью 🕊️ Спасибо команде дизайнеров за такое прекрасное творение",
@@ -1864,8 +2039,12 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
             share_wechat: "WeChat",
             share_xhs: "Сяохуншу",
             share_bili: "Bilibili",
-            share_copied_app: "Ссылка скопирована — вставьте в {app}",
+            share_copied_app: "Ссылка скопирована — откройте {app} и вставьте",
             wechat_scan: "Отсканируйте в WeChat",
+            wechat_tip: "Или нажмите ··· в правом верхнем углу, чтобы поделиться с друзьями",
+            welcome_title: "Добро пожаловать в Даваньцзи!",
+            welcome_sub: "Сиъянъян и Лэжунжун ждут вас 🌊",
+            welcome_hint: "Нажмите, чтобы войти",
             voice_fail: "Голос недоступен здесь - попробуйте Chrome или Edge",
             share_text: "Даваньцзи — фан-сайт талисманов XV Национальных игр",
             alt_emblem: "Эмблема XV Национальных игр Китая",
@@ -1894,7 +2073,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
     function showShareToast(msg) {
         const t = document.createElement('div');
         t.textContent = msg;
-        t.style.cssText = 'position:fixed;left:50%;bottom:80px;transform:translateX(-50%);background:rgba(0,0,0,0.85);color:#fff;padding:10px 22px;border-radius:24px;font-size:0.85rem;z-index:100001;opacity:0;transition:opacity .3s;white-space:nowrap;';
+        t.style.cssText = 'position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.85);color:#fff;padding:12px 24px;border-radius:24px;font-size:0.9rem;z-index:100001;opacity:0;transition:opacity .3s;max-width:80vw;text-align:center;line-height:1.6;';
         document.body.appendChild(t);
         requestAnimationFrame(() => { t.style.opacity = '1'; });
         setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 300); }, 2000);
@@ -1927,7 +2106,10 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
         title.style.cssText = 'font-size:0.95rem;color:#333;margin-bottom:14px;font-weight:600;';
         const qrBox = document.createElement('div');
         qrBox.style.cssText = 'width:180px;height:180px;margin:0 auto;';
-        card.appendChild(title); card.appendChild(qrBox);
+        const tip = document.createElement('div');
+        tip.textContent = dict.wechat_tip || '';
+        tip.style.cssText = 'font-size:0.78rem;color:#999;margin-top:12px;line-height:1.6;max-width:220px;';
+        card.appendChild(title); card.appendChild(qrBox); card.appendChild(tip);
         mask.appendChild(card);
         mask.addEventListener('click', () => mask.remove());
         document.body.appendChild(mask);
@@ -1938,15 +2120,254 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
             copyPageLink(dict.share_wechat || '微信');
         }
     }
+    function shareToXhs(appName) {
+        copyPageLink(appName);
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        setTimeout(() => {
+            if (isMobile) {
+                try { location.href = 'xhsdiscover://'; } catch (e) {}
+            } else {
+                try { window.open('https://www.xiaohongshu.com/explore', '_blank', 'noopener'); } catch (e) {}
+            }
+        }, 450);
+    }
+    function shareToBili(appName) {
+        copyPageLink(appName);
+        setTimeout(() => {
+            try { window.open('https://t.bilibili.com/', '_blank', 'noopener'); } catch (e) {}
+        }, 450);
+    }
     document.querySelectorAll('.footer-share-link').forEach(a => {
         const type = a.dataset.share;
         if (type === 'copy') { a.addEventListener('click', () => copyPageLink(null)); }
-        else if (type === 'xhs' || type === 'bili') { a.addEventListener('click', () => copyPageLink(a.textContent.trim())); }
+        else if (type === 'xhs') { a.addEventListener('click', (e) => { e.preventDefault(); shareToXhs(a.textContent.trim()); }); }
+        else if (type === 'bili') { a.addEventListener('click', (e) => { e.preventDefault(); shareToBili(a.textContent.trim()); }); }
         else if (type === 'wechat') { a.addEventListener('click', openWechatQR); }
     });
 
+    // ===== 欢迎层 =====
+    (function initWelcome() {
+        const ov = document.getElementById('welcomeOverlay');
+        if (!ov) return;
+        let seen = null;
+        try { seen = sessionStorage.getItem('dawanji-welcomed'); } catch (e) {}
+        if (seen) return;
+        ov.style.display = 'flex';
+        try { sessionStorage.setItem('dawanji-welcomed', '1'); } catch (e) {}
+        let closed = false;
+        function closeWelcome() {
+            if (closed) return;
+            closed = true;
+            ov.classList.add('hide');
+            setTimeout(() => ov.remove(), 700);
+        }
+        ov.addEventListener('click', (e) => {
+            if (e.target.closest('[data-lang-btn]')) return;
+            closeWelcome();
+        });
+        setTimeout(closeWelcome, 4500);
+    })();
+
+    // ===== 大湾鸡家族图鉴 (Family Gallery) =====
+    let CUR_LANG = 'zh';
+    const FAMILY = [
+        {
+            id: 'panni', badge: '😤', c1: '#FFFFFF', c2: '#E4E4E4', eyes: 'angry',
+            zh: { name: '叛逆鸡', tag: '天天整活，场馆第一显眼包', desc: '团里最不安分的一只。别的鸡在乖乖卖萌，它在场馆里横冲直撞、突然倒立、拿头撞栏杆，还发明了「平地起飞」这项运动。粉丝说：看它表演就像在看一场即兴行为艺术。', sig: '突然倒立 · 头撞栏杆 · 平地起飞' },
+            en: { name: 'Rebel Chick', tag: 'The resident troublemaker of the arena', desc: 'The least obedient chick in the crew. While the others pose cutely, it charges around the venue, suddenly does a headstand, headbutts the railing and invented the sport of taking off from flat ground. Fans say watching it feels like improvised performance art.', sig: 'Sudden headstand · railing headbutt · flat-ground takeoff' },
+            ru: { name: 'Бунтарь', tag: 'Главный хулиган арены', desc: 'Самый неугомонный цыплёнок в отряде. Пока остальные мило позируют, он носится по арене, внезапно встаёт на голову, бьётся о перила и придумал трюк «взлёт с места». Фанаты шутят: смотреть на него — как на импровизационный перформанс.', sig: 'Стойка на голове · удар о перила · взлёт с места' }
+        },
+        {
+            id: 'tiaotiao', badge: '⬆️', c1: '#FFE3EF', c2: '#FFB6D5', eyes: 'star',
+            zh: { name: '跳跳鸡', tag: '团内元气担当，一蹦三尺高', desc: '永远处在弹跳状态，连走路都带着弹簧感。跳跃高度全团第一，被粉丝称作「鸡界弹簧人」。想拍它最费手机——因为总抓不住它的最高点。', sig: '原地连跳 · 腾空劈叉' },
+            en: { name: 'Bouncy Chick', tag: 'The energy booster who jumps three feet high', desc: 'Permanently in bounce mode — even its walk has a spring in it. It jumps higher than anyone else in the crew and fans call it the trampoline chick. Photographing it is a nightmare: you never catch the peak of the jump.', sig: 'Repeated jumps on the spot · mid-air split' },
+            ru: { name: 'Прыгун', tag: 'Энерджайзер отряда, прыгает выше всех', desc: 'Всегда в режиме подпрыгивания — даже походка пружинистая. Прыгает выше всех в отряде, фанаты зовут его «цыплёнок-батут». Снимать его тяжело: верхнюю точку прыжка не поймать.', sig: 'Серия прыжков на месте · шпагат в воздухе' }
+        },
+        {
+            id: 'xiguan', badge: '🪭', c1: '#FFF9EC', c2: '#F0E0C0', eyes: 'smile',
+            zh: { name: '西关鸡', tag: '摁摁脚、摇扇子，慢条斯理', desc: '自带西关小姐气质，走路轻轻摁脚，举手投足都是老广风情。别的鸡在疯，它在慢慢摇扇子，被粉丝笑称「全团唯一有闺秀感的鸡」。', sig: '摇扇子 · 摁脚慢走' },
+            en: { name: 'Xiguan Lady', tag: 'Fan in hand, unhurried steps', desc: 'Carries the elegance of an old Guangzhou lady: soft footsteps, every gesture steeped in Xiguan charm. While the others go wild, she slowly fans herself. Fans call her the only true lady in the flock.', sig: 'Fan waving · slow graceful walk' },
+            ru: { name: 'Синьгуанька', tag: 'Веер и неторопливая походка', desc: 'Настоящая барышня старого Гуанчжоу: ступает мягко, каждое движение — колорит Западного квартала. Пока остальные бесятся, она неспешно обмахивается веером. Фанаты зовут её единственной аристократкой в отряде.', sig: 'Обмахивание веером · неторопливая походка' }
+        },
+        {
+            id: 'dapan', badge: '💃', c1: '#FFD6A5', c2: '#FFB347', eyes: 'smile',
+            zh: { name: '大盘鸡', tag: '会跳新疆舞的舞担', desc: '一转头就是新疆舞的经典动脖子，节奏感极强。粉丝调侃：广东鸡怎么跳起新疆舞了？答案是——因为真的跳得很好看。', sig: '扭脖子 · 新疆舞步' },
+            en: { name: 'Big Plate Chick', tag: 'The dancer who busts Xinjiang moves', desc: 'One head turn and there it is — the classic Xinjiang neck slide, with impeccable rhythm. Fans joke: why is a Guangdong chick dancing Xinjiang style? Because it genuinely looks great.', sig: 'Neck slide · Xinjiang dance steps' },
+            ru: { name: 'Дапань', tag: 'Танцор, исполняющий уйгурский танец', desc: 'Стоит ему повернуть голову — и вот уже классическое движение шеей из уйгурского танца. Чувство ритма феноменальное. Фанаты шутят: почему гуандунский цыплёнок танцует уйгурский танец? Потому что это правда красиво.', sig: 'Движение шеей · уйгурские па' }
+        },
+        {
+            id: 'tiaowu', badge: '🩰', c1: '#F5D6FF', c2: '#E0B0FF', eyes: 'smile',
+            zh: { name: '跳舞鸡', tag: '擅长俏皮腾跃', desc: '团里的技巧型选手，小跳、转圈、腾跃一气呵成，动作干净得像练过芭蕾。粉丝叫它「最像舞蹈生的那只鸡」。', sig: '小跳连转 · 优雅落地' },
+            en: { name: 'Dancer Chick', tag: 'Master of playful leaps', desc: 'The technical one: small jumps, spins and leaps flow into one another, clean as a trained ballet dancer. Fans call it the chick most likely to have studied dance.', sig: 'Chained small jumps · graceful landing' },
+            ru: { name: 'Танцор', tag: 'Изящные прыжки и пируэты', desc: 'Техничный участник отряда: маленькие прыжки, повороты и полёты сливаются в одно движение, будто он учился балету. Фанаты называют его цыплёнком-танцовщиком.', sig: 'Серия пируэтов · изящное приземление' }
+        },
+        {
+            id: 'jiewu', badge: '🎧', c1: '#D9E6FF', c2: '#A8C4F0', eyes: 'star',
+            zh: { name: '街舞鸡', tag: '地板动作王者', desc: '音乐一响就上地板，breaking、风车、头转全都敢来。比赛中场休息的固定节目，网友评价：这鸡的牛劲使不完。', sig: '地板风车 · 头转' },
+            en: { name: 'B-boy Chick', tag: 'King of floor moves', desc: 'The moment the music drops it hits the floor: breaking, windmills, head spins — nothing is off limits. A fixture of halftime shows. Netizens: this chick never runs out of energy.', sig: 'Windmill · head spin' },
+            ru: { name: 'Брейкер', tag: 'Король партерных трюков', desc: 'Только зазвучит музыка — он уже на полу: брейкинг, вертушки, стойка на голове. Постоянный номер в перерывах матчей. Сеть шутит: у этого цыплёнка неиссякаемая энергия.', sig: 'Вертушка · стойка на голове' }
+        },
+        {
+            id: 'wuwang', badge: '👑', c1: '#FFEDB0', c2: '#FFD54F', eyes: 'star',
+            zh: { name: '舞王鸡', tag: '发狠了忘情了，最后把牛劲使完了', desc: '在广州国际灯光节上一战封神。跳得太投入，动作幅度大到粉丝惊呼「这是发狠了、忘情了」，最后力气全用光瘫在台上——这段视频成了年度最佳。', sig: '忘情狂舞 · 力竭瘫倒' },
+            en: { name: 'Dance King', tag: 'Went all in, lost himself, ran out of power', desc: 'Made his legend at the Guangzhou International Light Festival. Danced with such abandon that fans gasped — completely lost in it — then ran out of strength and collapsed on stage. That clip became the moment of the year.', sig: 'Wild dancing · collapsing from exhaustion' },
+            ru: { name: 'Король танца', tag: 'Вошёл в раж и выложился до конца', desc: 'Прославился на Гуанчжоуском фестивале света. Танцевал так самозабвенно, что фанаты ахнули, а в конце выложился полностью и рухнул на сцене. Это видео стало лучшим за год.', sig: 'Самозабвенный танец · падение без сил' }
+        },
+        {
+            id: 'niangao', badge: '🍡', c1: '#FFFDF5', c2: '#F2EBD8', eyes: 'smile',
+            zh: { name: '年糕', tag: '软软糯糯，蹲下化身小馒头', desc: '奥体嘉年华年鸡天团的一员，主打一个「软」。蹲下来的时候整个缩成一团，被粉丝形容成刚出锅的小馒头。走路一颤一颤，让人忍不住想捏。', sig: '蘑菇蹲 · 一颤一颤走路' },
+            en: { name: 'Rice Cake', tag: 'Soft and squishy, crouches into a little bun', desc: 'One of the New Year chicks at the Olympic Carnival, and softness is its whole brand. When it crouches it curls into a ball — fans describe it as a freshly steamed bun. Waddles with a little wobble that makes you want to squeeze it.', sig: 'Mushroom crouch · wobbly waddle' },
+            ru: { name: 'Няньгао', tag: 'Мягкий и липкий, приседает и превращается в пирожок', desc: 'Один из новогодних цыплят карнавала на Олимпийском стадионе, и его главное качество — мягкость. Приседает и сворачивается в комочек, фанаты сравнивают его с только что приготовленным паровым пирожком. Идёт вперевалочку, так и хочется потрогать.', sig: 'Присед-грибок · походка вперевалочку' }
+        },
+        {
+            id: 'xiaotanhuang', badge: '🌀', c1: '#D9FFF0', c2: '#A8F0C4', eyes: 'star',
+            zh: { name: '小弹簧', tag: '摔跟头秒弹起，弹性拉满', desc: '摔倒了不用扶，自己「嘣」一下就弹回来了。弹性好到粉丝怀疑皮套里装的真是弹簧。是全团摔倒后恢复最快的一只。', sig: '摔倒秒弹起 · 原地回弹' },
+            en: { name: 'Springy Chick', tag: 'Falls over, bounces right back', desc: 'No need to help it up — boing, and it is back on its feet. So bouncy that fans suspect there is an actual spring inside the costume. The fastest recovery in the whole flock.', sig: 'Instant bounce-back after falling' },
+            ru: { name: 'Пружинка', tag: 'Упал — и сразу отскочил', desc: 'Если упал, помогать не нужно: «пружин!» — и снова на ногах. Упругость такая, что фанаты подозревают: внутри костюма правда пружина. Быстрее всех восстанавливается после падений.', sig: 'Падение и мгновенный отскок' }
+        },
+        {
+            id: 'nuomi', badge: '🤍', c1: '#FFF7F2', c2: '#FFE0D0', eyes: 'smile',
+            zh: { name: '糯米', tag: '黏人精，贴贴狂魔', desc: '最爱跟人贴贴，看到手就凑过来蹭，抱住就不撒手。粉丝说被它贴过一次就再也走不掉了——名副其实的糯米。', sig: '抱腿 · 蹭手 · 求摸头' },
+            en: { name: 'Sticky Rice', tag: 'The clingy one, queen of cuddles', desc: 'Loves pressing up against people: sees a hand and comes over to nuzzle, gets a hug and will not let go. Fans say once it sticks to you, you are not leaving — true to the name.', sig: 'Hugging legs · nuzzling hands · begging for head pats' },
+            ru: { name: 'Нуоми', tag: 'Липучка, король обнимашек', desc: 'Обожает прижиматься к людям: увидит руку — подбегает потереться, обнимет — не отпустит. Фанаты говорят: если он к тебе прилип, ты уже не уйдёшь. Настоящий липкий рис.', sig: 'Обнимает ноги · трётся о руку · просит погладить' }
+        },
+        {
+            id: 'hello', badge: '👋', c1: '#FFFFFF', c2: '#E6F2FF', eyes: 'smile',
+            zh: { name: 'Hello鸡', tag: '社交牛逼症，见人就挥手', desc: '场馆里的社交担当。见谁都先挥手，遇到镜头立刻摆 pose，还主动求合影。粉丝评价：它比我还会社交。', sig: '挥手 hello · 主动求合影' },
+            en: { name: 'Hello Chick', tag: 'Chronic extrovert, waves at everyone', desc: 'The social ambassador of the venue. Waves at everyone it meets, strikes a pose the instant a camera appears, and actively asks for selfies. Fans: it is more sociable than I am.', sig: 'Waving hello · asking for selfies' },
+            ru: { name: 'Хэлло', tag: 'Здоровается со всеми подряд', desc: 'Главный по общению на арене. Машет каждому встречному, увидев камеру — сразу позирует, сам предлагает сфотографироваться. Фанаты: он общительнее меня.', sig: 'Машет hello · сам просит селфи' }
+        }
+    ];
+
+    function chickSVG(c) {
+        const gid = 'fg_' + c.id;
+        let eyes = '';
+        if (c.eyes === 'smile') {
+            eyes = '<path d="M42 66 q5 -7 10 0" stroke="#3A2B33" stroke-width="3.2" fill="none" stroke-linecap="round"/>'
+                 + '<path d="M68 66 q5 -7 10 0" stroke="#3A2B33" stroke-width="3.2" fill="none" stroke-linecap="round"/>';
+        } else if (c.eyes === 'angry') {
+            eyes = '<path d="M41 59 l10 4" stroke="#3A2B33" stroke-width="3" stroke-linecap="round"/>'
+                 + '<path d="M79 59 l-10 4" stroke="#3A2B33" stroke-width="3" stroke-linecap="round"/>'
+                 + '<circle cx="47" cy="68" r="4.6" fill="#3A2B33"/><circle cx="73" cy="68" r="4.6" fill="#3A2B33"/>';
+        } else if (c.eyes === 'star') {
+            eyes = '<circle cx="47" cy="66" r="5" fill="#3A2B33"/><circle cx="73" cy="66" r="5" fill="#3A2B33"/>'
+                 + '<circle cx="48.8" cy="63.8" r="2" fill="#fff"/><circle cx="74.8" cy="63.8" r="2" fill="#fff"/>'
+                 + '<path d="M45 54 l1.6 3.2 3.4 .4 -2.5 2.4 .7 3.4 -3.2 -1.7 -3.2 1.7 .7 -3.4 -2.5 -2.4 3.4 -.4z" fill="#FFD54F"/>';
+        } else {
+            eyes = '<circle cx="47" cy="66" r="5" fill="#3A2B33"/><circle cx="73" cy="66" r="5" fill="#3A2B33"/>'
+                 + '<circle cx="48.8" cy="63.8" r="1.8" fill="#fff"/><circle cx="74.8" cy="63.8" r="1.8" fill="#fff"/>';
+        }
+        return '<svg viewBox="0 0 120 120" aria-hidden="true">'
+            + '<defs><radialGradient id="' + gid + '" cx="38%" cy="30%" r="78%">'
+            + '<stop offset="0%" stop-color="' + c.c1 + '"/><stop offset="100%" stop-color="' + c.c2 + '"/></radialGradient></defs>'
+            + '<ellipse cx="43" cy="105" rx="9.5" ry="6" fill="#F2A93B"/>'
+            + '<ellipse cx="77" cy="105" rx="9.5" ry="6" fill="#F2A93B"/>'
+            + '<ellipse cx="60" cy="72" rx="38" ry="33" fill="url(#' + gid + ')"/>'
+            + '<path d="M45 42 q-5 -17 6 -19 q4 9 -1 19z" fill="#D94F4F"/>'
+            + '<path d="M59 36 q0 -21 8 -21 q3 11 -2 21z" fill="#9B59B6"/>'
+            + '<path d="M71 42 q6 -15 15 -11 q-2 9 -9 13z" fill="#2FA05C"/>'
+            + eyes
+            + '<ellipse cx="60" cy="81" rx="7" ry="5" fill="#F2A93B"/>'
+            + '<circle cx="38" cy="79" r="5.5" fill="#FFB0C4" opacity="0.5"/>'
+            + '<circle cx="82" cy="79" r="5.5" fill="#FFB0C4" opacity="0.5"/>'
+            + '</svg>';
+    }
+
+    function famLangKey() {
+        return (CUR_LANG === 'en' || CUR_LANG === 'ru') ? CUR_LANG : 'zh';
+    }
+
+    function renderFamily() {
+        const grid = document.getElementById('familyGrid');
+        if (!grid) return;
+        const L = famLangKey();
+        grid.innerHTML = FAMILY.map(function (c) {
+            const t = c[L];
+            return '<div class="fam-card" data-fam-id="' + c.id + '">'
+                + '<span class="fam-badge">' + c.badge + '</span>'
+                + chickSVG(c)
+                + '<div class="fam-name">' + t.name + '</div>'
+                + '<div class="fam-tag">' + t.tag + '</div>'
+                + '</div>';
+        }).join('');
+    }
+
+    function openFamDetail(id) {
+        const c = FAMILY.filter(function (x) { return x.id === id; })[0];
+        if (!c) return;
+        const L = famLangKey();
+        const t = c[L];
+        const dict = I18N[L] || I18N.zh;
+        const others = ['zh', 'en', 'ru'].filter(function (k) { return k !== L; })
+            .map(function (k) { return c[k].name; }).join(' · ');
+        const card = document.getElementById('famModalCard');
+        if (!card) return;
+        card.innerHTML = '<button class="fam-modal-close" id="famModalClose">✕</button>'
+            + chickSVG(c)
+            + '<div class="fam-modal-name">' + t.name + '</div>'
+            + '<div class="fam-modal-en">' + others + '</div>'
+            + '<div class="fam-modal-tag">' + t.tag + '</div>'
+            + '<div class="fam-modal-desc">' + t.desc + '</div>'
+            + '<div class="fam-sig"><b>' + (dict.fam_sig_label || '名场面') + '：</b>' + t.sig + '</div>';
+        document.getElementById('famModal').classList.add('open');
+    }
+
+    function closeFamDetail() {
+        const m = document.getElementById('famModal');
+        if (m) m.classList.remove('open');
+    }
+
+    function openFamilyPage() {
+        const page = document.getElementById('familyPage');
+        if (!page) return;
+        page.classList.add('open');
+        page.scrollTop = 0;
+        document.body.style.overflow = 'hidden';
+        renderFamily();
+    }
+
+    function closeFamilyPage() {
+        const page = document.getElementById('familyPage');
+        if (!page) return;
+        page.classList.remove('open');
+        closeFamDetail();
+        document.body.style.overflow = '';
+    }
+
+    function routeFamily() {
+        const h = (location.hash || '').replace(/^#/, '');
+        if (h === 'family') { openFamilyPage(); closeFamDetail(); }
+        else if (h.indexOf('family/') === 0) { openFamilyPage(); openFamDetail(h.slice(7)); }
+        else { closeFamilyPage(); }
+    }
+
+    (function initFamily() {
+        const back = document.getElementById('familyBack');
+        const grid = document.getElementById('familyGrid');
+        const modal = document.getElementById('famModal');
+        if (back) back.addEventListener('click', function () {
+            if (location.hash.indexOf('family') === 0) {
+                history.pushState(null, '', location.pathname + location.search);
+            }
+            closeFamilyPage();
+        });
+        if (grid) grid.addEventListener('click', function (e) {
+            const card = e.target.closest('[data-fam-id]');
+            if (card) location.hash = 'family/' + card.getAttribute('data-fam-id');
+        });
+        if (modal) modal.addEventListener('click', function (e) {
+            if (e.target === modal || e.target.id === 'famModalClose') {
+                if (location.hash.indexOf('family/') === 0) location.hash = 'family';
+                else closeFamDetail();
+            }
+        });
+        window.addEventListener('hashchange', routeFamily);
+        routeFamily();
+    })();
+
     function applyLang(lang) {
         const dict = I18N[lang] || I18N.zh;
+        CUR_LANG = lang;
         document.documentElement.lang = LANGS[lang] || 'zh-CN';
         document.documentElement.setAttribute('data-lang', lang);
         document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -1970,6 +2391,12 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
         });
         try { localStorage.setItem('dawanji-lang', lang); } catch (e) {}
         buildShareLinks(dict);
+        renderFamily();
+        const famModalEl = document.getElementById('famModal');
+        if (famModalEl && famModalEl.classList.contains('open')) {
+            const fh = (location.hash || '').replace(/^#/, '');
+            if (fh.indexOf('family/') === 0) openFamDetail(fh.slice(7));
+        }
     }
     document.querySelectorAll('[data-lang-btn]').forEach(btn => {
         btn.addEventListener('click', () => {
